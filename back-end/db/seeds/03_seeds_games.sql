@@ -1,0 +1,1 @@
+INSERT INTO games ("start_time", "end_time", "golf_course_id") VALUES (0, 0, 1);
