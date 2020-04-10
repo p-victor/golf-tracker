@@ -1,0 +1,3 @@
+INSERT INTO users ("first_name", "last_name", "email", "password_hash") VALUES ('Armand', 'Benson', 'viwu@som.mu',  '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.');
+INSERT INTO users ("first_name", "last_name", "email", "password_hash") VALUES ('Nina', 'Watkins', 'ap@fucu.az',  '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.');
+INSERT INTO users ("first_name", "last_name", "email", "password_hash") VALUES ('Eddie', 'Cruz', 'mozfub@jo.edu',  '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.');
