@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import SearchBar from "../SearchBar/SearchBar";
@@ -15,14 +15,9 @@ export default function Search(props) {
   }, [keyword])
 
   return (
-    <Fragment>
-      <header className="logo">
-        <img src="images/brand.png" alt="Brand" />
-      </header>
-      <main>
-        <SearchBar onSearch={keyword => setKeyword(keyword)} />
-        <Results results={results} />
-      </main>
-    </Fragment>
+    <main>
+      <SearchBar onSearch={keyword => setKeyword(keyword)} />
+      <Results results={results} />
+    </main>
   );
 }
