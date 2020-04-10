@@ -1,7 +1,3 @@
-INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (0, '', '');
-INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (0, '', '');
-INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (0, '', '');
-INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (0, '', '');
 INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (1, '', '');
 INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (1, '', '');
 INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (1, '', '');
@@ -72,3 +68,7 @@ INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (17, '', '');
 INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (17, '', '');
 INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (17, '', '');
 INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (17, '', '');
+INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (18, '', '');
+INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (18, '', '');
+INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (18, '', '');
+INSERT INTO shots ("hole_score_id", "club", "comment") VALUES (18, '', '');
