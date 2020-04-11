@@ -27,7 +27,7 @@ CREATE TABLE "golf_courses" (
 
 CREATE TABLE "holes" (
   "id" SERIAL PRIMARY KEY,
-  "difficulty" int,
+  "difficulty" SMALLINT CHECK (difficulty > 0 AND difficulty < 6),
   "number" int,
   "par" int,
   "yard" int,
