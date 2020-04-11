@@ -1,10 +1,19 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 /* GET home page. */
-module.exports = (dbHelper) => {
-  router.get('/', function(req, res, next) {
-    res.send({hello: "hello"});
+module.exports = ({ getCourses, getSearchResults }) => {
+  router.get('/courses', function(req, res, next) {
+    getCourses()
+    .then( data => res.send([data]))
+    ;
+  });
+
+  router.get('/courses/:keyword', function(req, res, next) {
+    const keyword = req.params.keyword
+    getSearchResults(keyword)
+    .then( data => res.send([data]))
+    .catch( e => console.log("Something went wrong. Please try a bit later."));
   });
 
   return router

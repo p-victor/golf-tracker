@@ -21,7 +21,8 @@ CREATE TABLE "golf_courses" (
   "name" text,
   "postal_code" text,
   "website_url" text,
-  "phone_number" text
+  "phone_number" text,
+  "sponsor" boolean
 );
 
 CREATE TABLE "holes" (

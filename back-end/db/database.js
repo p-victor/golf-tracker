@@ -3,6 +3,43 @@ const pool = new Pool(require('../lib/db.js'));
 
 pool.connect();
 
+const getCourses = function () {
+  const query = `
+    SELECT *
+    FROM golf_courses
+    WHERE sponsor = true
+  `
+  return pool.query(query)
+    .then(res => {
+      if (!res.rows) {
+        return { results: "An error occurs" }
+      } else {
+        return res.rows
+      }
+    })
+};
+exports.getCourses = getCourses;
+
+const getSearchResults = function (nameOrPostalCode) {
+  const query = `
+    SELECT *
+    FROM golf_courses
+    WHERE postal_code iLIKE $1
+    OR name iLIKE $1
+  `
+  return pool.query(query, [`%${nameOrPostalCode}%`])
+    .then(res => {
+      if (!res.rows) {
+        console.log(nameOrPostalCode)
+        return { results: "No match found" }
+      } else {
+        return res.rows
+      }
+    })
+};
+exports.getSearchResults = getSearchResults;
+
+
 const getAppCredentialbyViewerEmail = function (viewerEmail) {
   const query = `
     SELECT *
@@ -25,6 +62,8 @@ const getAppCredentialbyViewerEmail = function (viewerEmail) {
 
 };
 exports.getAppCredentialbyViewerEmail = getAppCredentialbyViewerEmail;
+
+
 
 /* const getAppCredentialForUser = function (userId) {
   const query = `

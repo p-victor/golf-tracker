@@ -10,9 +10,8 @@ export default function Search(props) {
 
   useEffect(() => {
     axios
-      // .get(`${keyword} NEED TO ADD AN APPROPRIATE PATH`)
-      .get(`/api`)
-      .then((data) => console.log("data"))
+      .get(`/api/courses/${keyword}`)
+      .then((data) => setResults(data.data[0]))
   }, [keyword])
 
   return (
