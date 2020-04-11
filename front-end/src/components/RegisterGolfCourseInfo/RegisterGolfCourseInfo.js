@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-export default function Create(props) {
+export default function RegisterGolfCourseInfo(props) {
 
   const [ courseName, setCourseName ] = useState("");
   const [ postalCode, setPostalCode ] = useState("");
@@ -53,7 +53,7 @@ export default function Create(props) {
           />
         </section>
         <section>
-          <button className="btn btn-primary stredtched-link" onClick={() => validate()}>Create</button>
+          <button className="btn btn-primary stredtched-link" onClick={() => validate()}>Next</button>
           <a href="/" className="btn btn-primary stredtched-link">Cancel</a>
         </section>
       </form>
