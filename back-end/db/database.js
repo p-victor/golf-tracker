@@ -7,7 +7,7 @@ const getCourses = function () {
   const query = `
     SELECT *
     FROM golf_courses
-    WHERE sponsor = true
+    ORDER BY sponsor DESC
   `
   return pool.query(query)
     .then(res => {
@@ -26,6 +26,7 @@ const getSearchResults = function (nameOrPostalCode) {
     FROM golf_courses
     WHERE postal_code iLIKE $1
     OR name iLIKE $1
+    ORDER BY sponsor DESC
   `
   return pool.query(query, [`%${nameOrPostalCode}%`])
     .then(res => {
@@ -38,29 +39,24 @@ const getSearchResults = function (nameOrPostalCode) {
 };
 exports.getSearchResults = getSearchResults;
 
-
-const getAppCredentialbyViewerEmail = function (viewerEmail) {
+const postalCodeExists = function (postalCode) {
+  let noSpaces = postalCode.split(" ").join("")
   const query = `
     SELECT *
-    FROM users
-    JOIN shared_access
-    ON users.id = shared_access.user_id
-    JOIN app_credentials
-    ON app_credentials.id = shared_access.credential_id
-    WHERE shared_access.user_id = $1
-  ;
-`;
-  const values = [
-    `${viewerEmail}`
-  ];
-  return pool.query(query, values)
+    FROM golf_courses
+    WHERE postal_code iLIKE $1
+  `
+  return pool.query(query, [`%${noSpaces}%`])
     .then(res => {
-      logQueries ? console.log(res.rows) : null;
-      return res.rows
-    });
-
+      if (!res.rows[0]) {
+        return [{}];
+      } else {
+        return res.rows
+      }
+    })
 };
-exports.getAppCredentialbyViewerEmail = getAppCredentialbyViewerEmail;
+
+exports.postalCodeExists = postalCodeExists;
 
 
 

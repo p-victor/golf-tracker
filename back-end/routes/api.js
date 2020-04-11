@@ -16,6 +16,20 @@ module.exports = ({ getCourses, getSearchResults }) => {
     .catch( e => console.log("Something went wrong. Please try a bit later."));
   });
 
+  router.get('/postal', function(req, res, next) {
+    getCourses()
+    .then( data => res.send([data]))
+    ;
+  });
+
+  router.get('/postal/:postalCode', function(req, res, next) {
+    const postalCode = req.params.postalCode
+    console.log(req.params)
+    postalCodeExists(postalCode)
+    .then( data => res.send([data]))
+    .catch( e => console.log("Something went wrong. Please try a bit later."));
+  });
+
   return router
 }
 
