@@ -22,7 +22,7 @@ CREATE TABLE "golf_courses" (
   "postal_code" text,
   "website_url" text,
   "phone_number" text,
-  "sponsor" boolean
+  "sponsor" BOOL DEFAULT 'f'
 );
 
 CREATE TABLE "holes" (

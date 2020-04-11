@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 
+import useApp from "../../hooks/useApp";
 import SearchBar from "../SearchBar/SearchBar";
 import Results from "../Results/Results";
 
 export default function Search(props) {
-  const [keyword, setKeyword] = useState("");
-  const [results, setResults] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(`/api/courses/${keyword}`)
-      .then((data) => setResults(data.data[0]))
-  }, [keyword])
+  const { setKeyword, results } = useApp();
 
   return (
     <main>
