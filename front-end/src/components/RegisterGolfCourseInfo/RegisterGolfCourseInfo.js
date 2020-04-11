@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { BrowserRouter as Link } from 'react-router-dom';
 
 export default function RegisterGolfCourseInfo(props) {
 
@@ -15,6 +16,7 @@ export default function RegisterGolfCourseInfo(props) {
     if (postalCode === "") {
       setError("Postal Code cannot be blank")
     }
+    
 
   }
   
@@ -54,7 +56,7 @@ export default function RegisterGolfCourseInfo(props) {
         </section>
         <section>
           <button className="btn btn-primary stredtched-link" onClick={() => validate()}>Next</button>
-          <a href="/" className="btn btn-primary stredtched-link">Cancel</a>
+          <Link to="/" className="btn btn-primary stredtched-link">Cancel</Link>
         </section>
       </form>
     </main>

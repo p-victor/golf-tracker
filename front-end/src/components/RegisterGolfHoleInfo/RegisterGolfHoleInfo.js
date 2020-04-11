@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import HoleInfo from "./HoleInfo";
 
-export default function RegisterGolfCourseInfo(props) {
+export default function RegisterGolfHoleInfo(props) {
   const [ numberOfHoles, setNumberOfHoles ] = useState(0);
 
   const numberOfHoles = () => {
