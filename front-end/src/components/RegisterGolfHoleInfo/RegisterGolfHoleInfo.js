@@ -5,7 +5,7 @@ import HoleInfo from "./HoleInfo";
 export default function RegisterGolfHoleInfo(props) {
   const [ numberOfHoles, setNumberOfHoles ] = useState(0);
 
-  const numberOfHoles = () => {
+  const getNumberOfHoles = () => {
     let totalHoles = []; 
     for (let i = 0; i < numberOfHoles; i++) {
       totalHoles.push(<tr><HoleInfo numberOfHoles={numberOfHoles} key={i} id={i + 1} /></tr>)
@@ -20,7 +20,7 @@ export default function RegisterGolfHoleInfo(props) {
         <button className="btn btn-primary stredtched-link" onClick={() => setNumberOfHoles(18)}>18 Holes</button>
       </section>
       <section>
-        {numberOfHoles()}
+        {getNumberOfHoles()}
       </section>
     </main>
   );

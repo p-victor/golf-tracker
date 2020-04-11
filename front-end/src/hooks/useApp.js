@@ -5,6 +5,7 @@ import axios from "axios";
 export default function useApp(props) {
   const [keyword, setKeyword] = useState("");
   const [results, setResults] = useState([]);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     axios
@@ -18,5 +19,5 @@ export default function useApp(props) {
   //     .then((data) => setResults(data.data[0]))
   // }, [keyword])  
 
-  return { setKeyword, results }
+  return { setKeyword, results, user }
 }

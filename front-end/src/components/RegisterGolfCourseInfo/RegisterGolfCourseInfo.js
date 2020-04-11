@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import { BrowserRouter as Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+
 
 export default function RegisterGolfCourseInfo(props) {
 
@@ -11,20 +12,27 @@ export default function RegisterGolfCourseInfo(props) {
 
   function validate() {
     if (courseName === "") {
-      setError("Course name cannot be blank")
+      setError("Course name cannot be blank");
+      return;
     }
     if (postalCode === "") {
-      setError("Postal Code cannot be blank")
+      setError("Postal Code cannot be blank");
+      return;
     }
-    
-
+    console.log(props.post)
+    for (let i = 0; i < props.post.length; i++) {
+      if (postalCode === props.post[i]["postal_code"]) {
+        setError("The Postal Code you enter already exists");
+        return;
+      }
+    }
   }
   
 
   return (
     <main>
-      <form onSubmit={event => event.preventDefault()}>
-        <section>
+      <section>
+        <form >
           <input
             name="course"
             value={courseName}
@@ -53,12 +61,17 @@ export default function RegisterGolfCourseInfo(props) {
             placeholder="Website"
             type="text"
           />
-        </section>
-        <section>
-          <button className="btn btn-primary stredtched-link" onClick={() => validate()}>Next</button>
-          <Link to="/" className="btn btn-primary stredtched-link">Cancel</Link>
-        </section>
-      </form>
+        </form>
+      </section>
+      <section className="golf__info__validation">{error}</section>
+      <section>
+      
+        <button
+          className="btn btn-primary stredtched-link" 
+          onClick={() => validate()}><Link to={{pathname:"/holeinfo", aboutProps: {courseName, postalCode, phoneNumber, website}}}>Next</Link></button>
+        <Link to="/" className="btn btn-primary stredtched-link">Cancel</Link>
+      </section>
     </main>
   );
 }
+

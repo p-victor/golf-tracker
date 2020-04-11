@@ -10,8 +10,8 @@ export default function HoleInfo(props) {
           
         </section>
         <section>
-          <button className="btn btn-primary stredtched-link" onClick={() => }>Register</button>
-          <button className="btn btn-primary stredtched-link" onClick={() => }>Cancel</button>
+          <button className="btn btn-primary stredtched-link" onClick={() => {}}>Register</button>
+          <button className="btn btn-primary stredtched-link" onClick={() => {}}>Cancel</button>
         </section>
       </form>
     </main>
