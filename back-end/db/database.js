@@ -12,7 +12,7 @@ const getCourses = function () {
   return pool.query(query)
     .then(res => {
       if (!res.rows) {
-        return { results: "An error occurs" }
+        return [{ results: "An error occurs" }]
       } else {
         return res.rows
       }
@@ -29,9 +29,8 @@ const getSearchResults = function (nameOrPostalCode) {
   `
   return pool.query(query, [`%${nameOrPostalCode}%`])
     .then(res => {
-      if (!res.rows) {
-        console.log(nameOrPostalCode)
-        return { results: "No match found" }
+      if (!res.rows[0]) {
+        return [{ results: "No match found" }]
       } else {
         return res.rows
       }
