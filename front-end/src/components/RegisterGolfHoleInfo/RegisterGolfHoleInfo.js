@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import HoleInfo from "./HoleInfo";
 
@@ -35,7 +36,7 @@ export default function RegisterGolfHoleInfo(props) {
       </section>
       <section>
         <button className="btn btn-primary stredtched-link" onClick={() => {}}>Register</button>
-        <button className="btn btn-primary stredtched-link" onClick={() => {}}>Cancel</button>
+        <Link to="/" className="btn btn-primary stredtched-link">Cancel</Link>
       </section>
     </main>
   );

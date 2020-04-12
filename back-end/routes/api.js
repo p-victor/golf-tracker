@@ -16,7 +16,7 @@ module.exports = ({ getCourses, getSearchResults }) => {
     .catch( e => console.log("Something went wrong. Please try a bit later."));
   });
 
-  router.get('/postal', function(req, res, next) {
+  router.get('/newgolfcourse', function(req, res, next) {
     getCourses()
     .then( data => res.send([data]))
     ;

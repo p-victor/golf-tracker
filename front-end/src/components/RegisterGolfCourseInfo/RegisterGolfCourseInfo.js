@@ -19,7 +19,6 @@ export default function RegisterGolfCourseInfo(props) {
       setError("Postal Code cannot be blank");
       return;
     }
-    console.log(props.post)
     for (let i = 0; i < props.post.length; i++) {
       if (postalCode === props.post[i]["postal_code"]) {
         setError("The Postal Code you enter already exists");
@@ -68,7 +67,7 @@ export default function RegisterGolfCourseInfo(props) {
       
         <button
           className="btn btn-primary stredtched-link" 
-          onClick={() => validate()}><Link to={{pathname:"/holeinfo", aboutProps: {courseName, postalCode, phoneNumber, website}}}>Next</Link></button>
+          onClick={() => validate()}><Link to={{pathname:"/holeinfo", state: {courseName, postalCode, phoneNumber, website}}}>Next</Link></button>
         <Link to="/" className="btn btn-primary stredtched-link">Cancel</Link>
       </section>
     </main>
