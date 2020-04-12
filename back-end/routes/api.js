@@ -22,14 +22,6 @@ module.exports = ({ getCourses, getSearchResults }) => {
     ;
   });
 
-  router.get('/postal/:postalCode', function(req, res, next) {
-    const postalCode = req.params.postalCode
-    console.log(req.params)
-    postalCodeExists(postalCode)
-    .then( data => res.send([data]))
-    .catch( e => console.log("Something went wrong. Please try a bit later."));
-  });
-
   return router
 }
 

@@ -1,19 +1,13 @@
 import React, {useState} from "react";
 
 export default function HoleInfo(props) {
-  const { id, numberOfHoles } = props;
+  const { id } = props;
 
   return (
-    <main>
-      <form onSubmit={event => event.preventDefault()}>
-        <section>
-          
-        </section>
-        <section>
-          <button className="btn btn-primary stredtched-link" onClick={() => {}}>Register</button>
-          <button className="btn btn-primary stredtched-link" onClick={() => {}}>Cancel</button>
-        </section>
-      </form>
-    </main>
+          <tr>
+            <td>Hole {id}</td>
+            <td className={"hole"+ id}><input type="number" min="1" /></td>
+            <td className={"hole"+ id}><input type="number" min="1" /></td>
+          </tr>
   );
 };
