@@ -13,7 +13,7 @@ export default function GolfCourse(props) {
         <a href={`${props.website_url}`} className="website_url">{props.website_url}</a>
         <p className={{no__results: true, "card-text": true}}>{props.results}</p>
         {props.sponsor ? <div className="sponsor">Sponsored</div> : <div></div>}
-        {!props.results ? <Link to="#" className="btn btn-primary stredtched-link" style={{width: "100%"}}>Play!</Link> 
+        {!props.results ? <Link to="/play" className="btn btn-primary stredtched-link" style={{width: "100%"}}>Play!</Link> 
         : <Link to="/create" className="btn btn-primary stredtched-link" style={{width: "100%"}}>Create</Link>}
       </div>
     </div>

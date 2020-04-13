@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 
@@ -8,10 +8,11 @@ import RegisterGolfHoleInfo from './components/RegisterGolfHoleInfo/RegisterGolf
 import Play from './components/Play/Play';
 import useApp from './hooks/useApp';
 import usePostal from './hooks/usePostal';
+import Axios from 'axios';
 
 function App() {
   const { user, results, setKeyword } = useApp();
-  const { post } = usePostal();
+  const { postal } = usePostal();
   
   return (
     <Router>
@@ -22,17 +23,17 @@ function App() {
               <Search results={results} setKeyword={setKeyword} />
             </header>
           </Route>
-          <Route path="/play">
+          <Route exact path="/play">
             <header className="Play-header">
               <Play user={user.id}/>
             </header>
           </Route>
-          <Route path="/create" render={() => (
+          <Route exact path="/create" render={() => (
             <header className="GolfCourse-header">
-              <RegisterGolfCourseInfo post={post}/>
+              <RegisterGolfCourseInfo postal={postal}/>
             </header>
           )}/>
-          <Route path="/holeinfo">
+          <Route exact path="/holeinfo">
             <header className="HoleInfo-header">
               <RegisterGolfHoleInfo />
             </header>

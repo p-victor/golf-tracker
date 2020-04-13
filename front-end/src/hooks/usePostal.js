@@ -3,13 +3,13 @@ import axios from "axios";
 
 
 export default function usePostal(props) {
-  const [post, setPost] = useState([]);
+  const [postal, setPost] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`/api/newgolfcourse`)
+      .get(`/api/courses`)
       .then((data) => setPost(data.data[0]))
   }, [])
 
-  return { post }
+  return { postal }
 }

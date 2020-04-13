@@ -10,8 +10,8 @@ export default function Search(props) {
 
   return (
     <main>
-      <SearchBar onSearch={keyword => setKeyword(keyword)} />
-      <Results key={results.id} results={results} />
+      <SearchBar key="0" onSearch={keyword => setKeyword(keyword)} />
+      <Results key="1" results={results} />
     </main>
   );
 }
