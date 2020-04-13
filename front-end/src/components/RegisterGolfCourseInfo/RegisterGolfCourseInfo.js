@@ -1,14 +1,15 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 
 export default function RegisterGolfCourseInfo(props) {
 
-  const [ courseName, setCourseName ] = useState("");
-  const [ postalCode, setPostalCode ] = useState("");
-  const [ phoneNumber, setPhoneNumber ] = useState("");
-  const [ website, setWebsite ] = useState("");
-  const [ error, setError ] = useState("");
+  const [courseName, setCourseName] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [website, setWebsite] = useState("");
+  const [error, setError] = useState("");
+
 
   function validate() {
     if (courseName === "") {
@@ -19,14 +20,15 @@ export default function RegisterGolfCourseInfo(props) {
       setError("Postal Code cannot be blank");
       return;
     }
-    for (let i = 0; i < props.post.length; i++) {
-      if (postalCode === props.post[i]["postal_code"]) {
-        setError("The Postal Code you enter already exists");
-        return;
-      }
+    if (props.postal.includes(postalCode)) {
+      setError("The Postal Code you entered already exists");
+      return;
     }
-  }
+
+    //if all those test pass then:
   
+  }
+
 
   return (
     <main>
@@ -64,11 +66,11 @@ export default function RegisterGolfCourseInfo(props) {
       </section>
       <section className="golf__info__validation">{error}</section>
       <section>
-      
+
         <button
-          className="btn btn-primary stredtched-link" 
-          onClick={() => validate()}><Link to={{pathname:"/holeinfo", state: {courseName, postalCode, phoneNumber, website}}}>Next</Link></button>
-        <Link to="/" className="btn btn-primary stredtched-link">Cancel</Link>
+          className="btn btn-primary stredtched-link"
+          onClick={() => validate()}><Link key="0" to={{ pathname: "/holeinfo", state: { courseName, postalCode, phoneNumber, website } }}>Next</Link></button>
+        <Link key="1" to="/" className="btn btn-primary stredtched-link">Cancel</Link>
       </section>
     </main>
   );

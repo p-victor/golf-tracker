@@ -55,49 +55,43 @@ const postalCodeExists = function (postalCode) {
       }
     })
 };
-
 exports.postalCodeExists = postalCodeExists;
 
+const createNewCourse = function ({ courseName, postalCode, phoneNumber, website, isSponsored }) {
 
+  const values = [
+    `${courseName}`,
+    `${postalCode}`,
+    `${website}`,
+    `${phoneNumber}`,
+    `${isSponsored}`
+  ]
 
-/* const getAppCredentialForUser = function (userId) {
   const query = `
-
+  INSERT INTO golf_courses (name, postal_code, website_url, phone_number, sponsor)
+  VALUES ($1, $2, $3, $4, $5)
+  RETURNING *
   ;
-`;
-const values = [
-  `${}`,
-  `${}`,
-  `${}`,
-   `${}`
-  ];
-return pool.query(query, values)
-.then(res => {
-  logQueries  ? console.log(res.rows) : null;
-  return res.rows});
+  `
+
+  return pool.query(query, values)
+    .then(res => res.rows)
 };
-exports.getAppCredentialForUser = getAppCredentialForUSer; */
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+const createNewHoles = function (holeArray) {
+  const values = [
+    `${number}`,
+    `${par}`,
+    `${yard}`,
+    `${golfCourseId}`
+  ]
 
-
-/* * * * * * * * * * * * *  DO NOT DELETE  * * * * * * * * * * */
-
-// the following is the inner-template for adding more database fetching functions in the future
-
-/*
   const query = `
+  INSERT INTO holes (number, par, yard, golf_course_id) 
+  ${holeArray.map((hole, index) =>`VALUES (${index + 1},${hole.par},${hole.yard},${hole.golfCourseId})`).join()}
+  `
 
-    ;
-  `;
-const values = [
-  `${}`,
-  `${}`,
-  `${}`,
-   `${}`
-  ];
-return pool.query(query, values)
-.then(res => {
-  logQueries  ? console.log(res.rows) : null;
-  return res.rows});
-*/
+  return pool.query(query)
+    .then(res => res.rows)
+};
+exports.createNewCourse = createNewCourse;

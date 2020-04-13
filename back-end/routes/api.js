@@ -2,46 +2,31 @@ const express = require('express');
 const router = express.Router();
 
 /* GET home page. */
-module.exports = ({ getCourses, getSearchResults }) => {
-  router.get('/courses', function(req, res, next) {
+module.exports = ({ getCourses, getSearchResults, createNewCourse, createNewHoles }) => {
+  router.get('/courses', function (req, res, next) {
     getCourses()
-    .then( data => res.send([data]))
-    ;
+      .then(data => res.send([data]))
+      ;
   });
 
-  router.get('/courses/:keyword', function(req, res, next) {
-    const keyword = req.params.keyword
-    getSearchResults(keyword)
-    .then( data => res.send([data]))
-    .catch( e => console.log("Something went wrong. Please try a bit later."));
+  router.post('/courses/new', function (req, res, next) {
+    createNewCourse(req.body)
   });
+  
+  // router.get('/courses/:keyword', function (req, res, next) {
+  //   const keyword = req.params.keyword
+  //   getSearchResults(keyword)
+  //   .then(data => res.send([data]))
+  //   .catch(e => console.log("Something went wrong. Please try a bit later."));
+  // });
+  
 
-  router.get('/newgolfcourse', function(req, res, next) {
-    getCourses()
-    .then( data => res.send([data]))
-    ;
-  });
+  // router.post('/courses/:id/holes/new', function (req, res, next) {
+  //   console.log(req.body);
+  //   // createNewHoles(req.body);
+  // });
+
+
 
   return router
 }
-
-// module.exports = ({ getUserById , getAppCredentialsbyViewerId, getAppCredentialsbyOwnerId, getAllCategories }) => {
-//   router.get("/sidebar", (req, res) => {
-//     const id = req.session.user_id;
-//     Promise.all([ getAppCredentialsbyOwnerId(id), getAppCredentialsbyViewerId(id)])
-//     .then(userAppCredentialsList => res.send(userAppCredentialsList)).catch(e => console.log("API couldnt get sidebar info"));
-//   });
-//   router.get("/categories", (req, res) => {
-//     getAllCategories()
-//     .then( query => res.send(query)).catch(e => console.log("API couldnt get categories info"));
-//   })
-//   router.get("/header", (req, res) => {
-//     const id = req.session.user_id || 0;
-//     getUserById(id)
-//     .then(user => res.send(user));
-//   });
-
-//   return router;
-// };
-
-// module.exports = router;

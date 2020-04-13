@@ -7,7 +7,7 @@ export default function usePostal(props) {
 
   useEffect(() => {
     axios
-      .get(`/api/newgolfcourse`)
+      .get(`/api/courses`)
       .then((data) => setPost(data.data[0]))
   }, [])
 
