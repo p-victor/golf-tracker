@@ -1,13 +1,12 @@
 import React from "react";
 
-import useSearch from "../../hooks/useSearch";
+import useSearchBar from "../../hooks/useSearchBar";
 import SearchBar from "../SearchBar/SearchBar";
 import Results from "../Results/Results";
-import useSearchBar from "../../hooks/useSearch";
 
 export default function Search(props) {
 
-  const [state, setState] = useSearch();
+  const [state, setState] = useSearchBar();
 
   return (
     <main>

@@ -4,7 +4,7 @@ import axios from "axios";
 
 export default function useSearchBar(props) {
   const [state, setState] = useState({ results: [], search: "" });
-
+  
   useEffect(() => {
     axios
       .get(`/api/courses/${state.search}`)
