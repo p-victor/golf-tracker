@@ -24,9 +24,6 @@ export default function RegisterGolfCourseInfo(props) {
       setError("The Postal Code you entered already exists");
       return;
     }
-
-    //if all those test pass then:
-  
   }
 
 
@@ -69,7 +66,7 @@ export default function RegisterGolfCourseInfo(props) {
 
         <button
           className="btn btn-primary stredtched-link"
-          onClick={() => validate()}><Link key="0" to={{ pathname: "/holeinfo", state: { courseName, postalCode, phoneNumber, website } }}>Next</Link></button>
+          onClick={() => validate()}><Link key="0" to={{ pathname: "/holeinfo", state: { courseName, postalCode, phoneNumber, website }}}>Next</Link></button>
         <Link key="1" to="/" className="btn btn-primary stredtched-link">Cancel</Link>
       </section>
     </main>

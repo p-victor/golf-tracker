@@ -77,21 +77,21 @@ const createNewCourse = function ({ courseName, postalCode, phoneNumber, website
   return pool.query(query, values)
     .then(res => res.rows)
 };
+exports.createNewCourse = createNewCourse;
 
 const createNewHoles = function (holeArray) {
-  const values = [
-    `${number}`,
-    `${par}`,
-    `${yard}`,
-    `${golfCourseId}`
-  ]
+  
+  const placeholders = holeArray.map((hole, index) => `($${index * 4 + 1}, $${index * 4 + 2}, $${index * 4 + 3}, $${index * 4 + 4})`).join(',')
+
+  const values = holeArray.reduce((result, current) => result.concat([current.number, current.par, current.yard, current.golfCourseId]), []);
 
   const query = `
-  INSERT INTO holes (number, par, yard, golf_course_id) 
-  ${holeArray.map((hole, index) =>`VALUES (${index + 1},${hole.par},${hole.yard},${hole.golfCourseId})`).join()}
+  INSERT INTO holes (number, par, yard, golf_course_id) VALUES
+  ${placeholders}
+  ;
   `
 
-  return pool.query(query)
+  return pool.query(query, values)
     .then(res => res.rows)
 };
-exports.createNewCourse = createNewCourse;
+exports.createNewHoles = createNewHoles;

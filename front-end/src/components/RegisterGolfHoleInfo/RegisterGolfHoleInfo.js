@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import HoleInfo from "./HoleInfo";
 
 export default function RegisterGolfHoleInfo(props) {
   const [numberOfHoles, setNumberOfHoles] = useState(18);
+  const location = useLocation();
 
   const getNumberOfHoles = () => {
     let totalHoles = [];
@@ -16,29 +17,24 @@ export default function RegisterGolfHoleInfo(props) {
   };
 
   const validate = () => {
-    let textinputs = document.getElementsByTagName('input');
-    let allInputsFilled = Array.from(textinputs).some((input) => input.value)
-
-
+    let par = Array.from(document.querySelectorAll('.par input'));
+    let yard = Array.from(document.querySelectorAll('.yard input'));
+    let allInputsFilled = [...par, ...yard].some((input) => input.value);
+    
     if (allInputsFilled) {
-      console.log(allInputsFilled)
       axios
-        .post("/api/courses/new", { ...props.state, isSponsored: false })
+        .post("/api/courses/new", { ...location.state, isSponsored: false })
         .then(data => {
-          const courseId = data[0].id
-          console.log(courseId)
+          const courseId = data.data[0].id
           const holes = []
-
           for (let i = 0; i < numberOfHoles; i++) {
-            holes.push({ number: i, par: textinputs[2 * i].value, yard: textinputs[2 * i].value, golfCourseId: courseId })
+            holes.push({ number: i + 1, par: par[i].value, yard: yard[i].value, golfCourseId: courseId })
           }
-          console.log(holes);
           axios
             .post(`/api/courses/${courseId}/holes/new`, holes)
             .then(() => console.log("hey"))
         })
     }
-    // return allInputsFilled
   }
 
 

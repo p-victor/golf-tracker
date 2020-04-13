@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 export default function usePostal(props) {
-  const [post, setPost] = useState([]);
+  const [postal, setPost] = useState([]);
 
   useEffect(() => {
     axios
@@ -11,5 +11,5 @@ export default function usePostal(props) {
       .then((data) => setPost(data.data[0]))
   }, [])
 
-  return { post }
+  return { postal }
 }

@@ -12,7 +12,7 @@ import Axios from 'axios';
 
 function App() {
   const { user, results, setKeyword } = useApp();
-  const { post } = usePostal();
+  const { postal } = usePostal();
   
   return (
     <Router>
@@ -30,7 +30,7 @@ function App() {
           </Route>
           <Route exact path="/create" render={() => (
             <header className="GolfCourse-header">
-              <RegisterGolfCourseInfo postal={post}/>
+              <RegisterGolfCourseInfo postal={postal}/>
             </header>
           )}/>
           <Route exact path="/holeinfo">
