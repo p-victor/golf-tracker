@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 /* GET home page. */
-module.exports = ({ getCourses, getSearchResults, createNewCourse, createNewHoles }) => {
+module.exports = ({ getCourses, getSearchResults, createNewCourse, createNewHoles, logShots }) => {
   router.get('/courses', function (req, res, next) {
     getCourses()
       .then(data => res.send([data]))
@@ -26,6 +26,27 @@ module.exports = ({ getCourses, getSearchResults, createNewCourse, createNewHole
     createNewHoles(req.body)
     .then(data => res.send(data));
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+  router.post('/shot', function (req, res, next) {
+    logShots(req.body)
+    .then(data => res.send(data))
+    
+    // createNewHoles(req.body)
+    // .then(data => res.send(data));
+  });
+
 
 
 

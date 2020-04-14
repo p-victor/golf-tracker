@@ -95,3 +95,49 @@ const createNewHoles = function (holeArray) {
     .then(res => res.rows)
 };
 exports.createNewHoles = createNewHoles;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const logShots = function ({ hole_score_id, club, comment }) {
+
+  const values = [
+    `${hole_score_id}`,
+    `${club}`,
+    `${comment}`
+  ]
+
+  const query = `
+  INSERT INTO shots (hole_score_id, club, comment)
+  VALUES ($1, $2, $3)
+  RETURNING *
+  ;
+  `
+
+  return pool.query(query, values)
+    .then(res => res.rows)
+};
+exports.logShots = logShots;

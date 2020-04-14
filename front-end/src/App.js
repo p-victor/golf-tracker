@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 
 import Search from "./components/Search/Search";
@@ -8,11 +8,12 @@ import RegisterGolfHoleInfo from './components/RegisterGolfHoleInfo/RegisterGolf
 import Play from './components/Play/Play';
 import useApp from './hooks/useApp';
 import usePostal from './hooks/usePostal';
-import Axios from 'axios';
+import useShot from './hooks/useShot';
 
 function App() {
   const { user, results, setKeyword } = useApp();
   const { postal } = usePostal();
+  const { score, setScore, state, setState, handleClub, handleComment, save } = useShot();
   
   return (
     <Router>
@@ -25,7 +26,7 @@ function App() {
           </Route>
           <Route exact path="/play">
             <header className="Play-header">
-              <Play user={user.id}/>
+              <Play handleClub={handleClub} handleComment={handleComment} score={score} state={state} onSave={save}/>
             </header>
           </Route>
           <Route exact path="/create" render={() => (
