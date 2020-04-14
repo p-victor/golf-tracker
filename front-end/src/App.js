@@ -6,12 +6,11 @@ import Search from "./components/Search/Search";
 import RegisterGolfCourseInfo from './components/RegisterGolfCourseInfo/RegisterGolfCourseInfo';
 import RegisterGolfHoleInfo from './components/RegisterGolfHoleInfo/RegisterGolfHoleInfo';
 import Play from './components/Play/Play';
-import useApp from './hooks/useApp';
 import usePostal from './hooks/usePostal';
 import Axios from 'axios';
 
 function App() {
-  const { user, results, setKeyword } = useApp();
+  const user = []
   const { postal } = usePostal();
   
   return (
@@ -20,7 +19,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             <header className="App-header">
-              <Search results={results} setKeyword={setKeyword} />
+              <Search />
             </header>
           </Route>
           <Route exact path="/play">

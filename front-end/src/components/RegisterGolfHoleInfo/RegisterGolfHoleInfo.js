@@ -8,10 +8,10 @@ export default function RegisterGolfHoleInfo(props) {
   const [numberOfHoles, setNumberOfHoles] = useState(18);
   const location = useLocation();
 
-  const getNumberOfHoles = () => {
+  const displayHoles = () => {
     let totalHoles = [];
     for (let i = 0; i < numberOfHoles; i++) {
-      totalHoles.push(<HoleInfo numberOfHoles={numberOfHoles} key={i} id={i + 1} />)
+      totalHoles.push(<HoleInfo key={i} id={i + 1} />)
     }
     return totalHoles;
   };
@@ -19,8 +19,8 @@ export default function RegisterGolfHoleInfo(props) {
   const validate = () => {
     let par = Array.from(document.querySelectorAll('.par input'));
     let yard = Array.from(document.querySelectorAll('.yard input'));
-    let allInputsFilled = [...par, ...yard].some((input) => input.value);
-    
+    let allInputsFilled = [...par, ...yard].some(input => input.value);
+
     if (allInputsFilled) {
       axios
         .post("/api/courses/new", { ...location.state, isSponsored: false })
@@ -32,7 +32,6 @@ export default function RegisterGolfHoleInfo(props) {
           }
           axios
             .post(`/api/courses/${courseId}/holes/new`, holes)
-            .then(() => console.log("hey"))
         })
     }
   }
@@ -54,7 +53,7 @@ export default function RegisterGolfHoleInfo(props) {
             </tr>
           </thead>
           <tbody>
-            {getNumberOfHoles()}
+            {displayHoles()}
           </tbody>
         </table>
       </section>
