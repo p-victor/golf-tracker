@@ -113,12 +113,12 @@ export default function PlayTable(props) {
           </thead>
           <tbody>
             <tr>
-              <td>Par</td>
-              {pars()}
-            </tr>
-            <tr>
               <td>Yard</td>
               {yards()}
+            </tr>
+            <tr>
+              <td>Par</td>
+              {pars()}
             </tr>
             <tr>
               <td>Score</td>
