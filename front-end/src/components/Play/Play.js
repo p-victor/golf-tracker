@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { useHistory  } from 'react-router-dom';
 
 import ScoreTable from "./ScoreTable";
 
 export default function Play(props) {
   const { handleClub, handleComment, score, state, onSave, onMove } = props
   const [error, setError] = useState("");
+  let history = useHistory();
 
   let holeid = score[0] ? score.length + 1 : 1
   state.hole_score_id = holeid;
@@ -16,6 +17,15 @@ export default function Play(props) {
       return;
     }
     onSave(state.hole_score_id, state.club, state.comment);
+  }
+
+  function quit() {
+
+    if (window.confirm("Going back to the main page?")) {
+      history.push("/");
+    }
+
+
   }
 
   return(
@@ -56,9 +66,9 @@ export default function Play(props) {
       <section className="club__validation">{error}</section>
       <div>
         <button className="btn btn-primary stredtched-link" onClick={validate}>Next Shot</button>
-        <button className="btn btn-primary stredtched-link" onClick={onMove/*(score, weather_id, start_time, end_time, user_id, game_id, hole_id)*/}>Next Hole</button>
+        <button className="btn btn-primary stredtched-link" onClick={onMove/*(score, weather_id, start_time, end_time, user_id, game_id, hole_id)*/}>Hole Out</button>
       </div>
-      <Link to="/" className="btn btn-primary stredtched-link">Quit This Game</Link>
+      <button onClick={quit} className="btn btn-primary stredtched-link">Quit This Game</button>
     </main>
   )
 }

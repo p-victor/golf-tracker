@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function PlayTable(props) {
   const { golf_course_id, number, par, yard, difficulty, score } = props;
 
-  function fisrt9Holes() {
+  function holes() {
     let totalHoles = [];
     if (number.length === 9) {
       for (let i = 1; i < 9; i++) {
-        totalHoles.push(<th key={i}>{i}</th>)
+        totalHoles.push(<th key={i}>{i}</th>);
       }
-      totalHoles.push(<th key={10}>TOT</th>)
+      totalHoles.push(<th key={10}>TOT</th>);
     } else {
       for (let i = 1; i < 10; i++) {
-        totalHoles.push(<th key={i}>{i}</th>)
+        totalHoles.push(<th key={i}>{i}</th>);
       }
       totalHoles.push(<th key={100}>OUT</th>);
       for (let i = 10; i < 19; i++) {
-        totalHoles.push(<th key={i}>{i}</th>)
+        totalHoles.push(<th key={i}>{i}</th>);
       }
       totalHoles.push(<th key={101}>IN</th>);
       totalHoles.push(<th key={102}>TOT</th>);
@@ -33,7 +33,7 @@ export default function PlayTable(props) {
         totalPars.push(<th key={i}>{par[i]}</th>);
         first9Total += par[i];
       }
-      totalPars.push(<th key={20}>TOT</th>)
+      totalPars.push(<th key={20}>TOT</th>);
     } else {
       for (let i = 0; i < 9; i++) {
         totalPars.push(<th key={i}>{par[i]}</th>);
@@ -59,7 +59,7 @@ export default function PlayTable(props) {
         totalYards.push(<th key={i}>{yard[i]}</th>);
         first9Total += yard[i];
       }
-      totalYards.push(<th key={30}>TOT</th>)
+      totalYards.push(<th key={30}>TOT</th>);
     } else {
       for (let i = 0; i < 9; i++) {
         totalYards.push(<th key={i}>{yard[i]}</th>);
@@ -85,7 +85,7 @@ export default function PlayTable(props) {
         totalScores.push(<th key={i}>{score[i]}</th>);
         first9Total += score[i];
       }
-      totalScores.push(<th key={40}>TOT</th>)
+      totalScores.push(<th key={40}>TOT</th>);
     } else {
       for (let i = 0; i < 9; i++) {
         totalScores.push(<th key={i}>{score[i]}</th>);
@@ -108,7 +108,7 @@ export default function PlayTable(props) {
           <thead>
             <tr>
               <th>Hole</th>
-              {fisrt9Holes()}
+              {holes()}
             </tr>
           </thead>
           <tbody>
@@ -127,5 +127,5 @@ export default function PlayTable(props) {
           </tbody>
         </table>
       </section>
-);
+  );
 };
