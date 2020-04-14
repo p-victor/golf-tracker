@@ -20,7 +20,7 @@ export default function Play(props) {
 
   return(
     <main>
-      <ScoreTable number={[1,2,3,4,5,6,7,8,9]} par={[3,4,5,3,5,4,4,3,4]} yard={[165,340,540,200,500,360,430,170,460]}/>
+      <ScoreTable number={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]} par={[3,4,5,3,5,4,4,3,4,5,4,4,5,3,4,3,4,4]} yard={[165,340,540,200,500,360,430,170,460,550,420,380,600,150,360,190,330,430]}/>
       <h3>Hole {holeid}</h3>
       <form>
         <select className="selectpicker" onChange={handleClub}>
