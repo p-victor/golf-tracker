@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import ScoreTable from "./ScoreTable";
 
 export default function Play(props) {
-  const { handleClub, handleComment, score, state, onSave } = props
+  const { handleClub, handleComment, score, state, onSave, onMove } = props
   const [error, setError] = useState("");
 
   let holeid = score[0] ? score.length + 1 : 1
@@ -20,7 +20,7 @@ export default function Play(props) {
 
   return(
     <main>
-      <ScoreTable number={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]} par={[3,4,5,3,5,4,4,3,4,5,4,4,5,3,4,3,4,4]} yard={[165,340,540,200,500,360,430,170,460,550,420,380,600,150,360,190,330,430]}/>
+      <ScoreTable key={1} score={score} number={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]} par={[3,4,5,3,5,4,4,3,4,5,4,4,5,3,4,3,4,4]} yard={[165,340,540,200,500,360,430,170,460,550,420,380,600,150,360,190,330,430]}/>
       <h3>Hole {holeid}</h3>
       <form>
         <select className="selectpicker" onChange={handleClub}>
@@ -56,7 +56,7 @@ export default function Play(props) {
       <section className="club__validation">{error}</section>
       <div>
         <button className="btn btn-primary stredtched-link" onClick={validate}>Next Shot</button>
-        <button className="btn btn-primary stredtched-link">Next Hole</button>
+        <button className="btn btn-primary stredtched-link" onClick={onMove/*(score, weather_id, start_time, end_time, user_id, game_id, hole_id)*/}>Next Hole</button>
       </div>
       <Link to="/" className="btn btn-primary stredtched-link">Quit This Game</Link>
     </main>

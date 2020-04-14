@@ -21,5 +21,11 @@ export default function useShot(props) {
    
   }
 
+  function move(score, weather_id, start_time, end_time, user_id, game_id, hole_id) {
+    return axios.post(`/api/hole/`, {score, weather_id, start_time, end_time, user_id, game_id, hole_id})
+      .then(data => console.log(data))
+   
+  }
+
   return { score, setScore, state, setState, handleClub, handleComment, save }
 }

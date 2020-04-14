@@ -13,7 +13,7 @@ import useShot from './hooks/useShot';
 function App() {
   const { user, results, setKeyword } = useApp();
   const { postal } = usePostal();
-  const { score, setScore, state, setState, handleClub, handleComment, save } = useShot();
+  const { score, setScore, state, setState, handleClub, handleComment, save, move } = useShot();
   
   return (
     <Router>
@@ -26,7 +26,7 @@ function App() {
           </Route>
           <Route exact path="/play">
             <header className="Play-header">
-              <Play handleClub={handleClub} handleComment={handleComment} score={score} state={state} onSave={save}/>
+              <Play key={1} handleClub={handleClub} handleComment={handleComment} score={score} state={state} onSave={save} onMove={move}/>
             </header>
           </Route>
           <Route exact path="/create" render={() => (
