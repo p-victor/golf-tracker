@@ -1,17 +1,17 @@
 import React from "react";
 
-import useApp from "../../hooks/useApp";
+import useSearchBar from "../../hooks/useSearchBar";
 import SearchBar from "../SearchBar/SearchBar";
 import Results from "../Results/Results";
 
 export default function Search(props) {
 
-  const { setKeyword, results } = useApp();
+  const [state, setState] = useSearchBar();
 
   return (
     <main>
-      <SearchBar key="0" onSearch={keyword => setKeyword(keyword)} />
-      <Results key="1" results={results} />
+      <SearchBar search={state.search} onSearch={search => setState(prev => ({...prev, search}))} />
+      <Results results={state.results} />
     </main>
   );
 }

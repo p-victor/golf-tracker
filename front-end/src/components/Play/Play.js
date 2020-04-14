@@ -18,7 +18,7 @@ export default function Play(props) {
       setError("Club cannot be blank");
       return;
     }
-    if (!state.club) {
+    if (state.club) {
       setShot(prev => prev + 1);
       onSave(state.hole_score_id, state.club, state.comment);
       setState(prev => ({...prev, club: "", comment: ""}));
