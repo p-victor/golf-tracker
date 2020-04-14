@@ -41,8 +41,8 @@ export default function RegisterGolfHoleInfo(props) {
   return (
     <main>
       <section>
-        <button className="btn btn-primary stredtched-link" onClick={() => setNumberOfHoles(9)}>9 Holes</button>
-        <button className="btn btn-primary stredtched-link" onClick={() => setNumberOfHoles(18)}>18 Holes</button>
+        <button className="btn btn-primary stretched-link" onClick={() => setNumberOfHoles(9)}>9 Holes</button>
+        <button className="btn btn-primary stretched-link" onClick={() => setNumberOfHoles(18)}>18 Holes</button>
       </section>
       <section>
         <table className="table table-striped table-bordered table-responsive">
@@ -59,8 +59,8 @@ export default function RegisterGolfHoleInfo(props) {
         </table>
       </section>
       <section>
-        <button className="btn btn-primary stredtched-link" onClick={() => validate()}>Register</button>
-        <Link to="/" className="btn btn-primary stredtched-link">Cancel</Link>
+        <button className="btn btn-primary stretched-link" onClick={() => validate()}>Register</button>
+        <Link to="/" className="btn btn-primary stretched-link">Cancel</Link>
       </section>
     </main>
   );

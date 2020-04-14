@@ -65,9 +65,9 @@ export default function RegisterGolfCourseInfo(props) {
       <section>
 
         <button
-          className="btn btn-primary stredtched-link"
+          className="btn btn-primary stretched-link"
           onClick={() => validate()}><Link key="0" to={{ pathname: "/holeinfo", state: { courseName, postalCode, phoneNumber, website }}}>Next</Link></button>
-        <Link key="1" to="/" className="btn btn-primary stredtched-link">Cancel</Link>
+        <Link key="1" to="/" className="btn btn-primary stretched-link">Cancel</Link>
       </section>
     </main>
   );
