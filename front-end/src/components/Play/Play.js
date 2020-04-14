@@ -6,6 +6,8 @@ import ScoreTable from "./ScoreTable";
 export default function Play(props) {
   const { handleClub, handleComment, score, state, onSave, onMove } = props
   const [error, setError] = useState("");
+  const [shot, setShot] = useState(1);
+
   let history = useHistory();
 
   let holeid = score[0] ? score.length + 1 : 1
@@ -16,22 +18,21 @@ export default function Play(props) {
       setError("Club cannot be blank");
       return;
     }
+    setShot(prev => prev + 1)
     onSave(state.hole_score_id, state.club, state.comment);
   }
 
   function quit() {
-
     if (window.confirm("Going back to the main page?")) {
       history.push("/");
     }
-
-
   }
 
   return(
     <main>
       <ScoreTable key={1} score={score} number={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]} par={[3,4,5,3,5,4,4,3,4,5,4,4,5,3,4,3,4,4]} yard={[165,340,540,200,500,360,430,170,460,550,420,380,600,150,360,190,330,430]}/>
       <h3>Hole {holeid}</h3>
+      <h5>Shot {shot}</h5>
       <form>
         <select className="selectpicker" onChange={handleClub}>
           <option data-hidden="true" value="">Club Selection</option>
