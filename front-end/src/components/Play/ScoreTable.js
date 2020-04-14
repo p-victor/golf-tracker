@@ -5,16 +5,17 @@ export default function PlayTable(props) {
 
   function holes() {
     let totalHoles = [];
+    
     if (number.length === 9) {
-      for (let i = 1; i < 9; i++) {
-        totalHoles.push(<th key={i}>{i}</th>);
-      }
-      totalHoles.push(<th key={10}>TOT</th>);
-    } else {
       for (let i = 1; i < 10; i++) {
         totalHoles.push(<th key={i}>{i}</th>);
       }
-      totalHoles.push(<th key={100}>OUT</th>);
+      totalHoles.push(<th key={10}>TOT</th>);      //keys, 10,100,101,102, are hard coded with random numbers 
+    } else {                                       //to identify the cell uniquely. The same for the rest, yard & par & score
+      for (let i = 1; i < 10; i++) {
+        totalHoles.push(<th key={i}>{i}</th>);
+      }
+      totalHoles.push(<th key={100}>OUT</th>);   
       for (let i = 10; i < 19; i++) {
         totalHoles.push(<th key={i}>{i}</th>);
       }
@@ -33,7 +34,7 @@ export default function PlayTable(props) {
         totalPars.push(<th key={i}>{par[i]}</th>);
         first9Total += par[i];
       }
-      totalPars.push(<th key={20}>TOT</th>);
+      totalPars.push(<th key={20}>{first9Total}</th>);
     } else {
       for (let i = 0; i < 9; i++) {
         totalPars.push(<th key={i}>{par[i]}</th>);
@@ -59,7 +60,7 @@ export default function PlayTable(props) {
         totalYards.push(<th key={i}>{yard[i]}</th>);
         first9Total += yard[i];
       }
-      totalYards.push(<th key={30}>TOT</th>);
+      totalYards.push(<th key={30}>{first9Total}</th>);
     } else {
       for (let i = 0; i < 9; i++) {
         totalYards.push(<th key={i}>{yard[i]}</th>);

@@ -26,7 +26,7 @@ function App() {
           </Route>
           <Route exact path="/play">
             <header className="Play-header">
-              <Play key={1} handleClub={handleClub} handleComment={handleComment} score={score} state={state} onSave={save} onMove={move}/>
+              <Play handleClub={handleClub} handleComment={handleComment} score={score} state={state} setState={setState} onSave={save} onMove={move}/>
             </header>
           </Route>
           <Route exact path="/create" render={() => (
