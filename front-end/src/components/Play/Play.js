@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import ScoreTable from "./ScoreTable";
 
 export default function Play(props) {
-  const { handleClub, handleComment, score, state, onSave, onMove, setState } = props
+  const { handleClub, handleComment, score, state, onSave, onMove, setState, setScore } = props
   const [error, setError] = useState("");
   const [shot, setShot] = useState(1);
 
@@ -14,6 +14,13 @@ export default function Play(props) {
   state.hole_score_id = holeid;
 
   function validate() {
+    if (!state.club && shot !== 1) {
+      setScore(prev => [ ...prev, shot - 1 ]);
+      setState(prev => ({...prev, club: "", comment: ""}));
+      setShot(1);
+      return;
+      // onMove()
+    }
     if (state.club === "") {
       setError("Club cannot be blank");
       return;
@@ -22,7 +29,6 @@ export default function Play(props) {
       setShot(prev => prev + 1);
       onSave(state.hole_score_id, state.club, state.comment);
       setState(prev => ({...prev, club: "", comment: ""}));
-
     }
   }
 
@@ -71,7 +77,7 @@ export default function Play(props) {
       <section className="club__validation">{error}</section>
       <div>
         <button className="btn btn-primary stredtched-link" onClick={validate}>Next Shot</button>
-        <button className="btn btn-primary stredtched-link" onClick={onMove/*(score, weather_id, start_time, end_time, user_id, game_id, hole_id)*/}>Hole Out</button>
+        <button className="btn btn-primary stredtched-link" onClick={validate/*(score, weather_id, start_time, end_time, user_id, game_id, hole_id)*/}>Hole Out</button>
       </div>
       <button onClick={quit} className="btn btn-primary stredtched-link">Quit This Game</button>
     </main>
