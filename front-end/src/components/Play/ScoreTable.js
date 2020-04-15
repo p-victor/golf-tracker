@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function ScoreTable(props) {
-  const { golf_course_id, number, par, yard, difficulty, score } = props;
+  const { golf_course_id, number, par, yard, difficulty, score, starting } = props;
 
   function holes() {
     let totalHoles = [];
@@ -79,29 +79,30 @@ export default function ScoreTable(props) {
   };
 
   function scores() {
-    let totalScores = [];
+    let first9Scores = [];
+    let second9Scores = [];
     let first9Total = 0;
     let second9Total = 0;
     if (number.length === 9) {
       for (let i = 0; i < 9; i++) {
-        totalScores.push(<th key={i}>{score[i]}</th>);
+        first9Scores.push(<th key={i}>{score[i]}</th>);
         first9Total += score[i];
       }
-      totalScores.push(<th key={40}>TOT</th>);
+      first9Scores.push(<th key={40}>first9Total</th>);
     } else {
       for (let i = 0; i < 9; i++) {
-        totalScores.push(<th key={i}>{score[i]}</th>);
+        first9Scores.push(<th key={i}>{score[i]}</th>);
         if (score[i]) {first9Total += score[i]}
       }
-      totalScores.push(<th key={400}>{first9Total || 0}</th>);
+      first9Scores.push(<th key={400}>{first9Total || 0}</th>);
       for (let i = 9; i < 18; i++) {
-        totalScores.push(<th key={i}>{score[i]}</th>);
+        second9Scores.push(<th key={i}>{score[i]}</th>);
         if (score[i]) {second9Total += score[i]}
       }
-      totalScores.push(<th key={401}>{second9Total || 0}</th>);
-      totalScores.push(<th key={402}>{(first9Total + second9Total) || 0}</th>);
+      second9Scores.push(<th key={401}>{second9Total || 0}</th>);
+      second9Scores.push(<th key={402}>{(first9Total + second9Total) || 0}</th>);
     }
-    return totalScores;
+    return [...first9Scores, ...second9Scores];
   };
 
   return(
