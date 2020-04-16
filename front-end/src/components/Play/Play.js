@@ -7,25 +7,38 @@ export default function Play(props) {
   const { handleClub, handleComment, score, state, onSave, onMove, setState, setScore } = props
   const [error, setError] = useState("");
   const [shot, setShot] = useState(1);
-  const [starting, setStarting] = useState(1);
+  const [starting, setStarting] = useState(true);
 
   let history = useHistory();
 
   state.hole_score_id = 1   //HARD CODED. GOTTA CHANGE
 
-  const holeNumber = function() {
-    if (starting > 17 && score.length < 16) {
-      return setStarting(1);
-    } else if (starting > 17 && score.length > 16) {
-      return setStarting(18);
-    } else {
-      return setStarting(prev => prev + 1);
+  function holeNumber() {
+
+    if (score.length === 0 && starting) {
+      return 1;
+    } else if (score.length === 18 && starting) {
+      return 18
+    } else if (starting) {
+      return score.length + 1;
+    };
+
+    if (score.length === 0 && !starting) {
+      return 10;
+    } else if (score.length === 18 && !starting) {
+      return 9
+    } else if (!starting && score.length < 9) {
+      return score.length + 10;
+    } else if (!starting && score.length > 9) {
+      return score.length - 8
+    } else if (!starting && score.length === 9) {
+      return 1
     }
-  }
+  };
 
   function validateShot() {
     if (score.length === 18) {
-      alert("You've finished the game!");
+      return alert("You've finished the game!");
     }
     if (state.club === "") {
       setError("Please select your club");
@@ -35,22 +48,24 @@ export default function Play(props) {
       setShot(prev => prev + 1);
       onSave(state.hole_score_id, state.club, state.comment);
       setState(prev => ({...prev, club: "", comment: ""}));
+      setError("");
     }
-  }
+  };
 
   function validateHole() {
 
     setScore(prev => [ ...prev, shot - 1 ]);
     setState(prev => ({...prev, club: "", comment: ""}));
     setShot(1);
-    holeNumber();
+    setError("");
+
     // onMove(score, weather_id, start_time, end_time, user_id, game_id, hole_id)
     if (score.length === 18) {
       alert("You've finished the game!");
       history.push("/");
     }
     return;
-  }
+  };
 
   function finishGameButton () {
     if (score.length === 18) {
@@ -58,22 +73,22 @@ export default function Play(props) {
     } else {
       return "Hole Out"
     }
-  }
+  };
 
   function quit() {
     if (window.confirm("Going back to the main page?")) {
       history.push("/");
     }
-  }
+  };
 
   return(
     <main>
       <ScoreTable score={score} starting={starting} number={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]} par={[3,4,5,3,5,4,4,3,4,5,4,4,5,3,4,3,4,4]} yard={[165,340,540,200,500,360,430,170,460,550,420,380,600,150,360,190,330,430]}/>
       <div>
-          <button className="btn btn-primary" onClick={() => setStarting(1)}>Hole 1</button>
-          <button className="btn btn-primary" onClick={() => setStarting(10)}>Hole 10</button>
+          <button className="btn btn-primary" onClick={() => setStarting(true)}>Hole 1</button>
+          <button className="btn btn-primary" onClick={() => setStarting(false)}>Hole 10</button>
         </div>
-      <h3>Hole {starting}</h3>
+      <h3>Hole {holeNumber()}</h3>
       <h5>Shot {shot}</h5>
       <form>
         <select className="selectpicker" onChange={handleClub} value={state.club}>
