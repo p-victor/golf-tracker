@@ -6,6 +6,7 @@ import Search from "./components/Search/Search";
 import RegisterGolfCourseInfo from './components/RegisterGolfCourseInfo/RegisterGolfCourseInfo';
 import RegisterGolfHoleInfo from './components/RegisterGolfHoleInfo/RegisterGolfHoleInfo';
 import Play from './components/Play/Play';
+import Gps from './components/Gps/Gps';
 import usePostal from './hooks/usePostal';
 import useShot from './hooks/useShot';
 // import useApp from './hooks/useApp';
@@ -44,6 +45,11 @@ function App() {
           <Route exact path="/holeinfo">
             <header className="HoleInfo-header">
               <RegisterGolfHoleInfo />
+            </header>
+          </Route>
+          <Route exact path="/gps">
+            <header >
+              <Gps />
             </header>
           </Route>
         </Switch>
