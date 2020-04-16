@@ -5,7 +5,6 @@ import "./RegisterGolfCourseInfo.css";
 export default function RegisterGolfCourseInfo(props) {
 
   const [state, setState] = useState({ courseName: "", postalCode: "", phoneNumber: "", website: "", error: "" })
-  let history = useHistory();
 
   let history = useHistory();
 
@@ -27,64 +26,79 @@ export default function RegisterGolfCourseInfo(props) {
 
   function courseNm(e) {
     const courseName = e.target.value;
-    setState(prev => ({ ...prev, courseName}))
+    setState(prev => ({ ...prev, courseName }))
   };
 
   function pCode(e) {
     const postalCode = e.target.value;
-    setState(prev => ({ ...prev, postalCode}))
+    setState(prev => ({ ...prev, postalCode }))
   };
 
   function pNumber(e) {
     const phoneNumber = e.target.value;
-    setState(prev => ({ ...prev, phoneNumber}))
+    setState(prev => ({ ...prev, phoneNumber }))
   };
 
   function wSite(e) {
     const website = e.target.value;
-    setState(prev => ({ ...prev, website}))
+    setState(prev => ({ ...prev, website }))
   };
 
 
   return (
     <main>
       <section>
+        
+      </section>
+      <section>
         <form className="form">
-          <input
-            name="course"
-            value={state.courseName}
-            onChange={courseNm}
-            placeholder="Course Name"
-            type="text"
-          />
-          <input
-            name="postalCode"
-            value={state.postalCode}
-            onChange={pCode}
-            placeholder="Postal Code"
-            type="text"
-          />
-          <input
-            name="phoneNumber"
-            value={state.phoneNumber}
-            onChange={pNumber}
-            placeholder="Phone Number"
-            type="text"
-          />
-          <input
-            name="website"
-            value={state.website}
-            onChange={wSite}
-            placeholder="Website"
-            type="text"
-          />
+          <div className="field">
+            <div>name</div>
+            <input
+              name="course"
+              value={state.courseName}
+              onChange={courseNm}
+              placeholder="Course Name"
+              type="text"
+            />
+          </div>
+          <div className="field">
+            <div>postal code</div>
+            <input
+              name="postalCode"
+              value={state.postalCode}
+              onChange={pCode}
+              placeholder="Postal Code"
+              type="text"
+            />
+          </div>
+          <div className="field">
+            <div>phone number</div>
+            <input
+              name="phoneNumber"
+              value={state.phoneNumber}
+              onChange={pNumber}
+              placeholder="Phone Number"
+              type="text"
+            />
+          </div>
+          <div className="field">
+            <div>website </div>
+            <input
+              name="website"
+              value={state.website}
+              onChange={wSite}
+              placeholder="Website"
+              type="text"
+            />
+          </div>
+          <div className="field">
+            <button onClick={validate}>Next</button>
+            <button onClick={() => history.push('/')}>Cancel</button>
+          </div>
         </form>
       </section>
       <section>{state.error}</section>
-      <section>
-        <button onClick={validate}>Next</button>
-        <button onClick={() => history.push('/')}>asd</button>
-      </section>
     </main>
   );
 }
