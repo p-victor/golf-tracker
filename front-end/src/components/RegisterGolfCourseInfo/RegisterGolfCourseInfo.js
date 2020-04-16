@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { Link, useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./RegisterGolfCourseInfo.css";
-
-
 
 export default function RegisterGolfCourseInfo(props) {
 
   const [state, setState] = useState({ courseName: "", postalCode: "", phoneNumber: "", website: "", error: "" })
+  let history = useHistory();
 
   let history = useHistory();
 
@@ -23,7 +22,29 @@ export default function RegisterGolfCourseInfo(props) {
       setState(prev => ({ ...prev, error: "The Postal Code you entered already exists" }));
       return;
     }
+    history.push("/holeinfo", { ...state, isSponsored: false });
   }
+
+  function courseNm(e) {
+    const courseName = e.target.value;
+    setState(prev => ({ ...prev, courseName}))
+  };
+
+  function pCode(e) {
+    const postalCode = e.target.value;
+    setState(prev => ({ ...prev, postalCode}))
+  };
+
+  function pNumber(e) {
+    const phoneNumber = e.target.value;
+    setState(prev => ({ ...prev, phoneNumber}))
+  };
+
+  function wSite(e) {
+    const website = e.target.value;
+    setState(prev => ({ ...prev, website}))
+  };
+
 
   return (
     <main>
@@ -32,37 +53,36 @@ export default function RegisterGolfCourseInfo(props) {
           <input
             name="course"
             value={state.courseName}
-            onChange={e => setState(prev => ({ ...prev, courseName: e.target.value }))}
+            onChange={courseNm}
             placeholder="Course Name"
             type="text"
           />
           <input
             name="postalCode"
             value={state.postalCode}
-            onChange={e => setState(prev => ({ ...prev, postalCode: e.target.value }))}
+            onChange={pCode}
             placeholder="Postal Code"
             type="text"
           />
           <input
             name="phoneNumber"
             value={state.phoneNumber}
-            onChange={e => setState(prev => ({ ...prev, phoneNumber: e.target.value }))}
+            onChange={pNumber}
             placeholder="Phone Number"
             type="text"
           />
           <input
             name="website"
             value={state.website}
-            onChange={e => setState(prev => ({ ...prev, website: e.target.value }))}
+            onChange={wSite}
             placeholder="Website"
             type="text"
           />
         </form>
       </section>
-      <section className="golf__info__validation">{state.error}</section>
+      <section>{state.error}</section>
       <section>
-        <button onClick={() => validate()}><Link key="0" to={{ pathname: "/holeinfo", state: { ...state, isSponsored: false } }}>Next</Link></button>
-        
+        <button onClick={validate}>Next</button>
         <button onClick={() => history.push('/')}>asd</button>
       </section>
     </main>

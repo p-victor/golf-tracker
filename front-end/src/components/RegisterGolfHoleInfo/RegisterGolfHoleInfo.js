@@ -5,8 +5,9 @@ import axios from "axios";
 import HoleInfo from "./HoleInfo";
 
 export default function RegisterGolfHoleInfo(props) {
-  const [numberOfHoles, setNumberOfHoles] = useState(18);
   const location = useLocation();
+  const {courseName, postalCode, phoneNumber, website} = location.state;
+  const [numberOfHoles, setNumberOfHoles] = useState(18);
 
   const displayHoles = () => {
     let totalHoles = [];
@@ -19,9 +20,10 @@ export default function RegisterGolfHoleInfo(props) {
   const validate = () => {
     let par = Array.from(document.querySelectorAll('.par input'));
     let yard = Array.from(document.querySelectorAll('.yard input'));
-    let allInputsFilled = [...par, ...yard].some(input => input.value);
+    let allInputsFilled = [...par, ...yard].some(input => input.value === "");
+    console.log([...par, ...yard])
 
-    if (allInputsFilled) {
+    if (!allInputsFilled) {
       axios
         .post("/api/courses/new", { ...location.state, isSponsored: false })
         .then(data => {
@@ -33,6 +35,8 @@ export default function RegisterGolfHoleInfo(props) {
           axios
             .post(`/api/courses/${courseId}/holes/new`, holes)
         })
+    } else {
+      alert("Please fill all the blanks")
     }
   }
 

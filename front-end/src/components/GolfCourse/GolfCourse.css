@@ -1,0 +1,22 @@
+
+.golf-course {
+  display: flex;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  background: #e8e8e8;
+}
+
+.golf-course .name {
+  font-weight: bolder;
+  font-size: 1.1em;
+}
+
+.golf-course > .course-info {
+  flex-basis: 80%;
+}
+
+.golf-course > button {
+  flex-basis: 20%;
+}
