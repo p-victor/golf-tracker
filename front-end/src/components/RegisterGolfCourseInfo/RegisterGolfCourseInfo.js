@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
+import "./RegisterGolfCourseInfo.css";
+
 
 
 export default function RegisterGolfCourseInfo(props) {
 
   const [state, setState] = useState({ courseName: "", postalCode: "", phoneNumber: "", website: "", error: "" })
+
+  let history = useHistory();
 
   function validate() {
     if (state.courseName === "") {
@@ -24,7 +28,7 @@ export default function RegisterGolfCourseInfo(props) {
   return (
     <main>
       <section>
-        <form >
+        <form className="form">
           <input
             name="course"
             value={state.courseName}
@@ -57,10 +61,9 @@ export default function RegisterGolfCourseInfo(props) {
       </section>
       <section className="golf__info__validation">{state.error}</section>
       <section>
-        <button
-          className="btn btn-primary stredtched-link"
-          onClick={() => validate()}><Link key="0" to={{ pathname: "/holeinfo", state: { ...state, isSponsored: false } }}>Next</Link></button>
-        <Link key="1" to="/" className="btn btn-primary stredtched-link">Cancel</Link>
+        <button onClick={() => validate()}><Link key="0" to={{ pathname: "/holeinfo", state: { ...state, isSponsored: false } }}>Next</Link></button>
+        
+        <button onClick={() => history.push('/')}>asd</button>
       </section>
     </main>
   );

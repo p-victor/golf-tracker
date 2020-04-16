@@ -1,0 +1,21 @@
+.search-bar {
+  top: 0;
+  position: sticky;
+  background: 	#202436;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  z-index: 1000;
+}
+
+.search-bar .title {
+  font-size: 2em;
+  z-index: 1000;
+  text-align: center;
+  color: #e8e8e8;
+}
+
+.search-bar input {
+  z-index: 1000;
+  width: 100%;
+}

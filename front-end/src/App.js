@@ -1,45 +1,38 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import './App.css';
 
 import Search from "./components/Search/Search";
+import Navbar from "./components/Navbar/Navbar";
 import RegisterGolfCourseInfo from './components/RegisterGolfCourseInfo/RegisterGolfCourseInfo';
 import RegisterGolfHoleInfo from './components/RegisterGolfHoleInfo/RegisterGolfHoleInfo';
 import Play from './components/Play/Play';
 import usePostal from './hooks/usePostal';
-import Axios from 'axios';
 
 function App() {
   const user = []
   const { postal } = usePostal();
-  
+
   return (
-    <Router>
-      <div>
+    <>
+      <Router key={0}>
         <Switch>
           <Route exact path="/">
-            <header className="App-header">
-              <Search />
-            </header>
+            <Search />
           </Route>
           <Route exact path="/play">
-            <header className="Play-header">
-              <Play user={user.id}/>
-            </header>
+            <Play user={user.id} />
           </Route>
           <Route exact path="/create" render={() => (
-            <header className="GolfCourse-header">
-              <RegisterGolfCourseInfo postal={postal}/>
-            </header>
-          )}/>
+            <RegisterGolfCourseInfo postal={postal} />
+          )} />
           <Route exact path="/holeinfo">
-            <header className="HoleInfo-header">
-              <RegisterGolfHoleInfo />
-            </header>
+            <RegisterGolfHoleInfo />
           </Route>
         </Switch>
-      </div>
-    </Router>
+      </Router>
+      <Navbar key={1} />
+    </>
   );
 };
 

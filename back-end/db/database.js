@@ -29,13 +29,7 @@ const getSearchResults = function (nameOrPostalCode) {
     ORDER BY sponsor DESC
   `
   return pool.query(query, [`%${nameOrPostalCode}%`])
-    .then(res => {
-      if (!res.rows[0]) {
-        return [{ results: "No match found" }]
-      } else {
-        return res.rows
-      }
-    })
+    .then(res => res.rows)
 };
 exports.getSearchResults = getSearchResults;
 

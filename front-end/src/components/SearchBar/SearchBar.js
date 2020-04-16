@@ -4,10 +4,11 @@ import "./SearchBar.css";
 
 export default function SearchBar(props) {
   return (
-    <section className="search">
-      <form className="search__form" onSubmit={event => event.preventDefault()}>
+    <section className="search-bar">
+      <div className="title">Golf Tracker</div>
+      <form onSubmit={event => event.preventDefault()}>
         <input
-          className="radius"
+          className=""
           spellCheck="false"
           placeholder="Please Enter Postal Code or Course Name"
           name="search"
