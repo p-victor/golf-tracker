@@ -77,9 +77,6 @@ export default function Play(props) {
     setShot(1);
     setError("");
 
-    document.getElementsByClassName("selectpicker")[0].value = "";
-    document.getElementsByName("comment")[0].value = '';
-
     return;
   };
 
@@ -108,7 +105,7 @@ export default function Play(props) {
         <h3>Hole {holeNumber()}</h3>
         <h5>Shot {shot}</h5>
         <form>
-          <select className="selectpicker" onChange={e => handleClub(e, holeNumber(), shot)}>
+          <select className="selectpicker" onChange={e => handleClub(e, holeNumber(), shot)} defaultValue="">
             <option data-hidden="true" value="">Club Selection</option>
             <option value="Driver">Driver</option>
             <option value="Wood 3">Wood 3</option>
@@ -132,6 +129,7 @@ export default function Play(props) {
           </label>        
             <input
               name="comment"
+              defaultValue=""
               onBlur={e => handleComment(e, holeNumber(), shot)}
               placeholder="Shot description"
               type="text"
