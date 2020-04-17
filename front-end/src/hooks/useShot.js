@@ -3,33 +3,37 @@ import axios from "axios";
 
 
 export default function useShot(props) {
-  const [ state, setState ] = useState({ score:[], hole_score_id: [], club: [], comment: [] });
+  const [ state, setState ] = useState({ score:[], hole1:[[]]});
 
-  function handleClub (e) {
-    const selectedClub = e.target.value;
-    state.club.push(selectedClub);
+  function handleClub (e, hole, shot) {
+    const  club = e.target.value;
+    state[`hole${hole}`][shot - 1][0] = club;
     setState(prev => ({ ...prev}));
   }
-  function handleComment (e) {
-    const selectedComment = e.target.value;
-    state.comment.push(selectedComment);
+  function handleComment (e, hole, shot) {
+    const comment = e.target.value;
+    state[`hole${hole}`][shot - 1][1] = comment;
     setState(prev => ({ ...prev}));
   }
 
-  function save(score, hole_score_id, club, comment) {
-    for (let i = 0; i < club.length - 1; i++) {
-      if (score[i] === undefined) {
-        axios.post(`/api/shot/`, {"hole_score_id": hole_score_id[i], "club": club[i], "comment": comment[i]})
-        .then(data => console.log(data))
-      } else {
-        Promise.all([
-          axios.post(`/api/shot/`, {"hole_score_id": hole_score_id[i], "club": club[i], "comment": comment[i]}),
-          axios.post(`/api/hole/`, {"score": score[i]})
-        ])
-        .then(data => console.log(data))
+  function save(state) {
+
+    // for (let i = 0; i < 18; i++) {
+    //   axios.post(`/api/hole/`, { score: state.score[i] })
+    //   .then(data => console.log(data));
+    // }
+
+    for (let j = 1; j < state.score.length; j++) {
+      for (let k = 0; k < 14; k++) {
+        if (state[`hole${j}`][k] !== undefined && state[`hole${j}`][k][0] !== undefined) {
+          axios.post(`/api/shot/`, {
+            hole_score_id: j,         
+            club: state[`hole${j}`][k][0], 
+            comment: state[`hole${j}`][k][1]
+          })
+        }
       }
     }
-   
   }
 
 

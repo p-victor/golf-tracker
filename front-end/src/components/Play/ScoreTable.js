@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function ScoreTable(props) {
-  const { golf_course_id, number, par, yard, difficulty, score, starting } = props;
+  const { golf_course_id, number, par, yard, difficulty, score, starting, setHoleEdit } = props;
 
   function holes() {
     let totalHoles = [];                                     
@@ -10,9 +10,9 @@ export default function ScoreTable(props) {
       if (i === 10) {
         totalHoles.push(<th key={100}>OUT</th>);             //keys, 100,101,102, are hard coded with random numbers 
       } else if (i > 10 && i < 20) {                         //to identify the cell uniquely. The same for the rest, yard & par & score
-        totalHoles.push(<th key={i - 1}>{i - 1}</th>);
+        totalHoles.push(<th onClick={() => {setHoleEdit([i - 1, "d-block"])}} key={i - 1}>{i - 1}</th>);
       } else {
-        totalHoles.push(<th key={i}>{i}</th>);
+        totalHoles.push(<th onClick={() => setHoleEdit([i, "d-block"])} key={i}>{i}</th>);
       }
     }
     if (number.length > 9) {
