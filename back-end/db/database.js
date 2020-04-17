@@ -141,3 +141,28 @@ const logShots = function ({ hole_score_id, club, comment }) {
     .then(res => res.rows)
 };
 exports.logShots = logShots;
+
+
+const logScore = function ({ score/*, weather_id, start_time, end_time, user_id, game_id, hole_id*/ }) {
+
+  const values = [
+    `${score}`/*,
+    `${weather_id}`,
+    `${start_time}`,
+    `${end_time}`,
+    `${user_id}`,
+    `${game_id}`,
+    `${hole_id}`*/
+  ]
+
+  const query = `
+  INSERT INTO hole_scores (score)
+  VALUES ($1)
+  RETURNING *
+  ;
+  `
+
+  return pool.query(query, values)
+    .then(res => res.rows)
+};
+exports.logScore = logScore;

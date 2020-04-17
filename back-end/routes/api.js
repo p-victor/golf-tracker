@@ -40,11 +40,17 @@ module.exports = ({ getCourses, getSearchResults, createNewCourse, createNewHole
 
 
   router.post('/shot', function (req, res, next) {
+    console.log('shots:', req.body);
+
     logShots(req.body)
     .then(data => res.send(data))
-    
-    // createNewHoles(req.body)
-    // .then(data => res.send(data));
+  });
+
+  router.post('/hole', function (req, res, next) {
+    console.log('hole_scores:',req.body);
+
+    logScore(req.body)
+    .then(data => res.send(data))
   });
 
 

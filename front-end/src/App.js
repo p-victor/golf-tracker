@@ -7,6 +7,7 @@ import RegisterGolfCourseInfo from './components/RegisterGolfCourseInfo/Register
 import RegisterGolfHoleInfo from './components/RegisterGolfHoleInfo/RegisterGolfHoleInfo';
 import Play from './components/Play/Play';
 import Gps from './components/Gps/Gps';
+import MyPage from './components/MyPage/MyPage';
 import usePostal from './hooks/usePostal';
 import useShot from './hooks/useShot';
 // import useApp from './hooks/useApp';
@@ -21,7 +22,7 @@ function App() {
   // golf_courses: name, postal_code, wesite_url, phone_number
 
   const { postal } = usePostal();
-  const { score, setScore, state, setState, handleClub, handleComment, save, move } = useShot();
+  const { score, setScore, state, setState, handleClub, handleComment, save } = useShot();
   
   return (
     <Router>
@@ -34,7 +35,7 @@ function App() {
           </Route>
           <Route exact path="/play">
             <header className="Play-header">
-              <Play handleClub={handleClub} handleComment={handleComment} score={score} state={state} setState={setState} onSave={save} onMove={move} setScore={setScore} />
+              <Play handleClub={handleClub} handleComment={handleComment} state={state} setState={setState} onSave={save} />
             </header>
           </Route>
           <Route exact path="/create" render={() => (
@@ -50,6 +51,11 @@ function App() {
           <Route exact path="/gps">
             <header >
               <Gps />
+            </header>
+          </Route>
+          <Route exact path="/mypage">
+            <header >
+              <MyPage />
             </header>
           </Route>
         </Switch>
