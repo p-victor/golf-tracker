@@ -22,7 +22,7 @@ function App() {
   // golf_courses: name, postal_code, wesite_url, phone_number
 
   const { postal } = usePostal();
-  const { score, setScore, state, setState, handleClub, handleComment, save } = useShot();
+  const { state, setState, handleClub, handleComment, save } = useShot();
   
   return (
     <Router>

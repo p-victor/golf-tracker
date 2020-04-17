@@ -6,7 +6,7 @@ import HoleInfo from "./HoleInfo";
 
 export default function RegisterGolfHoleInfo(props) {
   const location = useLocation();
-  const {courseName, postalCode, phoneNumber, website} = location.state;
+  // const {courseName, postalCode, phoneNumber, website} = location.state;
   const [numberOfHoles, setNumberOfHoles] = useState(18);
 
   const displayHoles = () => {

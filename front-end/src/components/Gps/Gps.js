@@ -7,7 +7,6 @@ export default function Gps(props) {
   const [ weatherInfo, setWeatherInfo ] = useState({})
 
   weather.setAPPID("3d996283c23eab08f82473aac739fe26");
-  let temp;
 
   navigator.geolocation.watchPosition(res => {
     weather.setCoordinate(res.coords.latitude, res.coords.longitude);
