@@ -7,13 +7,13 @@ button {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
   transition: all 0.3s;
 }
+
+button.active {
+  background: #52658f;
+}
+
 button:hover {
   background: #52658f;
 }
@@ -27,4 +27,10 @@ input {
   border: none;
   padding: 0 0.5em;
   border-radius: 0.5em;
+}
+
+main {
+  min-height: 100vh;
+  margin: 0 1em;
+  padding-bottom: 4em;
 }

@@ -1,27 +1,29 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./RegisterGolfCourseInfo.css";
+import HoleInfo from "./HoleInfo";
+import axios from "axios";
 
 export default function RegisterGolfCourseInfo(props) {
 
-  const [state, setState] = useState({ courseName: "", postalCode: "", phoneNumber: "", website: "", error: "" })
+  const [state, setState] = useState({ courseName: "", postalCode: "", phoneNumber: "", website: "", error: "", holeCount: 18 })
 
   let history = useHistory();
 
-  function validate() {
+  function validateCourse() {
     if (state.courseName === "") {
       setState(prev => ({ ...prev, error: "Course name cannot be blank" }));
-      return;
+      return false;
     }
     if (state.postalCode === "") {
       setState(prev => ({ ...prev, error: "Postal Code cannot be blank" }));
-      return;
+      return false;
     }
     if (props.postal.includes(state.postalCode)) {
       setState(prev => ({ ...prev, error: "The Postal Code you entered already exists" }));
-      return;
+      return false;
     }
-    history.push("/holeinfo", { ...state, isSponsored: false });
+    return true
   }
 
   function courseNm(e) {
@@ -44,13 +46,42 @@ export default function RegisterGolfCourseInfo(props) {
     setState(prev => ({ ...prev, website }))
   };
 
+  const displayHoles = () => {
+    let holes = [];
+    for (let i = 0; i < state.holeCount; i++) {
+      holes.push(<HoleInfo key={i} id={i + 1} />)
+    }
+    return holes;
+  };
+
+  const validateHoles = () => {
+    let par = Array.from(document.querySelectorAll('.hole-par input'));
+    let yard = Array.from(document.querySelectorAll('.hole-yard input'));
+    let allHolesFilled = ![...par, ...yard].some(input => input.value === "");
+
+    console.log(validateCourse())
+
+    if (allHolesFilled && validateCourse()) {
+      axios
+        .post("/api/courses/new", { courseName: state.courseName, postalCode: state.postalCode, phoneNumber: state.phoneNumber, website: state.website, isSponsored: false })
+        .then(data => {
+          const courseId = data.data[0].id
+          const holes = []
+          for (let i = 0; i < state.holeCount; i++) {
+            holes.push({ number: i + 1, par: par[i].value, yard: yard[i].value, golfCourseId: courseId })
+          }
+          axios
+            .post(`/api/courses/${courseId}/holes/new`, holes)
+            .then(history.push('/'))
+        })
+    } else {
+      alert("Please fill all the blanks")
+    }
+  }
 
   return (
-    <main>
-      <section>
-        
-      </section>
-      <section>
+    <>
+      <section className="form-container">
         <form className="form">
           <div className="field">
             <div>name</div>
@@ -92,14 +123,21 @@ export default function RegisterGolfCourseInfo(props) {
               type="text"
             />
           </div>
-          <div className="field">
-            <button onClick={validate}>Next</button>
-            <button onClick={() => history.push('/')}>Cancel</button>
-          </div>
         </form>
+        <div >
+          <div className="button-group">
+            <button className={state.holeCount === 9 && "active"} onClick={() => setState(prev => ({ ...prev, holeCount: 9 }))}>9 Holes</button>
+            <button className={state.holeCount === 18 && "active"} onClick={() => setState(prev => ({ ...prev, holeCount: 18 }))}>18 Holes</button>
+          </div>
+          <ul>
+            {displayHoles()}
+          </ul>
+          <div className="button-group">
+            <button onClick={() => validateHoles()}>Register</button>
+          </div>
+        </div>
       </section>
       <section>{state.error}</section>
-    </main>
+    </>
   );
 }
-

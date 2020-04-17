@@ -90,32 +90,6 @@ const createNewHoles = function (holeArray) {
 };
 exports.createNewHoles = createNewHoles;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const logShots = function ({ hole_score_id, club, comment }) {
 
   const values = [
@@ -135,3 +109,57 @@ const logShots = function ({ hole_score_id, club, comment }) {
     .then(res => res.rows)
 };
 exports.logShots = logShots;
+
+const createUser = function ({ first_name, last_name, email, password }) {
+  const values = [
+    `${first_name}`,
+    `${last_name}`,
+    `${email}`,
+    `${password}`
+  ]
+
+  const query = `
+  INSERT INTO users (first_name, last_name, email, password)
+  VALUES ($1, $2, $3, $4)
+  RETURNING *
+  ;
+  `
+
+  return pool.query(query, values)
+    .then(res => res.rows)
+};
+exports.createUser = createUser;
+
+const getUserByEmail = function (email) {
+  const query = `
+    SELECT *
+    FROM users
+    WHERE email = $1
+    ;
+  `
+
+  const values = [
+    `${email}`
+  ];
+
+  return pool.query(query, values)
+    .then(res => res.rows)
+};
+exports.getUserByEmail = getUserByEmail;
+
+const getUserById = function (id) {
+  const query = `
+    SELECT *
+    FROM users
+    WHERE id = $1
+    ;
+  `
+
+  const values = [
+    `${id}`
+  ];
+
+  return pool.query(query, values)
+    .then(res => res.rows)
+};
+exports.getUserById = getUserById;

@@ -17,6 +17,7 @@ export default function SearchBar(props) {
           onChange={event => props.onSearch(event.target.value)}
         />
       </form>
+      <div className="dropshadow-top"></div>
     </section>
   );
 }

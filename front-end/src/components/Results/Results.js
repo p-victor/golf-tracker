@@ -10,16 +10,17 @@ export default function Results(props) {
   let history = useHistory();
 
   return (
-    <div>
+    <>
+
       {
         !results.length ?
-          <>
+          <div className="create">
             <p>No match found...</p>
             <button onClick={() => history.push('/create')} style={{ width: "100%" }}>Create</button>
-          </>
+          </div>
           :
           results.map((golfcourse, index) => (<GolfCourse key={index} id={index} {...golfcourse} />))
       }
-    </div>
+    </>
   );
 }

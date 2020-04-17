@@ -6,12 +6,14 @@ import "./Navbar.css"
 export default function Navbar(props) {
 
   return (
-    <div>
+    <div className="navbar-container">
+      <div className="dropshadow-bottom" />
       <div className="navbar">
         <div href="#home" className="" ><p>Test1</p></div>
         <div href="#news" className=""><p>Test2</p></div>
         <div href="#contact" className="active" ><p>Test3</p></div>
       </div>
     </div>
+
   );
 }

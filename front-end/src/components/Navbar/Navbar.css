@@ -1,3 +1,8 @@
+.navbar-container {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
 .navbar {
   overflow: hidden;
   background-color: #333A56;
@@ -44,4 +49,13 @@
 }
 .navbar div:last-child.active {
   border-bottom-right-radius: 0em;
+}
+
+.dropshadow-bottom {
+  width: 100%;
+  background: #202436;
+  height: 0.2em;
+  box-shadow: 0em 0em 1em 1.2em  #202436;
+  margin-bottom: 3em;
+    z-index: 1000;
 }

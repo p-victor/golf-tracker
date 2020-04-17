@@ -13,7 +13,7 @@ CREATE TABLE "users" (
   "first_name" text,
   "last_name" text,
   "email" text,
-  "password_hash" text
+  "password" text
 );
 
 CREATE TABLE "golf_courses" (
