@@ -1,31 +1,41 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 
 export default function useShot(props) {
-  const [ score, setScore ] = useState([]);
-  const [ state, setState ] = useState({ hole_score_id: "", club: "", comment: "" });
+  const [ state, setState ] = useState({ score:[], hole1:[[]]});
 
-  function handleClub (e) {
-    const club = e.target.value;
-    setState(prev => ({ ...prev, club}))
+  function handleClub (e, hole, shot) {
+    const  club = e.target.value;
+    state[`hole${hole}`][shot - 1][0] = club;
+    setState(prev => ({ ...prev}));
   }
-  function handleComment (e) {
+  function handleComment (e, hole, shot) {
     const comment = e.target.value;
-    setState(prev => ({ ...prev, comment}))
+    state[`hole${hole}`][shot - 1][1] = comment;
+    setState(prev => ({ ...prev}));
   }
 
-  function save(hole_score_id, club, comment) {
-    return axios.post(`/api/shot/`, {hole_score_id, club, comment})
-      .then(data => console.log(data))
-   
+  function save(state) {
+
+    // for (let i = 0; i < 18; i++) {
+    //   axios.post(`/api/hole/`, { score: state.score[i] })
+    //   .then(data => console.log(data));
+    // }
+
+    for (let j = 1; j < state.score.length; j++) {
+      for (let k = 0; k < 14; k++) {
+        if (state[`hole${j}`][k] !== undefined && state[`hole${j}`][k][0] !== undefined) {
+          axios.post(`/api/shot/`, {
+            hole_score_id: j,         
+            club: state[`hole${j}`][k][0], 
+            comment: state[`hole${j}`][k][1]
+          })
+        }
+      }
+    }
   }
 
-  function move(score, weather_id, start_time, end_time, user_id, game_id, hole_id) {
-    return axios.post(`/api/hole/`, {score, weather_id, start_time, end_time, user_id, game_id, hole_id})
-      .then(data => console.log(data))
-   
-  }
 
-  return { score, setScore, state, setState, handleClub, handleComment, save }
+  return { state, setState, handleClub, handleComment, save }
 }

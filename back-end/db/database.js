@@ -74,7 +74,7 @@ const createNewCourse = function ({ courseName, postalCode, phoneNumber, website
 exports.createNewCourse = createNewCourse;
 
 const createNewHoles = function (holeArray) {
-  
+
   const placeholders = holeArray.map((hole, index) => `($${index * 4 + 1}, $${index * 4 + 2}, $${index * 4 + 3}, $${index * 4 + 4})`).join(',')
 
   const values = holeArray.reduce((result, current) => result.concat([current.number, current.par, current.yard, current.golfCourseId]), []);
@@ -129,6 +129,30 @@ const createUser = function ({ first_name, last_name, email, password }) {
     .then(res => res.rows)
 };
 exports.createUser = createUser;
+
+const logScore = function ({ score/*, weather_id, start_time, end_time, user_id, game_id, hole_id*/ }) {
+
+  const values = [
+    `${score}`/*,
+    `${weather_id}`,
+    `${start_time}`,
+    `${end_time}`,
+    `${user_id}`,
+    `${game_id}`,
+    `${hole_id}`*/
+  ]
+
+  const query = `
+  INSERT INTO hole_scores (score)
+  VALUES ($1)
+  RETURNING *
+  ;
+  `
+
+  return pool.query(query, values)
+    .then(res => res.rows)
+};
+exports.logScore = logScore;
 
 const getUserByEmail = function (email) {
   const query = `

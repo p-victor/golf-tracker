@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-/* GET home page. */
 module.exports = ({ createUser, getUserByEmail, getCourses, getSearchResults, createNewCourse, createNewHoles, logShots }) => {
   router.get('/courses', function (req, res, next) {
     getCourses()
@@ -58,11 +57,17 @@ module.exports = ({ createUser, getUserByEmail, getCourses, getSearchResults, cr
   });
 
   router.post('/shot', function (req, res, next) {
-    logShots(req.body)
-      .then(data => res.send(data))
+    console.log('shots:', req.body);
 
-    // createNewHoles(req.body)
-    // .then(data => res.send(data));
+    logShots(req.body)
+    .then(data => res.send(data))
+  });
+
+  router.post('/hole', function (req, res, next) {
+    console.log('hole_scores:',req.body);
+
+    logScore(req.body)
+    .then(data => res.send(data))
   });
 
 

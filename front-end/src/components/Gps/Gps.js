@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 const weather = require('openweather-apis');
 weather.setLang('en');
 
 
 export default function Gps(props) {
-  weather.setCity('Montreal')
+  const [ weatherInfo, setWeatherInfo ] = useState({})
+
+  weather.setAPPID("3d996283c23eab08f82473aac739fe26");
+
+  navigator.geolocation.watchPosition(res => {
+    weather.setCoordinate(res.coords.latitude, res.coords.longitude);
+    weather.getAllWeather(function(err, JSONObj){setWeatherInfo(JSONObj)});
+  })
+
+  
+
+    console.log(weatherInfo)
+
 
 
 
   return (
     <div className="MyLocation" >
-<p>{    weather.getTemperature(function(err, temp){
-        console.log(temp);
-    })}</p>
+      <p>{}</p>
     </div>
   );
 
