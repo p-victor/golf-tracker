@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React from "react";
 
 
 export default function Edit(props) {
@@ -24,48 +24,52 @@ export default function Edit(props) {
     };
 
     let editArr = [];
-    for (let i = 0; i < state[`hole${holeEdit[0]}`].length - 1; i++) {
-      // if ()
-      editArr.push(
-        <div>
-          <form>
-            <label>Shot {i + 1}</label>
-            <select className="editselectpicker">
-              <option data-hidden="true" value="">Club Selection</option>
-              <option value="Driver">Driver</option>
-              <option value="Wood 3">Wood 3</option>
-              <option value="Wood 5">Wood 5</option>
-              <option value="Wood 7">Wood 7</option>
-              <option value="Iron 2">Iron 2</option>
-              <option value="Iron 3">Iron 3</option>
-              <option value="Iron 4">Iron 4</option>
-              <option value="Iron 5">Iron 5</option>
-              <option value="Iron 6">Iron 6</option>
-              <option value="Iron 7">Iron 7</option>
-              <option value="Iron 8">Iron 8</option>
-              <option value="Iron 9">Iron 9</option>
-              <option value="P">P</option>
-              <option value="S">S</option>
-              <option value="A">A</option>
-              <option value="Putter">Putter</option>
-            </select>
-            <label>
-              Comment:
-            </label>        
-            <input
-              name="editComment"
-              placeholder={state[`hole${holeEdit[0]}`][i][1]}
-              type="text"
-            />
-          </form>
-          <section className="club__validation">{error}</section>
-        <div>
-          <button className="btn btn-primary stredtched-link" onClick={() => editButton(i)}>Edit</button>
-          <button className="btn btn-primary stredtched-link" onClick={() => deleteButton(i)}>Delete</button>
-          <button className="btn btn-primary stredtched-link" onClick={cancelButton}>Cancel</button>
+
+    if (state[`hole${holeEdit[0]}`]) {
+
+      for (let i = 0; i < state[`hole${holeEdit[0]}`].length - 1; i++) {
+        editArr.push(
+          <div>
+            <form>
+              <label>Shot {i + 1}</label>
+              <select className="editselectpicker">
+                <option data-hidden="true" value="">Club Selection</option>
+                <option value="Driver">Driver</option>
+                <option value="Wood 3">Wood 3</option>
+                <option value="Wood 5">Wood 5</option>
+                <option value="Wood 7">Wood 7</option>
+                <option value="Iron 2">Iron 2</option>
+                <option value="Iron 3">Iron 3</option>
+                <option value="Iron 4">Iron 4</option>
+                <option value="Iron 5">Iron 5</option>
+                <option value="Iron 6">Iron 6</option>
+                <option value="Iron 7">Iron 7</option>
+                <option value="Iron 8">Iron 8</option>
+                <option value="Iron 9">Iron 9</option>
+                <option value="P">P</option>
+                <option value="S">S</option>
+                <option value="A">A</option>
+                <option value="Putter">Putter</option>
+              </select>
+              <label>
+                Comment:
+              </label>        
+              <input
+                name="editComment"
+                placeholder={state[`hole${holeEdit[0]}`][i][1]}
+                type="text"
+              />
+            </form>
+            <section className="club__validation">{error}</section>
+          <div>
+            <button className="btn btn-primary stredtched-link" onClick={() => editButton(i)}>Edit</button>
+            <button className="btn btn-primary stredtched-link" onClick={() => deleteButton(i)}>Delete</button>
+            <button className="btn btn-primary stredtched-link" onClick={cancelButton}>Cancel</button>
+          </div>
         </div>
-      </div>
-      )
+        )
+      }
     }
     return editArr;
+
 }
