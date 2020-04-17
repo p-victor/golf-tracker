@@ -2,7 +2,7 @@ import React from "react";
 
 
 export default function Edit(props) {
-    const { holeEdit, state, error, setState } = props
+    const { holeEdit, state, error, setState } = props    //holeEdit = [1, "d-none"], 1 is hole number to edit, "d-none" is no display tag.
     
     function editButton(shot) {
       state[`hole${holeEdit[0]}`][shot][0] = document.getElementsByClassName("editselectpicker")[0].value;
@@ -32,7 +32,7 @@ export default function Edit(props) {
           <div>
             <form>
               <label>Shot {i + 1}</label>
-              <select className="editselectpicker">
+              <select className="editselectpicker" defaultValue={state[`hole${holeEdit[0]}`][i][0]}>
                 <option data-hidden="true" value="">Club Selection</option>
                 <option value="Driver">Driver</option>
                 <option value="Wood 3">Wood 3</option>
