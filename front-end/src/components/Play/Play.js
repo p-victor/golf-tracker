@@ -34,8 +34,6 @@ export default function Play(props) {
     starting[1] = "d-none"
   }
 
-
-
   function holeNumber() {
 
     if (scoreNShot.score.length === 0 && starting[0]) {             //start on hole 1
@@ -58,6 +56,17 @@ export default function Play(props) {
       return 1
     }
   };
+
+  function StartAt1() {
+    setStarting([true, "d-block"]);
+    scoreNShot[`hole1`] = [[]];
+    delete scoreNShot[`hole10`];
+  }
+  function StartAt10() {
+    setStarting([false, "d-block"]);
+    scoreNShot[`hole10`] = [[]];
+    delete scoreNShot[`hole1`];
+  }
 
   function validateShot() {
     if (scoreNShot.score.length === par.length) {
@@ -84,15 +93,23 @@ export default function Play(props) {
       history.push("/mypage");
       return;
     }
+    starting[1] = "d-none"
+    setStarting(prev => [...prev]);
+
     scoreNShot[`hole${holeNumber() + 1}`] = [[]];
 
     if (!starting[0] && scoreNShot.score.length > 8 ) {
       let scoreArr = [...scoreNShot.score];
       scoreArr.splice( holeNumber() - 1, 0, shot[0] - 1);      //10th hole start, when playing 1st hole, the score of the 1st hole will be prepended.
-      setScoreNShot(prev => ({ ...prev, score: scoreArr}));
-    } else if (!starting[0] && scoreNShot.score.length < 9) {
+      scoreNShot.score = scoreArr;
+      setScoreNShot(prev => ({ ...prev}));
+    } else if (!starting[0] && scoreNShot.score.length < 8) {
       scoreNShot.score.push(shot[0] - 1);
       setScoreNShot(prev => ({...prev}));
+    } else if  (!starting[0] && scoreNShot.score.length === 8) {
+      scoreNShot.score.push(shot[0] - 1);
+      setScoreNShot(prev => ({...prev}));
+      scoreNShot[`hole1`] = [[]];
     } else {
       scoreNShot.score.push(shot[0] - 1);
       setScoreNShot(prev => ({...prev}));
@@ -120,13 +137,10 @@ export default function Play(props) {
   return(
     <>
       <main>
-        <ScoreTable setHoleEdit={setHoleEdit} setScoreNShot={setScoreNShot} score={scoreNShot.score} starting={starting[0]} number={number} par={par} yard={yard}/>
+        <ScoreTable setHoleEdit={setHoleEdit} setScoreNShot={setScoreNShot} score={scoreNShot.score} scoreNShot={scoreNShot} starting={starting[0]} number={number} par={par} yard={yard}/>
         <div className={starting[1]}>
-            <button className={"btn btn-primary"} onClick={() => setStarting([true, "d-block"])}>Hole 1</button>
-            <button className="btn btn-primary" onClick={() => {
-                                                                setStarting([false, "d-block"]);
-                                                                scoreNShot[`hole10`] = [[]];                                                                
-                                                              }}>Hole 10</button>
+            <button className={"btn btn-primary"} onClick={StartAt1}>Hole 1</button>
+            <button className="btn btn-primary" onClick={StartAt10}>Hole 10</button>
           </div>
         <h3 style={{color:"white"}}>Hole {holeNumber()}</h3>
         <h5 style={{color:"white"}}>Shot {shot[0]}</h5>

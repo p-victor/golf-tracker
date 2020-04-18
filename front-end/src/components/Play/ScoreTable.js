@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function ScoreTable(props) {
-  const { golf_course_id, number, par, yard, difficulty, score, starting, setHoleEdit } = props; //can the difficulty be an avg of the hole?
+  const { golf_course_id, number, par, yard, difficulty, score, starting, setHoleEdit, scoreNShot } = props; //can the difficulty be an avg of the hole?
 
   function holes() {
     let totalHoles = [];                                     
@@ -77,20 +77,29 @@ export default function ScoreTable(props) {
     let second9Total = 0;
 
     for (let i = 0; i < number.length + 1; i++) {
+      // if (i === 9) {
+      //   first9Scores.push(<th key={400}>{first9Total || 0}</th>);             
+      // } else if (i > 9 && i < 19 && starting) {
+      //   second9Scores.push(<th key={i - 1}>{score[i - 1]}</th>);
+      //   if (score[i - 1]) {second9Total += score[i - 1]};
+      // } else if ( i < 9 && starting) {
+      //   first9Scores.push(<th key={i}>{score[i]}</th>);
+      //   if (score[i]) {first9Total += score[i]};
+      // } else if (i > 9 && i < 19 && !starting) {
+      //   second9Scores.push(<th key={i - 1}>{score[i - 10]}</th>);    
+      //   if (score[i - 10]) {second9Total += score[i - 10]};
+      // } else if ( i < 9 && !starting) {
+      //   first9Scores.push(<th key={i}>{score[i + 9]}</th>);            // starting from back-nine.
+      //   if (score[i + 9]) {first9Total += score[i + 9]};
+      // }
       if (i === 9) {
         first9Scores.push(<th key={400}>{first9Total || 0}</th>);             
-      } else if (i > 9 && i < 19 && starting) {
-        second9Scores.push(<th key={i - 1}>{score[i - 1]}</th>);
-        if (score[i - 1]) {second9Total += score[i - 1]};
-      } else if ( i < 9 && starting) {
-        first9Scores.push(<th key={i}>{score[i]}</th>);
-        if (score[i]) {first9Total += score[i]};
-      } else if (i > 9 && i < 19 && !starting) {
-        second9Scores.push(<th key={i - 1}>{score[i - 10]}</th>);     // starting from back-nine.
-        if (score[i - 10]) {second9Total += score[i - 10]};
-      } else if ( i < 9 && !starting) {
-        first9Scores.push(<th key={i}>{score[i + 9]}</th>);
-        if (score[i + 9]) {first9Total += score[i + 9]};
+      } else if (i > 9 && i < 19) {
+        second9Scores.push(<th key={i - 1}>{scoreNShot[`hole${i}`] ? scoreNShot[`hole${i}`].length - 1 : null}</th>);
+        if (scoreNShot[`hole${i}`]) {second9Total += scoreNShot[`hole${i}`].length - 1};
+      } else {
+        first9Scores.push(<th key={i}>{scoreNShot[`hole${i + 1}`] ? scoreNShot[`hole${i + 1}`].length - 1 : null}</th>);
+        if (scoreNShot[`hole${i + 1}`]) {first9Total += scoreNShot[`hole${i + 1}`].length - 1};
       }
     }
     if (number.length > 9) {
