@@ -2,25 +2,25 @@ import React from "react";
 
 
 export default function Edit(props) {
-    const { holeEdit, state, error, setState } = props    //holeEdit = [1, "d-none"], 1 is hole number to edit, "d-none" is no display tag.
+    const { holeEdit, state, error, setScoreNShot } = props    //holeEdit = [1, "d-none"], 1 is hole number to edit, "d-none" is no display tag.
     
     function editButton(shot) {
       state[`hole${holeEdit[0]}`][shot][0] = document.getElementsByClassName("editselectpicker")[0].value;
       state[`hole${holeEdit[0]}`][shot][1] = document.getElementsByName("editComment")[0].value;
       alert("Edited Successfully");
       holeEdit[1] = "d-none";
-      setState(prev => ({...prev}));
+      setScoreNShot(prev => ({...prev}));
     };
     
     function cancelButton() {
       holeEdit[1] = "d-none";
-      setState(prev => ({...prev}));
+      setScoreNShot(prev => ({...prev}));
     };
     
     function deleteButton(shot) {
       state[`hole${holeEdit[0]}`].splice(shot, 1);
-      state.score[holeEdit[0] - 1]--
-      setState(prev => ({...prev}));
+      if (state.score[holeEdit[0]]) {state.score[holeEdit[0] - 1]--};
+      setScoreNShot(prev => ({...prev}));
     };
 
     let editArr = [];

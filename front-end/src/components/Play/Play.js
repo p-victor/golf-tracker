@@ -5,7 +5,7 @@ import ScoreTable from "./ScoreTable";
 import Edit from "./Edit";
 
 export default function Play(props) {
-  const { handleClub, handleComment, state, onSave, setState } = props
+  const { handleClub, handleComment, onSave, scoreNShot, setScoreNShot } = props
   const [error, setError] = useState("");
   const [shot, setShot] = useState(1);
   const [starting, setStarting] = useState(true);
@@ -15,38 +15,38 @@ export default function Play(props) {
 
   function holeNumber() {
 
-    if (state.score.length === 0 && starting) {             //start on hole 1
+    if (scoreNShot.score.length === 0 && starting) {             //start on hole 1
       return 1;   
-    } else if (state.score.length === 18 && starting) {     //finish a game, started on 1st hole
+    } else if (scoreNShot.score.length === 18 && starting) {     //finish a game, started on 1st hole
       return 18;
     } else if (starting) {
-      return state.score.length + 1;
+      return scoreNShot.score.length + 1;
     };
 
-    if (state.score.length === 0 && !starting) {          //start on 10th hole
+    if (scoreNShot.score.length === 0 && !starting) {          //start on 10th hole
       return 10;
-    } else if (state.score.length === 18 && !starting) {  //finish a game, started on 10th hole
+    } else if (scoreNShot.score.length === 18 && !starting) {  //finish a game, started on 10th hole
       return 9                                            //so 9th hole is the last one
-    } else if (!starting && state.score.length < 9) {
-      return state.score.length + 10;                     //start on 10th, playing on 11th => score.length = 1, hole number = 11
-    } else if (!starting && state.score.length > 9) {
-      return state.score.length - 8
-    } else if (!starting && state.score.length === 9) {
+    } else if (!starting && scoreNShot.score.length < 9) {
+      return scoreNShot.score.length + 10;                     //start on 10th, playing on 11th => score.length = 1, hole number = 11
+    } else if (!starting && scoreNShot.score.length > 9) {
+      return scoreNShot.score.length - 8
+    } else if (!starting && scoreNShot.score.length === 9) {
       return 1
     }
   };
 
   function validateShot() {
-    if (state.score.length === 18) {
+    if (scoreNShot.score.length === 18) {
       return alert("You've finished the game!");
     }
-    if (!state[`hole${holeNumber()}`][shot - 1][0]) {    //  state = { score:[], hole1, hole2, ..., hole18:[[driver, good],[wood, perfect],...,[putter, wonderful]]
+    if (!scoreNShot[`hole${holeNumber()}`][shot - 1][0]) {    //  scoreNShot = { score:[], hole1, hole2, ..., hole18:[[driver, good],[wood, perfect],...,[putter, wonderful]]
       setError("Please select your club");
       return;
     }
-    state[`hole${holeNumber()}`].push([]);               // create an array of an array for the next hole.
+    scoreNShot[`hole${holeNumber()}`].push([]);               // create an array of an array for the next hole.
                                                                             
-    if (state[`hole${holeNumber()}`][shot - 1][0]) {    
+    if (scoreNShot[`hole${holeNumber()}`][shot - 1][0]) {    
       setShot(prev => prev + 1);                                  
       setError("");
     }
@@ -55,24 +55,24 @@ export default function Play(props) {
   };
 
   function validateHole() {
-    if (state.score.length === 18) {
+    if (scoreNShot.score.length === 18) {
       alert("You've finished the game!");
-      onSave(state);
+      onSave(scoreNShot);
       history.push("/mypage");
       return;
     }
-    state[`hole${holeNumber() + 1}`] = [[]];
+    scoreNShot[`hole${holeNumber() + 1}`] = [[]];
 
-    if (!starting && state.score.length > 8 ) {
-      let scoreArr = [...state.score];
+    if (!starting && scoreNShot.score.length > 8 ) {
+      let scoreArr = [...scoreNShot.score];
       scoreArr.splice( holeNumber() - 1, 0, shot - 1);      //10th hole start, when playing 1st hole, the score of the 1st hole will be prepended.
-      setState(prev => ({ ...prev, score: scoreArr}));
-    } else if (!starting && state.score.length < 9) {
-      state.score.push(shot - 1);
-      setState(prev => ({...prev}));
+      setScoreNShot(prev => ({ ...prev, score: scoreArr}));
+    } else if (!starting && scoreNShot.score.length < 9) {
+      scoreNShot.score.push(shot - 1);
+      setScoreNShot(prev => ({...prev}));
     } else {
-      state.score.push(shot - 1);
-      setState(prev => ({...prev}));
+      scoreNShot.score.push(shot - 1);
+      setScoreNShot(prev => ({...prev}));
     }
     setShot(1);
     setError("");
@@ -81,7 +81,7 @@ export default function Play(props) {
   };
 
   function finishGameButton () {
-    if (state.score.length === 18) {
+    if (scoreNShot.score.length === 18) {
       return "Finished!"
     } else {
       return "Hole Out"
@@ -97,7 +97,7 @@ export default function Play(props) {
   return(
     <>
       <main>
-        <ScoreTable setHoleEdit={setHoleEdit} setState={setState} score={state.score} starting={starting} number={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]} par={[3,4,5,3,5,4,4,3,4,5,4,4,5,3,4,3,4,4]} yard={[165,340,540,200,500,360,430,170,460,550,420,380,600,150,360,190,330,430]}/>
+        <ScoreTable setHoleEdit={setHoleEdit} setScoreNShot={setScoreNShot} score={scoreNShot.score} starting={starting} number={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]} par={[3,4,5,3,5,4,4,3,4,5,4,4,5,3,4,3,4,4]} yard={[165,340,540,200,500,360,430,170,460,550,420,380,600,150,360,190,330,430]}/>
         <div>
             <button className="btn btn-primary" onClick={() => setStarting(true)}>Hole 1</button>
             <button className="btn btn-primary" onClick={() => setStarting(false)}>Hole 10</button>
@@ -143,7 +143,7 @@ export default function Play(props) {
         <button onClick={quit} className="btn btn-primary stredtched-link">Quit This Game</button>
       </main>
       <footer className={holeEdit[1]}>
-        <Edit holeEdit={holeEdit} state={state} handleClub={handleClub} handleComment={handleComment} error={error} setState={setState} />
+        <Edit holeEdit={holeEdit} scoreNShot={scoreNShot} handleClub={handleClub} handleComment={handleComment} error={error} setScoreNShot={setScoreNShot} />
       </footer>
     </>
   )

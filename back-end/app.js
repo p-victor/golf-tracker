@@ -4,7 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser')
 const logger = require('morgan');
-var cookieSession = require('cookie-session');
+const cookieSession = require('cookie-session');
 
 const dbHelper = require('./db/database');
 
