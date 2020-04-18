@@ -22,12 +22,13 @@ export default function useGame(props) {
     .then(data => console.log(data));
   };
 
-  function save(scoreNShot, userId) {
+  function save(scoreNShot, userId, endTime) {
 
     // for (let i = 0; i < 18; i++) {
     //   axios.post(`/api/hole/`, { score: scoreNShot.score[i], user_id: userId })
     //   .then(data => console.log(data));
     // }
+
 
     for (let j = 1; j < scoreNShot.score.length; j++) {
       for (let k = 0; k < 14; k++) {

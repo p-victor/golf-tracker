@@ -80,7 +80,7 @@ export default function Play(props) {
   function validateHole() {
     if (scoreNShot.score.length === par.length) {
       alert("You've finished the game!");
-      onSave(scoreNShot, location.state.golfCourseId);
+      onSave(scoreNShot, location.state.golfCourseId, Date.now());
       history.push("/mypage");
       return;
     }
