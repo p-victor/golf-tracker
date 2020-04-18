@@ -2,24 +2,30 @@ import { useState } from "react";
 import axios from "axios";
 
 
-export default function useShot(props) {
+export default function useGame(props) {
   const [ scoreNShot, setScoreNShot ] = useState({ score:[], hole1:[[]]});
 
   function handleClub (e, hole, shot) {
     const  club = e.target.value;
     scoreNShot[`hole${hole}`][shot - 1][0] = club;
     setScoreNShot(prev => ({ ...prev}));
-  }
+  };
+
   function handleComment (e, hole, shot) {
     const comment = e.target.value;
     scoreNShot[`hole${hole}`][shot - 1][1] = comment;
     setScoreNShot(prev => ({ ...prev}));
-  }
+  };
 
-  function save(scoreNShot) {
+  function createGame(courseId, userId, startTime) {
+    axios.post(`/api/newgame/`, { start_time: startTime, golf_course_id: courseId, user_id: userId })
+    .then(data => console.log(data));
+  };
+
+  function save(scoreNShot, userId) {
 
     // for (let i = 0; i < 18; i++) {
-    //   axios.post(`/api/hole/`, { score: scoreNShot.score[i] })
+    //   axios.post(`/api/hole/`, { score: scoreNShot.score[i], user_id: userId })
     //   .then(data => console.log(data));
     // }
 
@@ -34,8 +40,8 @@ export default function useShot(props) {
         }
       }
     }
-  }
+  };
 
 
-  return { scoreNShot, setScoreNShot, handleClub, handleComment, save }
+  return { scoreNShot, setScoreNShot, handleClub, handleComment, save, createGame };
 }

@@ -11,7 +11,7 @@ import Play from './components/Play/Play';
 import Gps from './components/Gps/Gps';
 import MyPage from './components/MyPage/MyPage';
 import usePostal from './hooks/usePostal';
-import useShot from './hooks/useShot';
+import useGame from './hooks/useGame';
 import useApp from './hooks/useApp';
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
   // golf_courses: name, postal_code, wesite_url, phone_number
 
   const { postal } = usePostal();
-  const { scoreNShot, setScoreNShot, handleClub, handleComment, save } = useShot();
+  const { scoreNShot, setScoreNShot, handleClub, handleComment, save } = useGame();
   
   return (
     <>
@@ -41,7 +41,7 @@ function App() {
               <SignIn />
             </Route> */}
             <Route exact path="/play">
-              <Play state={state.holes[0]} handleClub={handleClub} handleComment={handleComment} scoreNShot={scoreNShot} setScoreNShot={setScoreNShot} onSave={save} />
+              <Play state={state.holes.length && state.holes[0]} handleClub={handleClub} handleComment={handleComment} scoreNShot={scoreNShot} setScoreNShot={setScoreNShot} onSave={save} /*USER ID*//>
             </Route>
             <Route exact path="/create" render={() => (
               <RegisterGolfCourseInfo postal={postal} />

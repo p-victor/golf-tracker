@@ -19,13 +19,16 @@ export default function Play(props) {
   const number = [];
   const yard = [];
 
-  state.map(ele => {
-    if (ele.golf_course_id === location.state.golfCourseId) {
-      par.push(ele.par);
-      number.push(ele.number);
-      yard.push(ele.yard);
-    }
-  });
+  if (state.length) {
+
+    state.map(ele => {
+      if (ele.golf_course_id === location.state.golfCourseId) {         //without if, it crashes. 
+        par.push(ele.par);
+        number.push(ele.number);
+        yard.push(ele.yard);
+      }
+    });
+  }
 
   if (par.length === 9) {
     starting[1] = "d-none"
@@ -37,8 +40,8 @@ export default function Play(props) {
 
     if (scoreNShot.score.length === 0 && starting[0]) {             //start on hole 1
       return 1;   
-    } else if (scoreNShot.score.length === 18 && starting[0]) {     //finish a game, started on 1st hole
-      return 18;
+    } else if (scoreNShot.score.length === par.length && starting[0]) {     //finish a game, started on 1st hole
+      return par.length;
     } else if (starting[0]) {
       return scoreNShot.score.length + 1;
     };
@@ -57,7 +60,7 @@ export default function Play(props) {
   };
 
   function validateShot() {
-    if (scoreNShot.score.length === 18) {
+    if (scoreNShot.score.length === par.length) {
       return alert("You've finished the game!");
     }
     if (!scoreNShot[`hole${holeNumber()}`][shot[0] - 1][0]) {    //  scoreNShot = { score:[], hole1, hole2, ..., hole18:[[driver, good],[wood, perfect],...,[putter, wonderful]]
@@ -77,7 +80,7 @@ export default function Play(props) {
   function validateHole() {
     if (scoreNShot.score.length === par.length) {
       alert("You've finished the game!");
-      onSave(scoreNShot);
+      onSave(scoreNShot, location.state.golfCourseId);
       history.push("/mypage");
       return;
     }
@@ -101,7 +104,7 @@ export default function Play(props) {
   };
 
   function finishGameButton () {
-    if (scoreNShot.score.length === 18) {
+    if (scoreNShot.score.length === par.length) {
       return "Finished!"
     } else {
       return "Hole Out"
@@ -120,7 +123,10 @@ export default function Play(props) {
         <ScoreTable setHoleEdit={setHoleEdit} setScoreNShot={setScoreNShot} score={scoreNShot.score} starting={starting[0]} number={number} par={par} yard={yard}/>
         <div className={starting[1]}>
             <button className={"btn btn-primary"} onClick={() => setStarting([true, "d-block"])}>Hole 1</button>
-            <button className="btn btn-primary" onClick={() => setStarting([false, "d-block"])}>Hole 10</button>
+            <button className="btn btn-primary" onClick={() => {
+                                                                setStarting([false, "d-block"]);
+                                                                scoreNShot[`hole10`] = [[]];                                                                
+                                                              }}>Hole 10</button>
           </div>
         <h3 style={{color:"white"}}>Hole {holeNumber()}</h3>
         <h5 style={{color:"white"}}>Shot {shot[0]}</h5>

@@ -237,3 +237,23 @@ const getWeathers = function () {
     .then(res => res.rows)
 };
 exports.getWeathers = getWeathers;
+
+const newGame = function ({ start_time, golf_course_id, user_id }) {
+
+  const values = [
+    `${start_time}`,
+    `${golf_course_id}`,
+    `${user_id}`
+  ]
+
+  const query = `
+  INSERT INTO games (start_time, golf_course_id, user_id)
+  VALUES ($1, $2, $3)
+  RETURNING *
+  ;
+  `
+
+  return pool.query(query, values)
+    .then(res => res.rows)
+};
+exports.newGame = newGame;

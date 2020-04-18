@@ -15,6 +15,7 @@ module.exports = ({
   getShots,
   getGames,
   getWeathers,
+  newGame
  }) => {
   router.get('/courses', function (req, res, next) {
     getCourses()
@@ -95,22 +96,22 @@ module.exports = ({
   });
 
   router.post('/courses/:id/holes/new', function (req, res, next) {
-    console.log(req.body);
     createNewHoles(req.body)
       .then(data => res.send(data));
   });
 
   router.post('/shot', function (req, res, next) {
-    console.log('shots:', req.body);
-
     logShots(req.body)
     .then(data => res.send(data))
   });
 
   router.post('/hole', function (req, res, next) {
-    console.log('hole_scores:',req.body);
-
     logScore(req.body)
+    .then(data => res.send(data))
+  });
+
+  router.post('/newgame', function (req, res, next) {
+    newGame(req.body)
     .then(data => res.send(data))
   });
 

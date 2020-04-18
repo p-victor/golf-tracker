@@ -7,7 +7,9 @@ export default function ScoreTable(props) {
     let totalHoles = [];                                     
 
     for (let i = 1; i < number.length + 2; i++) {
-      if (i === 10) {
+      if (i === 10 && number.length === 9) {
+        totalHoles.push(<th key={100}>TOT</th>);             //keys, 100,101,102, are hard coded with random numbers 
+      } else if (i === 10 && number.length === 18) {
         totalHoles.push(<th key={100}>OUT</th>);             //keys, 100,101,102, are hard coded with random numbers 
       } else if (i > 10 && i < 20) {                         //to identify the cell uniquely. The same for the rest, yard & par & score
         totalHoles.push(<th onClick={() => {setHoleEdit([i - 1, "d-block"])}} key={i - 1}>{i - 1}</th>);
