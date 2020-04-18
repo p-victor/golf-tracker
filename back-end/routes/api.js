@@ -15,7 +15,8 @@ module.exports = ({
   getShots,
   getGames,
   getWeathers,
-  newGame
+  newGame,
+  game
  }) => {
   router.get('/courses', function (req, res, next) {
     getCourses()
@@ -112,6 +113,11 @@ module.exports = ({
 
   router.post('/newgame', function (req, res, next) {
     newGame(req.body)
+    .then(data => res.send(data))
+  });
+
+  router.post('/game', function (req, res, next) {
+    game(req.body)
     .then(data => res.send(data))
   });
 

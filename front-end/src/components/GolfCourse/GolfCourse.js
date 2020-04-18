@@ -11,8 +11,9 @@ export default function GolfCourse(props) {
   let history = useHistory();
 
   function playGame() {
-    createGame(id, 1, Date.now());  //1 is userId HARDCODED
-    history.push('/play', {golfCourseId: id});
+    const teeTime = Date.now()
+    createGame(id, 1, teeTime);  //1 is userId HARDCODED
+    history.push('/play', {golfCourseId: id, teeTime});
   }
 
   return (
