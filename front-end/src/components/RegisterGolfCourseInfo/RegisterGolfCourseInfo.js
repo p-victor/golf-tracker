@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./RegisterGolfCourseInfo.css";
-import HoleInfo from "./HoleInfo";
+import HoleInfo from "../RegisterGolfHoleInfo/HoleInfo";
 import axios from "axios";
 
 export default function RegisterGolfCourseInfo(props) {

@@ -2,37 +2,38 @@ import React from "react";
 
 
 export default function Edit(props) {
-    const { holeEdit, state, error, setState } = props    //holeEdit = [1, "d-none"], 1 is hole number to edit, "d-none" is no display tag.
+    const { holeEdit, scoreNShot, error, setScoreNShot, setShot } = props    //holeEdit = [1, "d-none"], 1 is hole number to edit, "d-none" is no display tag.
     
     function editButton(shot) {
-      state[`hole${holeEdit[0]}`][shot][0] = document.getElementsByClassName("editselectpicker")[0].value;
-      state[`hole${holeEdit[0]}`][shot][1] = document.getElementsByName("editComment")[0].value;
+      scoreNShot[`hole${holeEdit[0]}`][shot][0] = document.getElementsByClassName("editselectpicker")[0].value;
+      scoreNShot[`hole${holeEdit[0]}`][shot][1] = document.getElementsByName("editComment")[0].value;
       alert("Edited Successfully");
       holeEdit[1] = "d-none";
-      setState(prev => ({...prev}));
+      setScoreNShot(prev => ({...prev}));
     };
     
     function cancelButton() {
       holeEdit[1] = "d-none";
-      setState(prev => ({...prev}));
+      setScoreNShot(prev => ({...prev}));
     };
     
     function deleteButton(shot) {
-      state[`hole${holeEdit[0]}`].splice(shot, 1);
-      state.score[holeEdit[0] - 1]--
-      setState(prev => ({...prev}));
+      scoreNShot[`hole${holeEdit[0]}`].splice(shot, 1);
+      if (scoreNShot.score[holeEdit[0] - 1]) {scoreNShot.score[holeEdit[0] - 1]--};
+      if (holeEdit[0] !== scoreNShot.score.length) {setShot[0] = setShot[0] - 1}
+      setScoreNShot(prev => ({...prev}));
     };
 
     let editArr = [];
 
-    if (state[`hole${holeEdit[0]}`]) {
+    if (scoreNShot[`hole${holeEdit[0]}`]) {
 
-      for (let i = 0; i < state[`hole${holeEdit[0]}`].length - 1; i++) {
+      for (let i = 0; i < scoreNShot[`hole${holeEdit[0]}`].length - 1; i++) {
         editArr.push(
-          <div>
+          <div key={i}>
             <form>
               <label>Shot {i + 1}</label>
-              <select className="editselectpicker" defaultValue={state[`hole${holeEdit[0]}`][i][0]}>
+              <select className="editselectpicker" defaultValue={scoreNShot[`hole${holeEdit[0]}`][i][0]}>
                 <option data-hidden="true" value="">Club Selection</option>
                 <option value="Driver">Driver</option>
                 <option value="Wood 3">Wood 3</option>
@@ -56,7 +57,7 @@ export default function Edit(props) {
               </label>        
               <input
                 name="editComment"
-                placeholder={state[`hole${holeEdit[0]}`][i][1]}
+                placeholder={scoreNShot[`hole${holeEdit[0]}`][i][1]}
                 type="text"
               />
             </form>

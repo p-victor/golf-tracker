@@ -187,3 +187,73 @@ const getUserById = function (id) {
     .then(res => res.rows)
 };
 exports.getUserById = getUserById;
+
+const getHoles = function () {
+  const query = `
+    SELECT *
+    FROM holes
+  `
+  return pool.query(query)
+    .then(res => res.rows)
+};
+exports.getHoles = getHoles;
+
+const getHoleScores = function () {
+  const query = `
+    SELECT *
+    FROM hole_scores
+  `
+  return pool.query(query)
+    .then(res => res.rows)
+};
+exports.getHoleScores = getHoleScores;
+
+const getShots = function () {
+  const query = `
+    SELECT *
+    FROM shots
+  `
+  return pool.query(query)
+    .then(res => res.rows)
+};
+exports.getShots = getShots;
+
+const getGames = function () {
+  const query = `
+    SELECT *
+    FROM games
+  `
+  return pool.query(query)
+    .then(res => res.rows)
+};
+exports.getGames = getGames;
+
+const getWeathers = function () {
+  const query = `
+    SELECT *
+    FROM weathers
+  `
+  return pool.query(query)
+    .then(res => res.rows)
+};
+exports.getWeathers = getWeathers;
+
+const newGame = function ({ start_time, golf_course_id, user_id }) {
+
+  const values = [
+    `${start_time}`,
+    `${golf_course_id}`,
+    `${user_id}`
+  ]
+
+  const query = `
+  INSERT INTO games (start_time, golf_course_id, user_id)
+  VALUES ($1, $2, $3)
+  RETURNING *
+  ;
+  `
+
+  return pool.query(query, values)
+    .then(res => res.rows)
+};
+exports.newGame = newGame;

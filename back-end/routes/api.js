@@ -1,9 +1,54 @@
 const express = require('express');
 const router = express.Router();
 
-module.exports = ({ createUser, getUserByEmail, getCourses, getSearchResults, createNewCourse, createNewHoles, logShots }) => {
+module.exports = ({ 
+  createUser, 
+  getUserByEmail, 
+  getCourses, 
+  getSearchResults, 
+  createNewCourse, 
+  createNewHoles, 
+  logShots, 
+  logScore,
+  getHoles,
+  getHoleScores,
+  getShots,
+  getGames,
+  getWeathers,
+  newGame
+ }) => {
   router.get('/courses', function (req, res, next) {
     getCourses()
+      .then(data => res.send([data]))
+      ;
+  });
+
+  router.get('/holes', function (req, res, next) {
+    getHoles()
+      .then(data => res.send([data]))
+      ;
+  });
+
+  router.get('/holescores', function (req, res, next) {
+    getHoleScores()
+      .then(data => res.send([data]))
+      ;
+  });
+
+  router.get('/shots', function (req, res, next) {
+    getShots()
+      .then(data => res.send([data]))
+      ;
+  });
+
+  router.get('/games', function (req, res, next) {
+    getGames()
+      .then(data => res.send([data]))
+      ;
+  });
+
+  router.get('/weathers', function (req, res, next) {
+    getWeathers()
       .then(data => res.send([data]))
       ;
   });
@@ -51,22 +96,22 @@ module.exports = ({ createUser, getUserByEmail, getCourses, getSearchResults, cr
   });
 
   router.post('/courses/:id/holes/new', function (req, res, next) {
-    console.log(req.body);
     createNewHoles(req.body)
       .then(data => res.send(data));
   });
 
   router.post('/shot', function (req, res, next) {
-    console.log('shots:', req.body);
-
     logShots(req.body)
     .then(data => res.send(data))
   });
 
   router.post('/hole', function (req, res, next) {
-    console.log('hole_scores:',req.body);
-
     logScore(req.body)
+    .then(data => res.send(data))
+  });
+
+  router.post('/newgame', function (req, res, next) {
+    newGame(req.body)
     .then(data => res.send(data))
   });
 

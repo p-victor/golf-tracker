@@ -38,8 +38,8 @@ CREATE TABLE "hole_scores" (
   "id" SERIAL PRIMARY KEY,
   "score" int,
   "weather_id" int,
-  "start_time" int,
-  "end_time" int,
+  "start_time" bigint,
+  "end_time" bigint,
   "user_id" int,
   "game_id" int,
   "hole_id" int
@@ -63,9 +63,10 @@ CREATE TABLE "weathers" (
 
 CREATE TABLE "games" (
   "id" SERIAL PRIMARY KEY,
-  "start_time" int,
-  "end_time" int,
-  "golf_course_id" int
+  "start_time" bigint,
+  "end_time" bigint DEFAULT NULL,
+  "golf_course_id" int,
+  "user_id" int
 );
 
 ALTER TABLE "holes" ADD FOREIGN KEY ("golf_course_id") REFERENCES "golf_courses" ("id");
