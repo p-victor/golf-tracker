@@ -23,12 +23,12 @@ export default function useApp(props) {
     ]).then(all => {
       setState(prev => ({
         ...prev, 
-        holes: all[1]["data"],
-        holeScores: all[2]["data"],
-        shots: all[3]["data"],
-        games: all[4]["data"],
-        golfCourses: all[5]["data"],
-        weathers: all[6]["data"],
+        holes: all[0]["data"],
+        holeScores: all[1]["data"],
+        shots: all[2]["data"],
+        games: all[3]["data"],
+        golfCourses: all[4]["data"],
+        weathers: all[5]["data"],
       }))
     });
   },[]);

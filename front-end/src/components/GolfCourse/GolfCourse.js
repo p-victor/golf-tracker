@@ -17,7 +17,7 @@ export default function GolfCourse(props) {
         <div>phone: <a href={phone_number}>{phone_number}</a></div>
         <div>website:  <a href={website_url}>{website_url}</a></div>
       </div>
-      <button className="button" onClick={() => history.push('/play')} >Play</button>
+      <button className="button" onClick={() => history.push('/play', {golfCourseId: id})} >Play</button>
     </div>
   );
 }

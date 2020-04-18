@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 
-import SignUp from "./components/SignUp/SignUp";
-import SignIn from "./components/SignIn/SignIn";
+// import SignUp from "./components/SignUp/SignUp";
+// import SignIn from "./components/SignIn/SignIn";
 import Search from "./components/Search/Search";
 import Navbar from "./components/Navbar/Navbar";
 import RegisterGolfCourseInfo from './components/RegisterGolfCourseInfo/RegisterGolfCourseInfo';
@@ -32,16 +32,16 @@ function App() {
         <Router key={0}>
           <Switch>
             <Route exact path="/">
-              <Search />
+              <Search state={state} />
             </Route>
-            <Route exact path="/signup">
+            {/* <Route exact path="/signup">
               <SignUp />
             </Route>
             <Route exact path="/signin">
               <SignIn />
-            </Route>
+            </Route> */}
             <Route exact path="/play">
-              <Play handleClub={handleClub} handleComment={handleComment} scoreNShot={scoreNShot} setScoreNShot={setScoreNShot} onSave={save} />
+              <Play state={state.holes[0]} handleClub={handleClub} handleComment={handleComment} scoreNShot={scoreNShot} setScoreNShot={setScoreNShot} onSave={save} />
             </Route>
             <Route exact path="/create" render={() => (
               <RegisterGolfCourseInfo postal={postal} />

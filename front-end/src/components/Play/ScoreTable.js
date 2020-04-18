@@ -12,7 +12,7 @@ export default function ScoreTable(props) {
       } else if (i > 10 && i < 20) {                         //to identify the cell uniquely. The same for the rest, yard & par & score
         totalHoles.push(<th onClick={() => {setHoleEdit([i - 1, "d-block"])}} key={i - 1}>{i - 1}</th>);
       } else {
-        totalHoles.push(<th onClick={() => setHoleEdit([i, "d-block"])} key={i}>{i}</th>);
+        totalHoles.push(<th onClick={() => {setHoleEdit([i, "d-block"])}} key={i}>{i}</th>);
       }
     }
     if (number.length > 9) {
@@ -100,7 +100,7 @@ export default function ScoreTable(props) {
 
   return(
     <section>
-        <table className="table table-striped table-bordered d-none d-lg-table-cell">
+        <table className="table table-striped table-bordered d-none d-lg-table-cell" style={{color:"white"}}>
           <thead>
             <tr>
               <th>Hole</th>

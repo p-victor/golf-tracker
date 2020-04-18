@@ -1,37 +1,57 @@
 import React, { useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import ScoreTable from "./ScoreTable";
 import Edit from "./Edit";
 
 export default function Play(props) {
-  const { handleClub, handleComment, onSave, scoreNShot, setScoreNShot } = props
+  const { handleClub, handleComment, onSave, scoreNShot, setScoreNShot, state } = props
   const [error, setError] = useState("");
-  const [shot, setShot] = useState(1);
-  const [starting, setStarting] = useState(true);
+  const [shot, setShot] = useState([1]);
+  const [starting, setStarting] = useState([true, "d-block"]);
   const [holeEdit, setHoleEdit] = useState([1, "d-none"]);
-
+  const location = useLocation();
+  
   let history = useHistory();
+
+  
+  const par = [];
+  const number = [];
+  const yard = [];
+
+  state.map(ele => {
+    if (ele.golf_course_id === location.state.golfCourseId) {
+      par.push(ele.par);
+      number.push(ele.number);
+      yard.push(ele.yard);
+    }
+  });
+
+  if (par.length === 9) {
+    starting[1] = "d-none"
+  }
+
+
 
   function holeNumber() {
 
-    if (scoreNShot.score.length === 0 && starting) {             //start on hole 1
+    if (scoreNShot.score.length === 0 && starting[0]) {             //start on hole 1
       return 1;   
-    } else if (scoreNShot.score.length === 18 && starting) {     //finish a game, started on 1st hole
+    } else if (scoreNShot.score.length === 18 && starting[0]) {     //finish a game, started on 1st hole
       return 18;
-    } else if (starting) {
+    } else if (starting[0]) {
       return scoreNShot.score.length + 1;
     };
 
-    if (scoreNShot.score.length === 0 && !starting) {          //start on 10th hole
+    if (scoreNShot.score.length === 0 && !starting[0]) {          //start on 10th hole
       return 10;
-    } else if (scoreNShot.score.length === 18 && !starting) {  //finish a game, started on 10th hole
+    } else if (scoreNShot.score.length === 18 && !starting[0]) {  //finish a game, started on 10th hole
       return 9                                            //so 9th hole is the last one
-    } else if (!starting && scoreNShot.score.length < 9) {
+    } else if (!starting[0] && scoreNShot.score.length < 9) {
       return scoreNShot.score.length + 10;                     //start on 10th, playing on 11th => score.length = 1, hole number = 11
-    } else if (!starting && scoreNShot.score.length > 9) {
+    } else if (!starting[0] && scoreNShot.score.length > 9) {
       return scoreNShot.score.length - 8
-    } else if (!starting && scoreNShot.score.length === 9) {
+    } else if (!starting[0] && scoreNShot.score.length === 9) {
       return 1
     }
   };
@@ -40,14 +60,14 @@ export default function Play(props) {
     if (scoreNShot.score.length === 18) {
       return alert("You've finished the game!");
     }
-    if (!scoreNShot[`hole${holeNumber()}`][shot - 1][0]) {    //  scoreNShot = { score:[], hole1, hole2, ..., hole18:[[driver, good],[wood, perfect],...,[putter, wonderful]]
+    if (!scoreNShot[`hole${holeNumber()}`][shot[0] - 1][0]) {    //  scoreNShot = { score:[], hole1, hole2, ..., hole18:[[driver, good],[wood, perfect],...,[putter, wonderful]]
       setError("Please select your club");
       return;
     }
     scoreNShot[`hole${holeNumber()}`].push([]);               // create an array of an array for the next hole.
                                                                             
-    if (scoreNShot[`hole${holeNumber()}`][shot - 1][0]) {    
-      setShot(prev => prev + 1);                                  
+    if (scoreNShot[`hole${holeNumber()}`][shot[0] - 1][0]) {    
+      setShot(prev => [prev[0] + 1]);                                  
       setError("");
     }
     document.getElementsByClassName("selectpicker")[0].value = "";  //reset club selector
@@ -55,7 +75,7 @@ export default function Play(props) {
   };
 
   function validateHole() {
-    if (scoreNShot.score.length === 18) {
+    if (scoreNShot.score.length === par.length) {
       alert("You've finished the game!");
       onSave(scoreNShot);
       history.push("/mypage");
@@ -63,18 +83,18 @@ export default function Play(props) {
     }
     scoreNShot[`hole${holeNumber() + 1}`] = [[]];
 
-    if (!starting && scoreNShot.score.length > 8 ) {
+    if (!starting[0] && scoreNShot.score.length > 8 ) {
       let scoreArr = [...scoreNShot.score];
-      scoreArr.splice( holeNumber() - 1, 0, shot - 1);      //10th hole start, when playing 1st hole, the score of the 1st hole will be prepended.
+      scoreArr.splice( holeNumber() - 1, 0, shot[0] - 1);      //10th hole start, when playing 1st hole, the score of the 1st hole will be prepended.
       setScoreNShot(prev => ({ ...prev, score: scoreArr}));
-    } else if (!starting && scoreNShot.score.length < 9) {
-      scoreNShot.score.push(shot - 1);
+    } else if (!starting[0] && scoreNShot.score.length < 9) {
+      scoreNShot.score.push(shot[0] - 1);
       setScoreNShot(prev => ({...prev}));
     } else {
-      scoreNShot.score.push(shot - 1);
+      scoreNShot.score.push(shot[0] - 1);
       setScoreNShot(prev => ({...prev}));
     }
-    setShot(1);
+    setShot([1]);
     setError("");
 
     return;
@@ -97,15 +117,15 @@ export default function Play(props) {
   return(
     <>
       <main>
-        <ScoreTable setHoleEdit={setHoleEdit} setScoreNShot={setScoreNShot} score={scoreNShot.score} starting={starting} number={[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]} par={[3,4,5,3,5,4,4,3,4,5,4,4,5,3,4,3,4,4]} yard={[165,340,540,200,500,360,430,170,460,550,420,380,600,150,360,190,330,430]}/>
-        <div>
-            <button className="btn btn-primary" onClick={() => setStarting(true)}>Hole 1</button>
-            <button className="btn btn-primary" onClick={() => setStarting(false)}>Hole 10</button>
+        <ScoreTable setHoleEdit={setHoleEdit} setScoreNShot={setScoreNShot} score={scoreNShot.score} starting={starting[0]} number={number} par={par} yard={yard}/>
+        <div className={starting[1]}>
+            <button className={"btn btn-primary"} onClick={() => setStarting([true, "d-block"])}>Hole 1</button>
+            <button className="btn btn-primary" onClick={() => setStarting([false, "d-block"])}>Hole 10</button>
           </div>
-        <h3>Hole {holeNumber()}</h3>
-        <h5>Shot {shot}</h5>
+        <h3 style={{color:"white"}}>Hole {holeNumber()}</h3>
+        <h5 style={{color:"white"}}>Shot {shot[0]}</h5>
         <form>
-          <select className="selectpicker" onChange={e => handleClub(e, holeNumber(), shot)} defaultValue="">
+          <select className="selectpicker" onChange={e => handleClub(e, holeNumber(), shot[0])} defaultValue="">
             <option data-hidden="true" value="">Club Selection</option>
             <option value="Driver">Driver</option>
             <option value="Wood 3">Wood 3</option>
@@ -124,13 +144,13 @@ export default function Play(props) {
             <option value="A">A</option>
             <option value="Putter">Putter</option>
           </select>
-          <label>
+          <label style={{color:"white"}}>
             Comment:
           </label>        
             <input
               name="comment"
               defaultValue=""
-              onBlur={e => handleComment(e, holeNumber(), shot)}
+              onBlur={e => handleComment(e, holeNumber(), shot[0])}
               placeholder="Shot description"
               type="text"
             />
@@ -141,10 +161,10 @@ export default function Play(props) {
           <button className="btn btn-primary stredtched-link" onClick={validateHole}>{finishGameButton()}</button>
         </div>
         <button onClick={quit} className="btn btn-primary stredtched-link">Quit This Game</button>
+        <div className={holeEdit[1]} style={{color:"white"}}>
+          <Edit holeEdit={holeEdit} scoreNShot={scoreNShot} error={error} setScoreNShot={setScoreNShot} setShot={shot} holeNumber={holeNumber()}/>
+        </div>
       </main>
-      <footer className={holeEdit[1]}>
-        <Edit holeEdit={holeEdit} scoreNShot={scoreNShot} handleClub={handleClub} handleComment={handleComment} error={error} setScoreNShot={setScoreNShot} />
-      </footer>
     </>
   )
 }
