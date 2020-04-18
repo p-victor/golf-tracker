@@ -24,13 +24,8 @@ function App() {
   // golf_courses: name, postal_code, wesite_url, phone_number
 
   const { postal } = usePostal();
-<<<<<<< HEAD
-  const { score, setScore, state, setState, handleClub, handleComment, save, move } = useShot();
-
-=======
   const { state, setState, handleClub, handleComment, save } = useShot();
-  
->>>>>>> f70af4ad3bff42b3abb9c22b0927ca19b5fdf571
+
   return (
     <>
       <main>
@@ -38,7 +33,6 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Search />
-<<<<<<< HEAD
             </Route>
             <Route exact path="/signup">
               <SignUp />
@@ -47,50 +41,22 @@ function App() {
               <SignIn />
             </Route>
             <Route exact path="/play">
-              <Play handleClub={handleClub} handleComment={handleComment} score={score} state={state} setState={setState} onSave={save} onMove={move} />
+              <Play handleClub={handleClub} handleComment={handleComment} state={state} setState={setState} onSave={save} />
             </Route>
             <Route exact path="/create" render={() => (
               <RegisterGolfCourseInfo postal={postal} />
             )} />
-            <Route exact path="/holeinfo">
+            <Route exact path="/gps">
+              <Gps />
+            </Route>
+            <Route exact path="/mypage">
+              <MyPage />
             </Route>
           </Switch>
         </Router>
       </main>
       <Navbar key={1} />
     </>
-=======
-            </header>
-          </Route>
-          <Route exact path="/play">
-            <header className="Play-header">
-              <Play handleClub={handleClub} handleComment={handleComment} state={state} setState={setState} onSave={save} />
-            </header>
-          </Route>
-          <Route exact path="/create" render={() => (
-            <header className="GolfCourse-header">
-              <RegisterGolfCourseInfo postal={postal}/>
-            </header>
-          )}/>
-          <Route exact path="/holeinfo">
-            <header className="HoleInfo-header">
-              <RegisterGolfHoleInfo />
-            </header>
-          </Route>
-          <Route exact path="/gps">
-            <header >
-              <Gps />
-            </header>
-          </Route>
-          <Route exact path="/mypage">
-            <header >
-              <MyPage />
-            </header>
-          </Route>
-        </Switch>
-      </div>
-    </Router>
->>>>>>> f70af4ad3bff42b3abb9c22b0927ca19b5fdf571
   );
 };
 

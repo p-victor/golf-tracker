@@ -4,18 +4,18 @@ weather.setLang('en');
 
 
 export default function Gps(props) {
-  const [ weatherInfo, setWeatherInfo ] = useState({})
+  const [weatherInfo, setWeatherInfo] = useState({})
 
   weather.setAPPID("3d996283c23eab08f82473aac739fe26");
 
   navigator.geolocation.watchPosition(res => {
     weather.setCoordinate(res.coords.latitude, res.coords.longitude);
-    weather.getAllWeather(function(err, JSONObj){setWeatherInfo(JSONObj)});
+    weather.getAllWeather(function (err, JSONObj) { setWeatherInfo(JSONObj) });
   })
 
-  
 
-    console.log(weatherInfo)
+
+  console.log(weatherInfo)
 
 
 
