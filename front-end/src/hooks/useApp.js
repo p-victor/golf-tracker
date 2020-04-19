@@ -9,7 +9,8 @@ export default function useApp(props) {
     shots: [],
     games: [],
     golfCourses: [],
-    weathers: []
+    weathers: [],
+    trigger: [0]
   });
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function useApp(props) {
         weathers: all[5]["data"],
       }))
     });
-  },[]);
+  },[state.trigger]);
 
   return { state, setState }
 }

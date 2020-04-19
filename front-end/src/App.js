@@ -15,7 +15,7 @@ import useGame from './hooks/useGame';
 import useApp from './hooks/useApp';
 
 function App() {
-  const { state } = useApp();
+  const { state, setState } = useApp();
   const { postal } = usePostal();
   const { scoreNShot, setScoreNShot, handleClub, handleComment, save, deleteGame } = useGame();
 
@@ -44,7 +44,7 @@ function App() {
               />
             </Route>
             <Route exact path="/create" render={() => (
-              <RegisterGolfCourseInfo postal={postal} />
+              <RegisterGolfCourseInfo postal={postal} trigger={state.trigger} setTrigger={setState}/>
             )} />
             <Route exact path="/gps">
               <Gps />
