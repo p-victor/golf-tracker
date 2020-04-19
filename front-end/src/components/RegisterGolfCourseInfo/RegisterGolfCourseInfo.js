@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 import "./RegisterGolfCourseInfo.css";
 import HoleInfo from "../RegisterGolfCourseInfo/HoleInfo";
 import axios from "axios";
@@ -80,6 +80,10 @@ export default function RegisterGolfCourseInfo(props) {
     }
   }
 
+  const withRouter = (() => {
+    return history.goBack();
+  })
+
   return (
     <>
       <section className="form-container">
@@ -135,6 +139,7 @@ export default function RegisterGolfCourseInfo(props) {
           </ul>
           <div className="button-group">
             <button onClick={() => validateHoles()}>Register</button>
+            <button onClick={withRouter}>Back</button>
           </div>
         </div>
       </section>
