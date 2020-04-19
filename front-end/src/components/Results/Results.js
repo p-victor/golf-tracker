@@ -5,7 +5,7 @@ import "./Results.css";
 import GolfCourse from "../GolfCourse/GolfCourse";
 
 export default function Results(props) {
-  const { results, userId, isLoggedIn, email } = props;
+  const { results, userId, email } = props;
   let history = useHistory();
 
   return (
@@ -15,10 +15,10 @@ export default function Results(props) {
         !results.length ?
           <div className="create">
             <p>No match found...</p>
-            <button onClick={() => history.push('/create', {userId, email} )} style={{ width: "100%" }}>Create</button>
+            <button onClick={() => history.push('/create')} style={{ width: "100%" }}>Create</button>
           </div>
           :
-          results.map((golfcourse, index) => (<GolfCourse key={index} id={golfcourse.id} userId={userId} isLoggedIn={isLoggedIn} email={email} {...golfcourse} />))
+          results.map((golfcourse, index) => (<GolfCourse key={index} id={golfcourse.id} userId={userId} email={email} {...golfcourse} />))
       }
     </>
   );

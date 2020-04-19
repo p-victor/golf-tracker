@@ -1,9 +1,9 @@
 import React from "react";
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 export default function MyPage(props) {
-  const location = useLocation();
+  const { userId, email } = props;
   let history = useHistory();
 
   
@@ -11,7 +11,7 @@ export default function MyPage(props) {
   return (
     <div className={{golfCourse: true, card: true}} >
       <div className="card-body">
-        <button onClick={() => history.push("/", {userId: location.state.userId, email: location.state.email})} />
+        <button onClick={() => history.push("/")} />
       </div>
     </div>
   );

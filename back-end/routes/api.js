@@ -81,13 +81,14 @@ module.exports = ({
         if (user.length) {
           if (user[0].email === req.body.email) {
             req.session.user_id = user[0].id
-            res.send(user[0])
+            req.session.email = user[0].email
+            res.send(req.session)
+            return;
           }
         }
         console.log("signin failed!")
       })
   });
-
 
   router.get('/logout', function (req, res, next) {
     req.session = null;

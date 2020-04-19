@@ -28,10 +28,10 @@ function App() {
               <Search state={state} />
             </Route>
             <Route exact path="/signup">
-              <SignUp />
+              <SignUp userInfo={state.userInfo} setUserInfo={setState}/>
             </Route>
             <Route exact path="/signin">
-              <SignIn />
+              <SignIn userInfo={state.userInfo} setUserInfo={setState}/>
             </Route>
             <Route exact path="/play">
               <Play state={state.holes.length && state.holes[0]} 
@@ -40,20 +40,17 @@ function App() {
                     scoreNShot={scoreNShot} 
                     setScoreNShot={setScoreNShot} 
                     onSave={save}
-                    deleteGame={deleteGame} /*USER ID*/
+                    deleteGame={deleteGame}
               />
             </Route>
             <Route exact path="/create" render={() => (
-              <RegisterGolfCourseInfo postal={postal} trigger={state.trigger} setTrigger={setState}/>
+              <RegisterGolfCourseInfo postal={postal} trigger={state.trigger} setTrigger={setState} userId={state.userInfo.id} email={state.userInfo.email} />
             )} />
-            <Route exact path="/gps">
-              <Gps />
-            </Route>
             <Route exact path="/mypage">
-              <MyPage />
+              <MyPage userId={state.userInfo.id} email={state.userInfo.email}/>
             </Route>
           </Switch>
-          <Navbar />
+          <Navbar currentTab={state.currentTab} setState={setState} userId={state.userInfo.id} email={state.userInfo.email}/>
         </Router>
       </main>
     </>

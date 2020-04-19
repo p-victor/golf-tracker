@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import axios from "axios";
 
 
@@ -10,8 +11,12 @@ export default function useApp(props) {
     games: [],
     golfCourses: [],
     weathers: [],
-    trigger: [0]
+    userInfo:[],
+    trigger: [0],
+    currentTab: ["search"]
   });
+
+
 
   useEffect(() => {
     Promise.all([
@@ -29,10 +34,12 @@ export default function useApp(props) {
         shots: all[2]["data"],
         games: all[3]["data"],
         golfCourses: all[4]["data"],
-        weathers: all[5]["data"],
+        weathers: all[5]["data"]
       }))
+      console.log("userinfo",state.userInfo)
     });
   },[state.trigger]);
+
 
   return { state, setState }
 }

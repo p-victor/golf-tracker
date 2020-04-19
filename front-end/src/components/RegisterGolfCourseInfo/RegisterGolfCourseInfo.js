@@ -5,7 +5,7 @@ import HoleInfo from "../RegisterGolfCourseInfo/HoleInfo";
 import axios from "axios";
 
 export default function RegisterGolfCourseInfo(props) {
-  const { trigger, setTrigger } = props
+  const { trigger, setTrigger, userId, email } = props
   const [state, setState] = useState({ courseName: "", postalCode: "", phoneNumber: "", website: "", error: "", holeCount: 18 })
 
   let history = useHistory();
