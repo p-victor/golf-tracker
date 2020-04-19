@@ -42,8 +42,8 @@ export default function useGame(props) {
     }
 
     axios.put(`/api/game/${gameId}`, { end_time: gameEndTime, id: gameId })
-    .then(data => console.log(data));
-
+    .then(data => console.log(data))
+    .then(setScoreNShot({ score:[], hole1:[[]], gameId: []}))
   };
 
 

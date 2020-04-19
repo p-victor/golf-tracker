@@ -5,7 +5,7 @@ import ScoreTable from "./ScoreTable";
 import Edit from "./Edit";
 
 export default function Play(props) {
-  const { handleClub, handleComment, onSave, scoreNShot, setScoreNShot, state, deleteGame, userId, email } = props
+  const { handleClub, handleComment, onSave, scoreNShot, setScoreNShot, state, deleteGame, userId, trigger, setTrigger } = props
   const [error, setError] = useState("");
   const [shot, setShot] = useState([1]);
   const [starting, setStarting] = useState([true, "d-block"]);
@@ -90,8 +90,10 @@ export default function Play(props) {
   function validateHole() {
     if (scoreNShot.score.length === par.length) {
       alert("You've finished the game!");
-      if (userId) {
+
+      if (!isNaN(userId)) {
         onSave(scoreNShot, userId, Date.now(), location.state.gameId, location.state.golfCourseId, holeId);
+        setTrigger(prev => ({...prev, trigger: [trigger[0]++]}));
         history.push("/mypage");
       } else {
         alert("To save and track your record, please sign in!")
@@ -136,6 +138,7 @@ export default function Play(props) {
   function quit() {
     if (window.confirm("Going back to the main page? Your progress will be lost")) {
         deleteGame(location.state.gameId);
+        history.push("/")
       }
     return;
   };

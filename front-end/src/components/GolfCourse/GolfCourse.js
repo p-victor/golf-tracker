@@ -15,7 +15,7 @@ export default function GolfCourse(props) {
       .then(data => {
         let gameId = data.data[0]["id"];
         return gameId
-      }).then(gameId => history.push('/play', {golfCourseId: id, gameId: gameId, userId, email}))
+      }).then(gameId => history.push('/play', {golfCourseId: id, gameId: gameId}))
     } else {
       history.push('/play', {golfCourseId: id})
     }

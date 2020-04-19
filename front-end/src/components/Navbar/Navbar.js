@@ -71,7 +71,6 @@ export default function Navbar(props) {
       history.push("/signin");
     }
   };
-  console.log("ui", userId, email)
 
   function signUp() {
     if (!userId) {

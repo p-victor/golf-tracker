@@ -41,6 +41,10 @@ function App() {
                     setScoreNShot={setScoreNShot} 
                     onSave={save}
                     deleteGame={deleteGame}
+                    userId={state.userInfo.id}
+                    email={state.userInfo.email}
+                    trigger={state.trigger} 
+                    setTrigger={setState} 
               />
             </Route>
             <Route exact path="/create" render={() => (
