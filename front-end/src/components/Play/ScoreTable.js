@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function ScoreTable(props) {
-  const { golf_course_id, number, par, yard, difficulty, score, starting, setHoleEdit, scoreNShot } = props; //can the difficulty be an avg of the hole?
+  const { number, par, yard, setHoleEdit, scoreNShot } = props; //can the difficulty be an avg of the hole?
 
   function holes() {
     let totalHoles = [];                                     

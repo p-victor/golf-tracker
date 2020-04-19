@@ -15,7 +15,7 @@ import useGame from './hooks/useGame';
 import useApp from './hooks/useApp';
 
 function App() {
-  const { state, setState } = useApp();
+  const { state } = useApp();
   const { postal } = usePostal();
   const { scoreNShot, setScoreNShot, handleClub, handleComment, save } = useGame();
   

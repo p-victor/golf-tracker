@@ -24,8 +24,6 @@ export default function useGame(props) {
       .then(data => console.log(data));
     }
 
-
-
     for (let j = 1; j < scoreNShot.score.length; j++) {
       for (let k = 0; k < 14; k++) {
         if (scoreNShot[`hole${j}`][k] !== undefined && scoreNShot[`hole${j}`][k][0] !== undefined) {
