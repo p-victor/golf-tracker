@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import axios from "axios";
 import classNames from "classnames";
 import "./Navbar.css"
 
@@ -11,12 +12,6 @@ export default function Navbar(props) {
   useEffect(() => {
     
     switch(currentTab) {
-      case "search":
-        history.push("/");
-      break;
-      case "search":
-        history.push("/");
-      break;
       case "search":
         history.push("/");
       break;
@@ -43,7 +38,7 @@ export default function Navbar(props) {
   // };
 
   function mypage() {
-    if (location.state) {
+    if (userId) {
       setState(prev => ({...prev, currentTab: "mypage"}));
     } else {
       alert("Please log in first!")
@@ -76,7 +71,10 @@ export default function Navbar(props) {
     if (!userId) {
       history.push("/signup");
     } else {
-      history.push("/");
+    axios
+      .get(`/api/logout`)
+      .then(() => setState(prev => ({...prev, userInfo:{}})))
+      .then(() => history.push('/'))
     }
   };
 

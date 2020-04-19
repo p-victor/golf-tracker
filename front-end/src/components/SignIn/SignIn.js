@@ -5,17 +5,17 @@ import { useHistory } from "react-router-dom";
 import "./SignIn.css";
 
 export default function SignIn(props) {
-  const { userInfo, setUserInfo } = props;
+  const { userInfo, setApp, currentTab } = props;
   const [state, setState] = useState({ email: "", password: "" })
   let history = useHistory();
 
   function setEmail(e) {
     const email = e.target.value;
-    setState(prev => ({ ...prev, email }))
+    setState(prev => ({ ...prev, email }));
   };
   function setPassword(e) {
     const password = e.target.value;
-    setState(prev => ({ ...prev, password }))
+    setState(prev => ({ ...prev, password }));
   };
 
   const login = () => {
@@ -24,10 +24,10 @@ export default function SignIn(props) {
       .then(data => {console.log(data.data)
         userInfo.id = data.data["user_id"];
         userInfo.email = data.data["email"];
-        setUserInfo(prev => ({...prev}));
-      })
-      .then(history.push('/'))
-  }
+        setApp(prev => ({...prev, currentTab: "search"}));
+        history.push('/');
+      });
+  };
 
   return (
     <section className="search-bar">

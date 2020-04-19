@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import "./SignUp.css";
 
 export default function SignUp(props) {
-
+  const { userInfo, setApp, currentTab } = props;
   const [state, setState] = useState({ email: "", password: "" })
   let history = useHistory();
 
@@ -29,8 +29,12 @@ export default function SignUp(props) {
   const register = () => {
     axios
       .post(`/api/signup`, state)
-      .then(data => data.data["id"])
-      .then(userId => history.push('/', {email: state.email, userId}))
+      .then(data => {console.log(data);
+        userInfo.id = data.data["user_id"];
+        userInfo.email = data.data["email"];
+        setApp(prev => ({...prev, currentTab: "search"}));
+        history.push('/');
+      })
   }
 
   return (

@@ -28,10 +28,10 @@ function App() {
               <Search state={state} />
             </Route>
             <Route exact path="/signup">
-              <SignUp userInfo={state.userInfo} setUserInfo={setState}/>
+              <SignUp userInfo={state.userInfo} setApp={setState} currentTab={state.currentTab} />
             </Route>
             <Route exact path="/signin">
-              <SignIn userInfo={state.userInfo} setUserInfo={setState}/>
+              <SignIn userInfo={state.userInfo} setApp={setState} currentTab={state.currentTab} />
             </Route>
             <Route exact path="/play">
               <Play state={state.holes.length && state.holes[0]} 
@@ -51,7 +51,7 @@ function App() {
               <RegisterGolfCourseInfo postal={postal} trigger={state.trigger} setTrigger={setState} userId={state.userInfo.id} email={state.userInfo.email} />
             )} />
             <Route exact path="/mypage">
-              <MyPage userId={state.userInfo.id} email={state.userInfo.email}/>
+              <MyPage userId={state.userInfo.id} email={state.userInfo.email} currentTab={state.currentTab} setState={setState} />
             </Route>
           </Switch>
           <Navbar currentTab={state.currentTab} setState={setState} userId={state.userInfo.id} email={state.userInfo.email}/>

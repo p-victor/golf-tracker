@@ -63,15 +63,21 @@ module.exports = ({
   });
 
   router.post('/signup', function (req, res, next) {
+    console.log("req",req.body)
     getUserByEmail(req.body.email)
       .then(user => {
         console.log("HERE")
         if (!user.length) {
           console.log("HERE")
           return createUser(req.body)
-          .then(data => res.send(data[0]))
+          .then(data => {
+            console.log('data0',data[0].id)
+            req.session.user_id = data[0].id;
+            req.session.email = data[0].email;
+            res.send(req.session)})
+        } else {
+          res.send("signup failed!")
         }
-        res.send("signup failed!")
       })
   });
 
@@ -91,7 +97,7 @@ module.exports = ({
   });
 
   router.get('/logout', function (req, res, next) {
-    req.session = null;
+    res.send(req.session = null);
   });
 
   router.post('/courses/new', async function (req, res, next) {
