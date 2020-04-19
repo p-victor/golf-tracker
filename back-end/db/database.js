@@ -273,3 +273,17 @@ const game = function ({ end_time, id }) {
     .then(res => res.rows)
 };
 exports.game = game;
+
+const deleteGame = function (id) {
+
+  const values = [`${id}`]
+
+  const query = `
+  DELETE FROM games 
+  WHERE id = $1
+  `
+
+  return pool.query(query, values)
+    .then(res => res.rows)
+};
+exports.deleteGame = deleteGame;

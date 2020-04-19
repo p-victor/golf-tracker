@@ -17,10 +17,15 @@ export default function useGame(props) {
     setScoreNShot(prev => ({ ...prev}));
   };
 
+  function deleteGame(gameId) {
+    axios.delete(`/api/deletegame/${gameId}`)
+    .then(res => console.log(res))
+  }
+
   function save(scoreNShot, userId, gameEndTime, gameId, courseId, holeId) {
 
     for (let i = 0; i < holeId.length; i++) {
-      axios.post(`/api/hole/`, { score: scoreNShot.score[i], user_id: 3, game_id: gameId, hole_id: holeId[i] })
+      axios.post(`/api/hole/`, { score: scoreNShot.score[i], user_id: userId, game_id: gameId, hole_id: holeId[i] })
       .then(data => console.log(data));
     }
 
@@ -43,5 +48,5 @@ export default function useGame(props) {
 
 
 
-  return { scoreNShot, setScoreNShot, handleClub, handleComment, save };
+  return { scoreNShot, setScoreNShot, handleClub, handleComment, save, deleteGame };
 }

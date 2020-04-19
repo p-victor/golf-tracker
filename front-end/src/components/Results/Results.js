@@ -5,7 +5,7 @@ import "./Results.css";
 import GolfCourse from "../GolfCourse/GolfCourse";
 
 export default function Results(props) {
-  const { results } = props;
+  const { results, userId } = props;
   let history = useHistory();
 
   return (
@@ -18,7 +18,7 @@ export default function Results(props) {
             <button onClick={() => history.push('/create')} style={{ width: "100%" }}>Create</button>
           </div>
           :
-          results.map((golfcourse, index) => (<GolfCourse key={index} id={golfcourse.id} {...golfcourse} />))
+          results.map((golfcourse, index) => (<GolfCourse key={index} id={golfcourse.id} userId={userId} {...golfcourse} />))
       }
     </>
   );

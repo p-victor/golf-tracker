@@ -17,8 +17,8 @@ import useApp from './hooks/useApp';
 function App() {
   const { state } = useApp();
   const { postal } = usePostal();
-  const { scoreNShot, setScoreNShot, handleClub, handleComment, save } = useGame();
-  
+  const { scoreNShot, setScoreNShot, handleClub, handleComment, save, deleteGame } = useGame();
+
   return (
     <>
       <main>
@@ -34,7 +34,14 @@ function App() {
               <SignIn />
             </Route>
             <Route exact path="/play">
-              <Play state={state.holes.length && state.holes[0]} handleClub={handleClub} handleComment={handleComment} scoreNShot={scoreNShot} setScoreNShot={setScoreNShot} onSave={save} /*USER ID*//>
+              <Play state={state.holes.length && state.holes[0]} 
+                    handleClub={handleClub} 
+                    handleComment={handleComment} 
+                    scoreNShot={scoreNShot} 
+                    setScoreNShot={setScoreNShot} 
+                    onSave={save}
+                    deleteGame={deleteGame} /*USER ID*/
+              />
             </Route>
             <Route exact path="/create" render={() => (
               <RegisterGolfCourseInfo postal={postal} />
@@ -48,7 +55,7 @@ function App() {
           </Switch>
         </Router>
       </main>
-      <Navbar key={1} />
+      <Navbar />
     </>
   );
 };

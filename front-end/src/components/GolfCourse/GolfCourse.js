@@ -5,7 +5,7 @@ import classNames from "classnames";
 import "./GolfCourse.css";
 
 export default function GolfCourse(props) {
-  let { name, phone_number, website_url, postal_code, sponsor, id } = props;
+  let { name, phone_number, website_url, postal_code, sponsor, id, userId } = props;
 
   let history = useHistory();
 
@@ -14,7 +14,7 @@ export default function GolfCourse(props) {
     .then(data => {
       let gameId = data.data[0]["id"];
       return gameId
-    }).then(gameId => history.push('/play', {golfCourseId: id, gameId: gameId}))
+    }).then(gameId => history.push('/play', {golfCourseId: id, gameId: gameId, userId}))
   }
 
   return (

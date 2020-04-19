@@ -16,7 +16,8 @@ module.exports = ({
   getGames,
   getWeathers,
   newGame,
-  game
+  game,
+  deleteGame
  }) => {
   router.get('/courses', function (req, res, next) {
     getCourses()
@@ -76,10 +77,11 @@ module.exports = ({
   router.post('/signin', function (req, res, next) {
     getUserByEmail(req.body.email)
       .then(user => {
-        console.log(user)
         if (user.length) {
           if (user[0].email === req.body.email) {
-            return req.session.user_id = user.id
+            console.log('a',req.session)
+            res.send(user)
+            return req.session.user_id = user[0].id
           }
         }
         res.send("signin failed!")
@@ -118,6 +120,11 @@ module.exports = ({
 
   router.put('/game/:id', function (req, res, next) {
     game(req.body)
+    .then(data => res.send(data))
+  });
+
+  router.delete('/deletegame/:id', function (req, res, next) {
+    deleteGame(req.params.id)
     .then(data => res.send(data))
   });
 
