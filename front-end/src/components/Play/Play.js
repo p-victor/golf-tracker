@@ -138,6 +138,7 @@ export default function Play(props) {
   function quit() {
     if (window.confirm("Going back to the main page? Your progress will be lost")) {
         deleteGame(location.state.gameId);
+        setScoreNShot({ score:[], hole1:[[]], gameId: []});
         history.push("/")
       }
     return;
