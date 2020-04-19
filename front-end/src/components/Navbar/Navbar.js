@@ -11,28 +11,28 @@ export default function Navbar(props) {
   function backHome() {
     if (!active[0]) {
       setActive(["active", "", "", ""]);
-      history.push("/", {userId: location.state.userId});
+      history.push("/", {userId: location.state.userId, email: location.state.email});
     }
   };
 
   // function news() {
   //   if (!active[1]) {
   //     setActive(["", "active", "", ""]);
-  //     history.push("/news", {userId: location.state.userId});
+  //     history.push("/news", {userId: location.state.userId, email: location.state.email});
   //   }
   // };
 
   // function contact() {
   // if (!active[1]) {  
   //   setActive(["", "", "active", ""]);
-  //   history.push("/contact", {userId: location.state.userId});
+  //   history.push("/contact", {userId: location.state.userId, email: location.state.email});
   //   }
   // };
 
   function mypage() {
     if (location.state) {
       setActive(["", "", "", "active"]);
-      history.push("/mypage", {userId: location.state.userId});
+      history.push("/mypage", {userId: location.state.userId, email: location.state.email});
     } else {
       alert("Please log in first!")
     }
@@ -40,7 +40,7 @@ export default function Navbar(props) {
 
   function userNameOrLogIn() {
     if (location.state && location.state.userId) {
-      return "Hi " 
+      return `Hi ${location.state.email}!`
     } else {
       return "Log In"
     }

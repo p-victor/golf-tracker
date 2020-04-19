@@ -11,7 +11,7 @@ export default function MyPage(props) {
   return (
     <div className={{golfCourse: true, card: true}} >
       <div className="card-body">
-        <button onClick={() => history.push("/", {userId: location.state.userId})} />
+        <button onClick={() => history.push("/", {userId: location.state.userId, email: location.state.email})} />
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ export default function Search(props) {
 
   function isLoggedIn() {
     if (location.state) {
-      return location.state.userId
+      return location.state
     } else {
       return;
     }
@@ -23,7 +23,7 @@ export default function Search(props) {
   return (
     <div className="search">
       <SearchBar className="search-bar" key="0" search={search.search} onSearch={search => setSearch(prev => ({...prev, search}))} />
-      <Results key="1" results={search.results} state={state} userId={isLoggedIn()} isLoggedIn={isLoggedIn}/>
+      <Results key="1" results={search.results} state={state} userId={isLoggedIn() && isLoggedIn().userId} isLoggedIn={isLoggedIn} email={isLoggedIn() && isLoggedIn().email}/>
     </div>
   );
 }

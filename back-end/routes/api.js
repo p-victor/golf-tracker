@@ -84,7 +84,7 @@ module.exports = ({
             res.send(user[0])
           }
         }
-        res.send("signin failed!")
+        console.log("signin failed!")
       })
   });
 

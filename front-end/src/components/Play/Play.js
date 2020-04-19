@@ -100,7 +100,7 @@ export default function Play(props) {
       alert("You've finished the game!");
       if (isLoggedInUser()) {
         onSave(scoreNShot, location.state.userId, Date.now(), location.state.gameId, location.state.golfCourseId, holeId);
-        history.push("/mypage", {userId: location.state.userId});
+        history.push("/mypage", {userId: location.state.userId, email: location.state.email});
       } else {
         alert("To save and track your record, please sign in!")
       }
@@ -145,7 +145,7 @@ export default function Play(props) {
     if (window.confirm("Going back to the main page? Your progress will be lost")) {
       if (isLoggedInUser()) {
         deleteGame(location.state.gameId);
-        history.push("/", {userId: location.state.userId});
+        history.push("/", {userId: location.state.userId, email: location.state.email});
       } else {
         history.push("/");
       }
