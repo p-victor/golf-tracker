@@ -69,6 +69,7 @@ module.exports = ({
         if (!user.length) {
           console.log("HERE")
           return createUser(req.body)
+          .then(data => res.send(data[0]))
         }
         res.send("signup failed!")
       })
@@ -79,9 +80,8 @@ module.exports = ({
       .then(user => {
         if (user.length) {
           if (user[0].email === req.body.email) {
-            console.log('a',req.session)
-            res.send(user)
-            return req.session.user_id = user[0].id
+            req.session.user_id = user[0].id
+            res.send(user[0])
           }
         }
         res.send("signin failed!")

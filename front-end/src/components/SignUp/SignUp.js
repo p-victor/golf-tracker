@@ -29,7 +29,7 @@ export default function SignUp(props) {
   const register = () => {
     axios
       .post(`/api/signup`, state)
-      .then(data => data.data[0]["id"])
+      .then(data => data.data["id"])
       .then(userId => history.push('/', {email: state.email, userId}))
   }
 

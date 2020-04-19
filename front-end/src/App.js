@@ -53,9 +53,9 @@ function App() {
               <MyPage />
             </Route>
           </Switch>
+          <Navbar />
         </Router>
       </main>
-      <Navbar />
     </>
   );
 };

@@ -5,16 +5,20 @@ import classNames from "classnames";
 import "./GolfCourse.css";
 
 export default function GolfCourse(props) {
-  let { name, phone_number, website_url, postal_code, sponsor, id, userId } = props;
+  let { name, phone_number, website_url, postal_code, sponsor, id, userId, isLoggedIn } = props;
 
   let history = useHistory();
 
   function playGame() {
-    axios.post(`/api/newgame/`, { start_time: Date.now(), golf_course_id: id, user_id: 1 })
-    .then(data => {
-      let gameId = data.data[0]["id"];
-      return gameId
-    }).then(gameId => history.push('/play', {golfCourseId: id, gameId: gameId, userId}))
+    if (isLoggedIn()) {
+      axios.post(`/api/newgame/`, { start_time: Date.now(), golf_course_id: id, user_id: userId })
+      .then(data => {
+        let gameId = data.data[0]["id"];
+        return gameId
+      }).then(gameId => history.push('/play', {golfCourseId: id, gameId: gameId, userId}))
+    } else {
+      history.push('/play', {golfCourseId: id})
+    }
   }
 
   return (

@@ -12,10 +12,18 @@ export default function Search(props) {
   const [search, setSearch] = useSearchBar();
   const location = useLocation();
 
+  function isLoggedIn() {
+    if (location.state) {
+      return location.state.userId
+    } else {
+      return;
+    }
+  };
+
   return (
     <div className="search">
       <SearchBar className="search-bar" key="0" search={search.search} onSearch={search => setSearch(prev => ({...prev, search}))} />
-      <Results key="1" results={search.results} state={state} userId={location.state.userId}/>
+      <Results key="1" results={search.results} state={state} userId={isLoggedIn()} isLoggedIn={isLoggedIn}/>
     </div>
   );
 }

@@ -21,7 +21,7 @@ export default function SignIn(props) {
   const login = () => {
     axios
       .post(`/api/signin`, state)
-      .then(data => data.data[0]["id"])
+      .then(data => data.data["id"])
       .then(userId => history.push('/', {email: state.email, userId}))
   }
 

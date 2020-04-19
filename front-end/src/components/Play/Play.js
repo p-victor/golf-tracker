@@ -35,6 +35,14 @@ export default function Play(props) {
     starting[1] = "d-none"
   }
 
+  function isLoggedInUser() {
+    if (location.state.userId) {
+      return location.state.userId
+    } else {
+      return;
+    }
+  };
+
   function holeNumber() {
 
     if (scoreNShot.score.length === 0 && starting[0]) {             //start on hole 1
@@ -90,8 +98,12 @@ export default function Play(props) {
   function validateHole() {
     if (scoreNShot.score.length === par.length) {
       alert("You've finished the game!");
-      onSave(scoreNShot, location.state.userId, Date.now(), location.state.gameId, location.state.golfCourseId, holeId);
-      history.push("/mypage");
+      if (isLoggedInUser()) {
+        onSave(scoreNShot, location.state.userId, Date.now(), location.state.gameId, location.state.golfCourseId, holeId);
+        history.push("/mypage", {userId: location.state.userId});
+      } else {
+        alert("To save and track your record, please sign in!")
+      }
       return;
     }
     starting[1] = "d-none"
@@ -131,8 +143,12 @@ export default function Play(props) {
 
   function quit() {
     if (window.confirm("Going back to the main page? Your progress will be lost")) {
-      deleteGame(location.state.gameId);
-      history.push("/", {userId: location.state.userId});
+      if (isLoggedInUser()) {
+        deleteGame(location.state.gameId);
+        history.push("/", {userId: location.state.userId});
+      } else {
+        history.push("/");
+      }
     }
   };
 
