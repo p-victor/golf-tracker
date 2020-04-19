@@ -64,7 +64,7 @@ CREATE TABLE "weathers" (
 CREATE TABLE "games" (
   "id" SERIAL PRIMARY KEY,
   "start_time" bigint,
-  "end_time" bigint DEFAULT NULL,
+  "end_time" bigint DEFAULT NULL::bigint,
   "golf_course_id" int,
   "user_id" int
 );

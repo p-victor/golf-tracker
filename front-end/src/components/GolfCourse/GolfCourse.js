@@ -1,19 +1,20 @@
 import React from "react";
+import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import classNames from "classnames";
 import "./GolfCourse.css";
-import useGame from "../../hooks/useGame";
 
 export default function GolfCourse(props) {
-  const { createGame } = useGame();
   let { name, phone_number, website_url, postal_code, sponsor, id } = props;
 
   let history = useHistory();
 
   function playGame() {
-    const teeTime = Date.now()
-    createGame(id, 1, teeTime);  //1 is userId HARDCODED
-    history.push('/play', {golfCourseId: id, teeTime});
+    axios.post(`/api/newgame/`, { start_time: Date.now(), golf_course_id: id, user_id: 1 })
+    .then(data => {
+      let gameId = data.data[0]["id"];
+      return gameId
+    }).then(gameId => history.push('/play', {golfCourseId: id, gameId: gameId}))
   }
 
   return (

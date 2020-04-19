@@ -258,18 +258,17 @@ const newGame = function ({ start_time, golf_course_id, user_id }) {
 };
 exports.newGame = newGame;
 
-const game = function ({ start_time, end_time, user_id }) {
+const game = function ({ end_time, id }) {
 
   const values = [
-    `${start_time}`,
+    `${id}`,
     `${end_time}`,
-    `${user_id}`
   ]
 
   const query = `
-  INSERT INTO games (start_time, end_time, user_id)
-  VALUES ($1, $2, $3)
-  ON CONFLICT (start_time, user_id) DO
+  INSERT INTO games (id, end_time)
+  VALUES ($1, $2)
+  ON CONFLICT (id) DO
   UPDATE SET end_time = $2
   `
 

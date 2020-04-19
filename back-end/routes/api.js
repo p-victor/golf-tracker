@@ -116,7 +116,7 @@ module.exports = ({
     .then(data => res.send(data))
   });
 
-  router.post('/game', function (req, res, next) {
+  router.put('/game/:id', function (req, res, next) {
     game(req.body)
     .then(data => res.send(data))
   });

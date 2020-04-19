@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 export default function useGame(props) {
-  const [ scoreNShot, setScoreNShot ] = useState({ score:[], hole1:[[]]});
+  const [ scoreNShot, setScoreNShot ] = useState({ score:[], hole1:[[]], gameId: []});
 
   function handleClub (e, hole, shot) {
     const  club = e.target.value;
@@ -17,20 +17,14 @@ export default function useGame(props) {
     setScoreNShot(prev => ({ ...prev}));
   };
 
-  function createGame(courseId, userId, startTime) {
-    axios.post(`/api/newgame/`, { start_time: startTime, golf_course_id: courseId, user_id: userId })
-    .then(data => console.log(data));
-  };
-
-  function save(scoreNShot, userId, endTime, startTime) {
+  function save(scoreNShot, userId, endTime, gameId, courseId) {
 
     // for (let i = 0; i < 18; i++) {
     //   axios.post(`/api/hole/`, { score: scoreNShot.score[i], user_id: userId })
     //   .then(data => console.log(data));
     // }
 
-    axios.post(`/api/game/`, { user_id: userId, end_time: endTime, start_time: startTime })
-    .then(data => console.log(data));
+
 
     for (let j = 1; j < scoreNShot.score.length; j++) {
       for (let k = 0; k < 14; k++) {
@@ -43,8 +37,13 @@ export default function useGame(props) {
         }
       }
     }
+
+    return axios.put(`/api/game/${gameId}`, { end_time: endTime, id: gameId })
+    .then(data => console.log(data));
+
   };
 
 
-  return { scoreNShot, setScoreNShot, handleClub, handleComment, save, createGame };
+
+  return { scoreNShot, setScoreNShot, handleClub, handleComment, save };
 }
