@@ -37,7 +37,7 @@ CREATE TABLE "holes" (
 CREATE TABLE "hole_scores" (
   "id" SERIAL PRIMARY KEY,
   "score" int,
-  "weather_id" int,
+  "weather_id" int DEFAULT NULL::int,
   "start_time" bigint,
   "end_time" bigint,
   "user_id" int,

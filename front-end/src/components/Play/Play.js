@@ -13,19 +13,20 @@ export default function Play(props) {
   const location = useLocation();
   
   let history = useHistory();
-
   
   const par = [];
   const number = [];
   const yard = [];
+  const holeId =[];
 
   if (state.length) {
 
     state.map(ele => {
-      if (ele.golf_course_id === location.state.golfCourseId) {         //without if, it crashes. 
+      if (ele.golf_course_id === location.state.golfCourseId) {         //without if, it crashes. and also needed put state.length in app.js.
         par.push(ele.par);
         number.push(ele.number);
         yard.push(ele.yard);
+        holeId.push(ele.id);
       }
     });
   }
@@ -89,7 +90,7 @@ export default function Play(props) {
   function validateHole() {
     if (scoreNShot.score.length === par.length) {
       alert("You've finished the game!");
-      onSave(scoreNShot, 1, Date.now(), location.state.gameId, location.state.golfCourseId);
+      onSave(scoreNShot, 1, Date.now(), location.state.gameId, location.state.golfCourseId, holeId);
       history.push("/mypage");
       return;
     }

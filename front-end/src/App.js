@@ -16,13 +16,6 @@ import useApp from './hooks/useApp';
 
 function App() {
   const { state, setState } = useApp();
-
-  // hole_scores: score, weather_id, start_time, end_time, user_id, game_id, hole_id
-  // games: start_time, end_time, golf_course_id
-  // weaters: temperature, sunny, rainy, foggy, wind_speed
-  // users: first_name, last_name, email, password_hash
-  // golf_courses: name, postal_code, wesite_url, phone_number
-
   const { postal } = usePostal();
   const { scoreNShot, setScoreNShot, handleClub, handleComment, save } = useGame();
   
