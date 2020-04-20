@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import axios from "axios";
 
 
@@ -10,8 +11,13 @@ export default function useApp(props) {
     games: [],
     golfCourses: [],
     weathers: [],
-    userGames: []
+    userGames: [],
+    userInfo: [],
+    trigger: [0],
+    currentTab: ["search"]
   });
+
+
 
   useEffect(() => {
     Promise.all([
@@ -24,7 +30,7 @@ export default function useApp(props) {
       axios.get("/api/games")
     ]).then(all => {
       setState(prev => ({
-        ...prev, 
+        ...prev,
         holes: all[0]["data"],
         holeScores: all[1]["data"],
         shots: all[2]["data"],
@@ -33,8 +39,10 @@ export default function useApp(props) {
         weathers: all[5]["data"],
         userGames: all[6]["data"]
       }))
+      console.log("userinfo", state.userInfo)
     });
-  },[]);
+  }, [state.trigger]);
+
 
   return { state, setState }
 }

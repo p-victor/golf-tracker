@@ -1,7 +1,15 @@
 import React from "react";
-import ScoreTable from "../Play/ScoreTable";
+import { useHistory } from 'react-router-dom';
+
 
 export default function MyPage(props) {
+  const { userId, email, currentTab, setState } = props;
+  let history = useHistory();
+
+  const backHome = () => {
+    setState(prev => ({ ...prev, currentTab: "search" }));
+    history.push("/")
+  }
 
   const displayHoles = () => {
     console.log(props.userGames)
@@ -11,8 +19,9 @@ export default function MyPage(props) {
   return (
     <div>
       <ul>
-    {displayHoles()}
+        {displayHoles()}
       </ul>
+      <button onClick={backHome} />
     </div>
   );
 }

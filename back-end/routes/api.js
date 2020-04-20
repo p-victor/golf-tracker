@@ -17,8 +17,13 @@ module.exports = ({
   getWeathers,
   newGame,
   game,
+<<<<<<< HEAD
   getGamesForUserId
 }) => {
+=======
+  deleteGame
+ }) => {
+>>>>>>> dfb7ba09bf334336f728f691d52020eec8a4902a
   router.get('/courses', function (req, res, next) {
     getCourses()
       .then(data => res.send([data]))
@@ -63,33 +68,41 @@ module.exports = ({
   });
 
   router.post('/signup', function (req, res, next) {
+    console.log("req",req.body)
     getUserByEmail(req.body.email)
       .then(user => {
         console.log("HERE")
         if (!user.length) {
           console.log("HERE")
           return createUser(req.body)
+          .then(data => {
+            console.log('data0',data[0].id)
+            req.session.user_id = data[0].id;
+            req.session.email = data[0].email;
+            res.send(req.session)})
+        } else {
+          res.send("signup failed!")
         }
-        res.send("signup failed!")
       })
   });
 
   router.post('/signin', function (req, res, next) {
     getUserByEmail(req.body.email)
       .then(user => {
-        console.log(user)
         if (user.length) {
           if (user[0].email === req.body.email) {
-            return req.session.user_id = user.id
+            req.session.user_id = user[0].id
+            req.session.email = user[0].email
+            res.send(req.session)
+            return;
           }
         }
-        res.send("signin failed!")
+        console.log("signin failed!")
       })
   });
 
-
   router.get('/logout', function (req, res, next) {
-    req.session = null;
+    res.send(req.session = null);
   });
 
   router.post('/courses/new', async function (req, res, next) {
@@ -117,15 +130,23 @@ module.exports = ({
       .then(data => res.send(data))
   });
 
-  router.post('/game', function (req, res, next) {
+  router.put('/game/:id', function (req, res, next) {
     game(req.body)
       .then(data => res.send(data))
   });
 
+<<<<<<< HEAD
   router.post('/games', function (req, res, next) {
     getGamesForUserId(req.session.user_id)
       .then(data => res.send(data));
   });
+=======
+  router.delete('/deletegame/:id', function (req, res, next) {
+    deleteGame(req.params.id)
+    .then(data => res.send(data))
+  });
+
+>>>>>>> dfb7ba09bf334336f728f691d52020eec8a4902a
 
   return router
 }

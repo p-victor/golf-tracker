@@ -5,7 +5,7 @@ import ScoreTable from "./ScoreTable";
 import Edit from "./Edit";
 
 export default function Play(props) {
-  const { handleClub, handleComment, onSave, scoreNShot, setScoreNShot, state } = props
+  const { handleClub, handleComment, onSave, scoreNShot, setScoreNShot, state, deleteGame, userId, trigger, setTrigger } = props
   const [error, setError] = useState("");
   const [shot, setShot] = useState([1]);
   const [starting, setStarting] = useState([true, "d-block"]);
@@ -13,19 +13,20 @@ export default function Play(props) {
   const location = useLocation();
   
   let history = useHistory();
-
   
   const par = [];
   const number = [];
   const yard = [];
+  const holeId =[];
 
   if (state.length) {
 
     state.map(ele => {
-      if (ele.golf_course_id === location.state.golfCourseId) {         //without if, it crashes. 
+      if (ele.golf_course_id === location.state.golfCourseId) {         //without if, it crashes. and also needed put state.length in app.js.
         par.push(ele.par);
         number.push(ele.number);
         yard.push(ele.yard);
+        holeId.push(ele.id);
       }
     });
   }
@@ -89,8 +90,14 @@ export default function Play(props) {
   function validateHole() {
     if (scoreNShot.score.length === par.length) {
       alert("You've finished the game!");
-      onSave(scoreNShot, 1, Date.now(), location.state.teeTime);
-      history.push("/mypage");
+
+      if (!isNaN(userId)) {
+        onSave(scoreNShot, userId, Date.now(), location.state.gameId, location.state.golfCourseId, holeId);
+        setTrigger(prev => ({...prev, trigger: [trigger[0]++]}));
+        history.push("/mypage");
+      } else {
+        alert("To save and track your record, please sign in!")
+      }
       return;
     }
     starting[1] = "d-none"
@@ -120,7 +127,7 @@ export default function Play(props) {
     return;
   };
 
-  function finishGameButton () {
+  function finishGameButton() {
     if (scoreNShot.score.length === par.length) {
       return "Finished!"
     } else {
@@ -130,8 +137,11 @@ export default function Play(props) {
 
   function quit() {
     if (window.confirm("Going back to the main page? Your progress will be lost")) {
-      history.push("/");
-    }
+        deleteGame(location.state.gameId);
+        setScoreNShot({ score:[], hole1:[[]], gameId: []});
+        history.push("/")
+      }
+    return;
   };
 
   return(

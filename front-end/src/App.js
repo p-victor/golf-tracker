@@ -16,16 +16,9 @@ import useApp from './hooks/useApp';
 
 function App() {
   const { state, setState } = useApp();
-
-  // hole_scores: score, weather_id, start_time, end_time, user_id, game_id, hole_id
-  // games: start_time, end_time, golf_course_id
-  // weaters: temperature, sunny, rainy, foggy, wind_speed
-  // users: first_name, last_name, email, password_hash
-  // golf_courses: name, postal_code, wesite_url, phone_number
-
   const { postal } = usePostal();
-  const { scoreNShot, setScoreNShot, handleClub, handleComment, save } = useGame();
-  
+  const { scoreNShot, setScoreNShot, handleClub, handleComment, save, deleteGame } = useGame();
+
   return (
     <>
       <main>
@@ -35,27 +28,35 @@ function App() {
               <Search state={state} />
             </Route>
             <Route exact path="/signup">
-              <SignUp />
+              <SignUp userInfo={state.userInfo} setApp={setState} currentTab={state.currentTab} />
             </Route>
             <Route exact path="/signin">
-              <SignIn />
+              <SignIn userInfo={state.userInfo} setApp={setState} currentTab={state.currentTab} />
             </Route>
             <Route exact path="/play">
-              <Play state={state.holes.length && state.holes[0]} handleClub={handleClub} handleComment={handleComment} scoreNShot={scoreNShot} setScoreNShot={setScoreNShot} onSave={save} /*USER ID*//>
+              <Play state={state.holes.length && state.holes[0]} 
+                    handleClub={handleClub} 
+                    handleComment={handleComment} 
+                    scoreNShot={scoreNShot} 
+                    setScoreNShot={setScoreNShot} 
+                    onSave={save}
+                    deleteGame={deleteGame}
+                    userId={state.userInfo.id}
+                    email={state.userInfo.email}
+                    trigger={state.trigger} 
+                    setTrigger={setState} 
+              />
             </Route>
             <Route exact path="/create" render={() => (
-              <RegisterGolfCourseInfo postal={postal} />
+              <RegisterGolfCourseInfo postal={postal} trigger={state.trigger} setTrigger={setState} userId={state.userInfo.id} email={state.userInfo.email} />
             )} />
-            <Route exact path="/gps">
-              <Gps />
-            </Route>
             <Route exact path="/mypage">
-              <MyPage userGames={state.userGames}/>
+              <MyPage userGames={state.userGames} userId={state.userInfo.id} email={state.userInfo.email} currentTab={state.currentTab} setState={setState} />
             </Route>
           </Switch>
+          <Navbar currentTab={state.currentTab} setState={setState} userId={state.userInfo.id} email={state.userInfo.email}/>
         </Router>
       </main>
-      <Navbar key={1} />
     </>
   );
 };

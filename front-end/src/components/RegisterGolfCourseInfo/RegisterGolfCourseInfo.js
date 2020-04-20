@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 import "./RegisterGolfCourseInfo.css";
 import HoleInfo from "../RegisterGolfCourseInfo/HoleInfo";
 import axios from "axios";
 
 export default function RegisterGolfCourseInfo(props) {
-
+  const { trigger, setTrigger, userId, email } = props
   const [state, setState] = useState({ courseName: "", postalCode: "", phoneNumber: "", website: "", error: "", holeCount: 18 })
 
   let history = useHistory();
@@ -72,12 +72,17 @@ export default function RegisterGolfCourseInfo(props) {
           }
           axios
             .post(`/api/courses/${courseId}/holes/new`, holes)
+            .then(setTrigger(prev => ({...prev, trigger: [trigger[0]++]})))
             .then(history.push('/'))
         })
     } else {
       alert("Please fill all the blanks")
     }
   }
+
+  const withRouter = (() => {
+    return history.goBack();
+  })
 
   return (
     <>
@@ -134,6 +139,7 @@ export default function RegisterGolfCourseInfo(props) {
           </ul>
           <div className="button-group">
             <button onClick={() => validateHoles()}>Register</button>
+            <button onClick={withRouter}>Back</button>
           </div>
         </div>
       </section>
