@@ -9,7 +9,8 @@ export default function useApp(props) {
     shots: [],
     games: [],
     golfCourses: [],
-    weathers: []
+    weathers: [],
+    userGames: []
   });
 
   useEffect(() => {
@@ -19,7 +20,8 @@ export default function useApp(props) {
       axios.get("/api/shots"),
       axios.get("/api/games"),
       axios.get("/api/courses"),
-      axios.get("/api/weathers")
+      axios.get("/api/weathers"),
+      axios.get("/api/games")
     ]).then(all => {
       setState(prev => ({
         ...prev, 
@@ -29,6 +31,7 @@ export default function useApp(props) {
         games: all[3]["data"],
         golfCourses: all[4]["data"],
         weathers: all[5]["data"],
+        userGames: all[6]["data"]
       }))
     });
   },[]);

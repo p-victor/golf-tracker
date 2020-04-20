@@ -1,12 +1,18 @@
 import React from "react";
+import ScoreTable from "../Play/ScoreTable";
 
 export default function MyPage(props) {
 
-  return (
-    <div className={{golfCourse: true, card: true}} >
-      <div className="card-body">
+  const displayHoles = () => {
+    console.log(props.userGames)
 
-      </div>
+  }
+
+  return (
+    <div>
+      <ul>
+    {displayHoles()}
+      </ul>
     </div>
   );
 }

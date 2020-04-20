@@ -50,7 +50,7 @@ function App() {
               <Gps />
             </Route>
             <Route exact path="/mypage">
-              <MyPage />
+              <MyPage userGames={state.userGames}/>
             </Route>
           </Switch>
         </Router>

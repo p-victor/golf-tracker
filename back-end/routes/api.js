@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-module.exports = ({ 
-  createUser, 
-  getUserByEmail, 
-  getCourses, 
-  getSearchResults, 
-  createNewCourse, 
-  createNewHoles, 
-  logShots, 
+module.exports = ({
+  createUser,
+  getUserByEmail,
+  getCourses,
+  getSearchResults,
+  createNewCourse,
+  createNewHoles,
+  logShots,
   logScore,
   getHoles,
   getHoleScores,
@@ -16,8 +16,9 @@ module.exports = ({
   getGames,
   getWeathers,
   newGame,
-  game
- }) => {
+  game,
+  getGamesForUserId
+}) => {
   router.get('/courses', function (req, res, next) {
     getCourses()
       .then(data => res.send([data]))
@@ -103,24 +104,28 @@ module.exports = ({
 
   router.post('/shot', function (req, res, next) {
     logShots(req.body)
-    .then(data => res.send(data))
+      .then(data => res.send(data))
   });
 
   router.post('/hole', function (req, res, next) {
     logScore(req.body)
-    .then(data => res.send(data))
+      .then(data => res.send(data))
   });
 
   router.post('/newgame', function (req, res, next) {
     newGame(req.body)
-    .then(data => res.send(data))
+      .then(data => res.send(data))
   });
 
   router.post('/game', function (req, res, next) {
     game(req.body)
-    .then(data => res.send(data))
+      .then(data => res.send(data))
   });
 
+  router.post('/games', function (req, res, next) {
+    getGamesForUserId(req.session.user_id)
+      .then(data => res.send(data));
+  });
 
   return router
 }

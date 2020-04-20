@@ -277,3 +277,24 @@ const game = function ({ start_time, end_time, user_id }) {
     .then(res => res.rows)
 };
 exports.game = game;
+
+const getGamesForUserId = function (userId) {
+
+  const values = [
+    `${userId}`,
+  ]
+
+  const query = `
+  SELECT games.start_time as start_time, games.end_time as end_time, golf_courses.name as name, games.golf_course_id as golf_course_id, hole_scores.score as score
+  FROM games
+  JOIN golf_courses
+  ON golf_courses.id = games.golf_course_id
+  JOIN hole_scores
+  ON games.id = holes_scores.game_id
+  WHERE games.user_id = $1
+  `
+
+  return pool.query(query, values)
+    .then(res => res.rows)
+};
+exports.getGamesForUserId = getGamesForUserId;
