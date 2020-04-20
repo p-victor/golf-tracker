@@ -27,7 +27,7 @@ export default function useApp(props) {
       axios.get("/api/games"),
       axios.get("/api/courses"),
       axios.get("/api/weathers"),
-      axios.get("/api/games")
+      axios.get("/api/usergames")
     ]).then(all => {
       setState(prev => ({
         ...prev,

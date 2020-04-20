@@ -278,15 +278,19 @@ const getGamesForUserId = function (userId) {
   const values = [
     `${userId}`,
   ]
+  console.log(values);
+
 
   const query = `
-  SELECT games.start_time as start_time, games.end_time as end_time, golf_courses.name as name, games.golf_course_id as golf_course_id, hole_scores.score as score
+  SELECT games.start_time as start_time, games.end_time as end_time, games.id as game_id, holes.par as par, holes.number as number,holes.yard as yard, golf_courses.name as name, games.golf_course_id as golf_course_id, hole_scores.score as score
   FROM games
   JOIN golf_courses
   ON golf_courses.id = games.golf_course_id
   JOIN hole_scores
-  ON games.id = holes_scores.game_id
-  WHERE games.user_id = $1
+  ON games.id = hole_scores.game_id
+  JOIN holes
+  ON hole_scores.hole_id = holes.id
+  WHERE games.user_id = $1;
   `
 
   return pool.query(query, values)

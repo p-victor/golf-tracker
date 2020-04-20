@@ -1,9 +1,11 @@
 import React from "react";
+import ScoreTable from "../Play/ScoreTable";
+import useGame from "../../hooks/useGame";
 import { useHistory } from 'react-router-dom';
 
 
 export default function MyPage(props) {
-  const { userId, email, currentTab, setState } = props;
+  const { state, userId, email, currentTab, userGames, setState } = props;
   let history = useHistory();
 
   const backHome = () => {
@@ -12,8 +14,55 @@ export default function MyPage(props) {
   }
 
   const displayHoles = () => {
-    console.log(props.userGames)
+    console.log(userGames)
+    let games = {}
+    userGames.forEach(score => {
+      if (!games[score.game_id]) {
+        games[score.game_id] = []
+      }
+      games[score.game_id].push({
+        number: score.number,
+        start_time: score.start_time,
+        end_time: score.end_time,
+        par: score.par,
+        number: score.number,
+        yard: score.yard,
+        name: score.name,
+        score: score.score,
+      });
+    });
 
+    let jsx = []
+
+    for (let gameId in games) {
+      jsx.push(
+        <>
+          {/* <h2>{games[gameId].name}</h2> */}
+          <table>
+            <thead>
+              <tr>
+                <th>Hole</th>
+                {games[gameId].map(holescore => <th>{holescore.number}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Yard</td>
+                {games[gameId].map(holescore => <th>{holescore.yard}</th>)}
+              </tr>
+              <tr>
+                <td>Par</td>
+                {games[gameId].map(holescore => <th>{holescore.par}</th>)}
+              </tr>
+              <tr>
+                <td>Score</td>
+                {games[gameId].map(holescore => <th>{holescore.score}</th>)}
+              </tr>
+            </tbody>
+          </ table>
+        </>)
+    }
+    return jsx;
   }
 
   return (
@@ -21,7 +70,6 @@ export default function MyPage(props) {
       <ul>
         {displayHoles()}
       </ul>
-      <button onClick={backHome} />
     </div>
   );
 }
