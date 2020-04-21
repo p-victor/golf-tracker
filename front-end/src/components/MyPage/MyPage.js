@@ -1,17 +1,8 @@
 import React from "react";
-import ScoreTable from "../Play/ScoreTable";
-import useGame from "../../hooks/useGame";
-import { useHistory } from 'react-router-dom';
 
 
 export default function MyPage(props) {
   const { state, userId, email, currentTab, userGames, setState } = props;
-  let history = useHistory();
-
-  const backHome = () => {
-    setState(prev => ({ ...prev, currentTab: "search" }));
-    history.push("/")
-  }
 
   const displayHoles = () => {
     console.log(userGames)

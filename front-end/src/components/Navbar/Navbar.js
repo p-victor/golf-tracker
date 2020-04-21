@@ -18,24 +18,18 @@ export default function Navbar(props) {
       case "mypage":
         history.push("/mypage");
       break;
+      case "signin":
+        history.push("/signin");
+      break;
+      case "signup":
+        history.push("/signup");
+      break;
     }
   },[currentTab]);
 
   function backHome() {
     setState(prev => ({...prev, currentTab: "search"}));
   };
-
-  // function news() {
-  //   if (!active[1]) {
-  //     history.push("/news");
-  //   }
-  // };
-
-  // function contact() {
-  // if (!active[1]) {  
-  //   history.push("/contact");
-  //   }
-  // };
 
   function mypage() {
     if (userId) {
@@ -63,18 +57,17 @@ export default function Navbar(props) {
 
   function logIn() {
     if (!userId) {
-      history.push("/signin");
+      setState(prev => ({...prev, currentTab: "signin"}));
     }
   };
 
   function signUp() {
     if (!userId) {
-      history.push("/signup");
+      setState(prev => ({...prev, currentTab: "signup"}));
     } else {
     axios
       .get(`/api/logout`)
-      .then(() => setState(prev => ({...prev, userInfo:{}})))
-      .then(() => history.push('/'))
+      .then(() => setState(prev => ({...prev, userInfo:{}, currentTab: "search"})))
     }
   };
 
@@ -85,8 +78,8 @@ export default function Navbar(props) {
         <div onClick={backHome} className={classNames({active: currentTab === "search"})} ><p>Search</p></div>
         <div onClick={mypage} className={classNames({active: currentTab === "mypage"})} ><p>My Page</p></div>
         <div>
-          <button onClick={logIn} >{userNameOrLogIn()}</button>
-          <button onClick={signUp} >{LogOutOrSignUp()}</button>
+          <button onClick={logIn} className={classNames({active: currentTab === "signin"})}>{userNameOrLogIn()}</button>
+          <button onClick={signUp} className={classNames({active: currentTab === "signup"})}>{LogOutOrSignUp()}</button>
         </div>
       </div>
     </div>

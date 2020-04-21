@@ -48,7 +48,7 @@ function App() {
               />
             </Route>
             <Route exact path="/create" render={() => (
-              <RegisterGolfCourseInfo postal={postal} trigger={state.trigger} setTrigger={setState} userId={state.userInfo.user_id} email={state.userInfo.email} />
+              <RegisterGolfCourseInfo postal={postal} trigger={state.trigger} setTrigger={setState} userId={state.userInfo.user_id} email={state.userInfo.email} setTab={setState}/>
             )} />
             <Route exact path="/mypage">
               <MyPage userGames={state.userGames} userId={state.userInfo.user_id} email={state.userInfo.email} currentTab={state.currentTab} setState={setState} />

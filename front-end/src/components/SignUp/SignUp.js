@@ -33,7 +33,6 @@ export default function SignUp(props) {
         userInfo.id = data.data["user_id"];
         userInfo.email = data.data["email"];
         setApp(prev => ({...prev, currentTab: "search"}));
-        history.push('/');
       })
   }
 

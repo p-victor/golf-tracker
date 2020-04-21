@@ -20,6 +20,7 @@ export default function GolfCourse(props) {
         history.push('/play', {golfCourseId: id, gameId: gameId})
       })
     } else {
+      setState(prev => ({ ...prev, currentTab: "" }));
       history.push('/play', {golfCourseId: id})
     }
   }

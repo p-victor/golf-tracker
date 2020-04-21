@@ -25,7 +25,6 @@ export default function SignIn(props) {
         userInfo.user_id = data.data["user_id"];
         userInfo.email = data.data["email"];
         setApp(prev => ({...prev, currentTab: "search"}));
-        history.push('/');
       });
   };
 
