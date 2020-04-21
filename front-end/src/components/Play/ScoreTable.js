@@ -1,7 +1,20 @@
 import React from "react";
 
 export default function ScoreTable(props) {
-  const { number, par, yard, setHoleEdit, scoreNShot } = props; //can the difficulty be an avg of the hole?
+  let { number, par, yard, setHoleEdit, scoreNShot, holeEdit  } = props; //can the difficulty be an avg of the hole?
+
+  function hideAndShowEdit(hole) {
+
+    if (holeEdit[1] === "d-none") {
+      holeEdit = [hole, "d-block"]
+    } else if (holeEdit[1] === "d-block" && holeEdit[0] !== hole) {
+      holeEdit = [hole, "d-block"]
+    } else if (holeEdit[1] === "d-block" && holeEdit[0] === hole) {
+      holeEdit = [hole, "d-none"]
+    }
+    setHoleEdit(holeEdit)
+
+  }
 
   function holes() {
     let totalHoles = [];                                     
@@ -12,9 +25,9 @@ export default function ScoreTable(props) {
       } else if (i === 10 && number.length === 18) {
         totalHoles.push(<th key={100}>OUT</th>);             //keys, 100,101,102, are hard coded with random numbers 
       } else if (i > 10 && i < 20) {                         //to identify the cell uniquely. The same for the rest, yard & par & score
-        totalHoles.push(<th onClick={() => {setHoleEdit([i - 1, "d-block"])}} key={i - 1}>{i - 1}</th>);
-      } else {
-        totalHoles.push(<th onClick={() => {setHoleEdit([i, "d-block"])}} key={i}>{i}</th>);
+        totalHoles.push(<th onClick={() => {hideAndShowEdit(i - 1)}} key={i - 1}>{i - 1}</th>);
+      } else if (i < 10) {
+        totalHoles.push(<th onClick={() => {hideAndShowEdit(i)}} key={i}>{i}</th>);
       }
     }
     if (number.length > 9) {

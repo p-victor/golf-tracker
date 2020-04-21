@@ -9,7 +9,7 @@ export default function Play(props) {
   const [error, setError] = useState("");
   const [shot, setShot] = useState([1]);
   const [starting, setStarting] = useState([true, "d-block"]);
-  const [holeEdit, setHoleEdit] = useState([1, "d-none"]);
+  const [holeEdit, setHoleEdit] = useState([0, "d-none"]);
   const location = useLocation();
   
   const par = [];
@@ -122,7 +122,8 @@ export default function Play(props) {
     }
     setShot([1]);
     setError("");
-
+    holeEdit[1] = "d-none";
+    setHoleEdit(prev => [...prev])
     return;
   };
 
@@ -145,10 +146,20 @@ export default function Play(props) {
     return;
   };
 
+  function getShotsOfHoles() {
+    const shotsOfHoles = [];
+    if (scoreNShot[`hole${holeEdit[0]}`]) {
+      for (let i = 0; i < scoreNShot[`hole${holeEdit[0]}`].length - 1; i++) {
+        shotsOfHoles[i] = [scoreNShot[`hole${holeEdit[0]}`][i][0], scoreNShot[`hole${holeEdit[0]}`][i][1]]
+      }
+    }
+    return shotsOfHoles;
+  }
+
   return(
     <>
       <main>
-        <ScoreTable setHoleEdit={setHoleEdit} setScoreNShot={setScoreNShot} score={scoreNShot.score} scoreNShot={scoreNShot} starting={starting[0]} number={number} par={par} yard={yard}/>
+        <ScoreTable holeEdit={holeEdit} setHoleEdit={setHoleEdit} setScoreNShot={setScoreNShot} score={scoreNShot.score} scoreNShot={scoreNShot} starting={starting[0]} number={number} par={par} yard={yard}/>
         <div className={starting[1]}>
             <button className={"btn btn-primary"} onClick={StartAt1}>Hole 1</button>
             <button className="btn btn-primary" onClick={StartAt10}>Hole 10</button>
@@ -193,7 +204,7 @@ export default function Play(props) {
         </div>
         <button onClick={quit} className="btn btn-primary stredtched-link">Quit This Game</button>
         <div className={holeEdit[1]} style={{color:"white"}}>
-          <Edit holeEdit={holeEdit} scoreNShot={scoreNShot} error={error} setScoreNShot={setScoreNShot} setShot={shot} holeNumber={holeNumber()}/>
+          <Edit holeEdit={holeEdit} setHoleEdit={setHoleEdit} scoreNShot={scoreNShot} error={error} setScoreNShot={setScoreNShot} setShot={shot} holeNumber={holeNumber()} data={getShotsOfHoles}/>
         </div>
       </main>
     </>
