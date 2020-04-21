@@ -5,7 +5,7 @@ import "./SearchBar.css";
 export default function SearchBar(props) {
   return (
     <section className="search-bar">
-      <div className="title">Golf Score Tracker</div>
+      <div className="title">Score Caddie</div>
       <form onSubmit={event => event.preventDefault()}>
         <input
           className=""

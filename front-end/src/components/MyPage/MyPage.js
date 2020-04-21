@@ -49,10 +49,12 @@ export default function MyPage(props) {
               <tr>
                 <td>Par</td>
                 {games[gameId].map(holescore => <td>{holescore.par}</td>)}
+                <th>{games[gameId].reduce((prev, holescore) => (prev + holescore.par), 0)}</th>
               </tr>
               <tr>
                 <td>Score</td>
                 {games[gameId].map(holescore => <td>{holescore.score}</td>)}
+                <th>{games[gameId].reduce((prev, holescore) => (prev + holescore.score), 0)}</th>
               </tr>
             </tbody>
           </ table>
