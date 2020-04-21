@@ -137,8 +137,14 @@ module.exports = ({
   });
 
   router.get('/usergames', function (req, res, next) {
-    getGamesForUserId(req.session.user_id)
-      .then(data => res.send(data));
+    if (req.session.user_id) {
+      getGamesForUserId(req.session.user_id)
+        .then(data => res.send(data));
+    } else {
+      getGames()
+      .then(data => res.send([data]))
+      ;
+    }
   });
 
   router.delete('/deletegame/:id', function (req, res, next) {

@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import "./RegisterGolfCourseInfo.css";
 import HoleInfo from "../RegisterGolfCourseInfo/HoleInfo";
 import axios from "axios";
 
 export default function RegisterGolfCourseInfo(props) {
-  const { trigger, setTrigger, userId, email } = props
+  const { setTab, userId, email } = props
   const [state, setState] = useState({ courseName: "", postalCode: "", phoneNumber: "", website: "", error: "", holeCount: 18 })
-
-  let history = useHistory();
 
   function validateCourse() {
     if (state.courseName === "") {
@@ -73,7 +70,7 @@ export default function RegisterGolfCourseInfo(props) {
           axios
             .post(`/api/courses/${courseId}/holes/new`, holes)
             .then(() => {
-              setTrigger(prev => ({...prev, trigger: [trigger[0]++], currentTab: "search"}));
+              setTab(prev => ({...prev, currentTab: "search"}));
             })
 
         })
@@ -83,7 +80,7 @@ export default function RegisterGolfCourseInfo(props) {
   }
 
   const goBack = (() => {
-    setTrigger(prev => ({ ...prev, currentTab: "search" }));
+    setTab(prev => ({ ...prev, currentTab: "search" }));
   })
 
   return (

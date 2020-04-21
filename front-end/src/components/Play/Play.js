@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import ScoreTable from "./ScoreTable";
 import Edit from "./Edit";
 
 export default function Play(props) {
-  const { handleClub, handleComment, onSave, scoreNShot, setScoreNShot, state, deleteGame, userId, trigger, setTrigger } = props
+  const { handleClub, handleComment, onSave, scoreNShot, setScoreNShot, state, deleteGame, userId, setState } = props
   const [error, setError] = useState("");
   const [shot, setShot] = useState([1]);
   const [starting, setStarting] = useState([true, "d-block"]);
   const [holeEdit, setHoleEdit] = useState([1, "d-none"]);
   const location = useLocation();
-  
-  let history = useHistory();
   
   const par = [];
   const number = [];
@@ -93,7 +91,7 @@ export default function Play(props) {
 
       if (!isNaN(userId)) {
         onSave(scoreNShot, userId, Date.now(), location.state.gameId, location.state.golfCourseId, holeId);
-        setTrigger(prev => ({...prev, currentTab: "mypage"}));
+        setState(prev => ({...prev, currentTab: "mypage"}));
       } else {
         alert("To save and track your record, please sign in!")
       }
@@ -138,9 +136,11 @@ export default function Play(props) {
 
   function quit() {
     if (window.confirm("Going back to the main page? Your progress will be lost")) {
+      if (userId) {
         deleteGame(location.state.gameId);
-        setScoreNShot({ score:[], hole1:[[]], gameId: []});
-        setTrigger(prev => ({...prev, currentTab: "search"}));
+      }
+      setScoreNShot({ score:[], hole1:[[]], gameId: []});
+      setState(prev => ({...prev, currentTab: "search"}));
       }
     return;
   };

@@ -5,7 +5,7 @@ import classNames from "classnames";
 import "./GolfCourse.css";
 
 export default function GolfCourse(props) {
-  let { name, phone_number, website_url, postal_code, sponsor, id, userId, email, setState } = props;
+  let { name, phone_number, website_url, postal_code, sponsor, id, userId, setState } = props;
 
   let history = useHistory();
 

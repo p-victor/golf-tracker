@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from 'react-router-dom';
 
 import useSearchBar from "../../hooks/useSearchBar";
 import SearchBar from "../SearchBar/SearchBar";
@@ -10,7 +9,6 @@ import "./Search.css";
 export default function Search(props) {
   const { state, setState } = props
   const [search, setSearch] = useSearchBar();
-  const location = useLocation();
 
   return (
     <div className="search">

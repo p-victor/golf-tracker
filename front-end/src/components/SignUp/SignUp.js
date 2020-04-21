@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
 
 import "./SignUp.css";
 
 export default function SignUp(props) {
   const { userInfo, setApp, currentTab } = props;
   const [state, setState] = useState({ email: "", password: "" })
-  let history = useHistory();
 
   function setFirstName(e) {
     const first_name = e.target.value;

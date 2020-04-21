@@ -8,7 +8,6 @@ import Search from "./components/Search/Search";
 import Navbar from "./components/Navbar/Navbar";
 import RegisterGolfCourseInfo from './components/RegisterGolfCourseInfo/RegisterGolfCourseInfo';
 import Play from './components/Play/Play';
-import Gps from './components/Gps/Gps';
 import MyPage from './components/MyPage/MyPage';
 import usePostal from './hooks/usePostal';
 import useGame from './hooks/useGame';
@@ -43,12 +42,11 @@ function App() {
                     deleteGame={deleteGame}
                     userId={state.userInfo.user_id}
                     email={state.userInfo.email}
-                    trigger={state.trigger} 
-                    setTrigger={setState} 
+                    setState={setState} 
               />
             </Route>
             <Route exact path="/create" render={() => (
-              <RegisterGolfCourseInfo postal={postal} trigger={state.trigger} setTrigger={setState} userId={state.userInfo.user_id} email={state.userInfo.email} setTab={setState}/>
+              <RegisterGolfCourseInfo postal={postal} userId={state.userInfo.user_id} email={state.userInfo.email} setTab={setState}/>
             )} />
             <Route exact path="/mypage">
               <MyPage userGames={state.userGames} userId={state.userInfo.user_id} email={state.userInfo.email} currentTab={state.currentTab} setState={setState} />
