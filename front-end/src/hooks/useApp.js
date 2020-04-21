@@ -14,7 +14,7 @@ export default function useApp(props) {
     userGames: [],
     userInfo: [],
     trigger: [0],
-    currentTab: ["search"]
+    currentTab: "search"
   });
 
 
@@ -27,7 +27,8 @@ export default function useApp(props) {
       axios.get("/api/games"),
       axios.get("/api/courses"),
       axios.get("/api/weathers"),
-      axios.get("/api/usergames")
+      axios.get("/api/usergames"),
+      axios.get("/api/isloggedin"),
     ]).then(all => {
       setState(prev => ({
         ...prev,
@@ -37,12 +38,12 @@ export default function useApp(props) {
         games: all[3]["data"],
         golfCourses: all[4]["data"],
         weathers: all[5]["data"],
-        userGames: all[6]["data"]
+        userGames: all[6]["data"],
+        userInfo: all[7]["data"],
       }))
       console.log("userinfo", state.userInfo)
     });
-  }, [state.trigger]);
-
+  }, [state.trigger, state.currentTab]);
 
   return { state, setState }
 }

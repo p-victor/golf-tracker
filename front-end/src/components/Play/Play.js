@@ -93,11 +93,12 @@ export default function Play(props) {
 
       if (!isNaN(userId)) {
         onSave(scoreNShot, userId, Date.now(), location.state.gameId, location.state.golfCourseId, holeId);
-        setTrigger(prev => ({...prev, trigger: [trigger[0]++]}));
-        history.push("/mypage");
+        setTrigger(prev => ({...prev, currentTab: "mypage"}));
       } else {
         alert("To save and track your record, please sign in!")
       }
+      setError("");
+
       return;
     }
     starting[1] = "d-none"
@@ -139,7 +140,7 @@ export default function Play(props) {
     if (window.confirm("Going back to the main page? Your progress will be lost")) {
         deleteGame(location.state.gameId);
         setScoreNShot({ score:[], hole1:[[]], gameId: []});
-        history.push("/")
+        setTrigger(prev => ({...prev, currentTab: "search"}));
       }
     return;
   };
@@ -185,7 +186,7 @@ export default function Play(props) {
               type="text"
             />
         </form>
-        <section className="club__validation">{error}</section>
+        <section className="club__validation" style={{color:"white"}}>{error}</section>
         <div>
           <button className="btn btn-primary stredtched-link" onClick={validateShot}>Next Shot</button>
           <button className="btn btn-primary stredtched-link" onClick={validateHole}>{finishGameButton()}</button>

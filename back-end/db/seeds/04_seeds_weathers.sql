@@ -16,3 +16,12 @@ INSERT INTO weathers ("temperature", "sunny", "rainy", "foggy", "wind_speed") VA
 INSERT INTO weathers ("temperature", "sunny", "rainy", "foggy", "wind_speed") VALUES (29, true, false, true, 19.86);
 INSERT INTO weathers ("temperature", "sunny", "rainy", "foggy", "wind_speed") VALUES (29, true, true, true, 17.09);
 INSERT INTO weathers ("temperature", "sunny", "rainy", "foggy", "wind_speed") VALUES (29, true, true, false, 18.48);
+INSERT INTO weathers ("temperature", "sunny", "rainy", "foggy", "wind_speed") VALUES (30, true, false, true, 18.85);
+INSERT INTO weathers ("temperature", "sunny", "rainy", "foggy", "wind_speed") VALUES (29, false, true, false, 18.27);
+INSERT INTO weathers ("temperature", "sunny", "rainy", "foggy", "wind_speed") VALUES (30, false, false, true, 19.71);
+INSERT INTO weathers ("temperature", "sunny", "rainy", "foggy", "wind_speed") VALUES (30, false, true, true, 17.08);
+INSERT INTO weathers ("temperature", "sunny", "rainy", "foggy", "wind_speed") VALUES (29, true, false, false, 19.08);
+INSERT INTO weathers ("temperature", "sunny", "rainy", "foggy", "wind_speed") VALUES (30, false, true, false, 19.74);
+INSERT INTO weathers ("temperature", "sunny", "rainy", "foggy", "wind_speed") VALUES (29, true, false, true, 19.86);
+INSERT INTO weathers ("temperature", "sunny", "rainy", "foggy", "wind_speed") VALUES (29, true, true, true, 17.09);
+INSERT INTO weathers ("temperature", "sunny", "rainy", "foggy", "wind_speed") VALUES (29, true, true, false, 18.48);

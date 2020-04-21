@@ -25,7 +25,7 @@ function App() {
         <Router key={0}>
           <Switch>
             <Route exact path="/">
-              <Search state={state} />
+              <Search state={state} setState={setState}/>
             </Route>
             <Route exact path="/signup">
               <SignUp userInfo={state.userInfo} setApp={setState} currentTab={state.currentTab} />
@@ -41,20 +41,20 @@ function App() {
                     setScoreNShot={setScoreNShot} 
                     onSave={save}
                     deleteGame={deleteGame}
-                    userId={state.userInfo.id}
+                    userId={state.userInfo.user_id}
                     email={state.userInfo.email}
                     trigger={state.trigger} 
                     setTrigger={setState} 
               />
             </Route>
             <Route exact path="/create" render={() => (
-              <RegisterGolfCourseInfo postal={postal} trigger={state.trigger} setTrigger={setState} userId={state.userInfo.id} email={state.userInfo.email} />
+              <RegisterGolfCourseInfo postal={postal} trigger={state.trigger} setTrigger={setState} userId={state.userInfo.user_id} email={state.userInfo.email} />
             )} />
             <Route exact path="/mypage">
-              <MyPage userGames={state.userGames} userId={state.userInfo.id} email={state.userInfo.email} currentTab={state.currentTab} setState={setState} />
+              <MyPage userGames={state.userGames} userId={state.userInfo.user_id} email={state.userInfo.email} currentTab={state.currentTab} setState={setState} />
             </Route>
           </Switch>
-          <Navbar currentTab={state.currentTab} setState={setState} userId={state.userInfo.id} email={state.userInfo.email}/>
+          <Navbar currentTab={state.currentTab} setState={setState} userId={state.userInfo.user_id} email={state.userInfo.email}/>
         </Router>
       </main>
     </>

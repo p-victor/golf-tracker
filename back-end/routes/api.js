@@ -102,6 +102,10 @@ module.exports = ({
     res.send(req.session = null);
   });
 
+  router.get('/isloggedin', function (req, res, next) {
+    res.send(req.session);
+  });
+
   router.post('/courses/new', async function (req, res, next) {
     createNewCourse(req.body)
       .then(data => res.send(data));

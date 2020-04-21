@@ -8,7 +8,7 @@ export default function Navbar(props) {
   const { currentTab, setState, userId, email } = props;
   const location = useLocation();
   let history = useHistory();
-  
+  console.log(currentTab)
   useEffect(() => {
     
     switch(currentTab) {

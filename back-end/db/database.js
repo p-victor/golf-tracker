@@ -288,9 +288,10 @@ const getGamesForUserId = function (userId) {
   ON golf_courses.id = games.golf_course_id
   JOIN hole_scores
   ON games.id = hole_scores.game_id
-  JOIN holes
+  JOIN holes  
   ON hole_scores.hole_id = holes.id
-  WHERE games.user_id = $1;
+  WHERE hole_scores.user_id = $1
+  ORDER BY holes.number;
   `
 
   return pool.query(query, values)
