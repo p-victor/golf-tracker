@@ -2,7 +2,20 @@ import React from "react";
 import "./ScoreTable.css"
 
 export default function ScoreTable(props) {
-  const { number, par, yard, setHoleEdit, scoreNShot } = props; //can the difficulty be an avg of the hole?
+  let { number, par, yard, setHoleEdit, scoreNShot, holeEdit  } = props; //can the difficulty be an avg of the hole?
+
+  function hideAndShowEdit(hole) {
+
+    if (holeEdit[1] === "d-none") {
+      holeEdit = [hole, "d-block"]
+    } else if (holeEdit[1] === "d-block" && holeEdit[0] !== hole) {
+      holeEdit = [hole, "d-block"]
+    } else if (holeEdit[1] === "d-block" && holeEdit[0] === hole) {
+      holeEdit = [hole, "d-none"]
+    }
+    setHoleEdit(holeEdit)
+
+  }
 
   function holes() {
     let totalHoles = [];

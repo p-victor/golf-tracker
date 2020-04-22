@@ -10,7 +10,7 @@ export default function Play(props) {
   const [error, setError] = useState("");
   const [shot, setShot] = useState([1]);
   const [starting, setStarting] = useState([true, "d-block"]);
-  const [holeEdit, setHoleEdit] = useState([1, "d-none"]);
+  const [holeEdit, setHoleEdit] = useState([0, "d-none"]);
   const location = useLocation();
 
   const par = [];
@@ -123,7 +123,8 @@ export default function Play(props) {
     }
     setShot([1]);
     setError("");
-
+    holeEdit[1] = "d-none";
+    setHoleEdit(prev => [...prev])
     return;
   };
 
@@ -145,6 +146,16 @@ export default function Play(props) {
     }
     return;
   };
+
+  function getShotsOfHoles() {
+    const shotsOfHoles = [];
+    if (scoreNShot[`hole${holeEdit[0]}`]) {
+      for (let i = 0; i < scoreNShot[`hole${holeEdit[0]}`].length - 1; i++) {
+        shotsOfHoles[i] = [scoreNShot[`hole${holeEdit[0]}`][i][0], scoreNShot[`hole${holeEdit[0]}`][i][1]]
+      }
+    }
+    return shotsOfHoles;
+  }
 
   return (
     <>
