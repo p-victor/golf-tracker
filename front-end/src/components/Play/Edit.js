@@ -78,7 +78,6 @@ export default function Edit(props) {
             </div>
           </div>
           )
-          console.log('in for', data()[i][0])
 
         }
         setEditShot(editArr)
