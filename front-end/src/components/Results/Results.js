@@ -14,7 +14,7 @@ export default function Results(props) {
   }
 
   return (
-    <>
+    <div className="result-container">
 
       {
         !results.length ?
@@ -25,6 +25,6 @@ export default function Results(props) {
           :
           results.map((golfcourse, index) => (<GolfCourse key={index} id={golfcourse.id} userId={userId} email={email} setState={setState} {...golfcourse} />))
       }
-    </>
+    </div>
   );
 }

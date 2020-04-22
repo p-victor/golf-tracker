@@ -27,7 +27,7 @@ export default function SignUp(props) {
   const register = () => {
     axios
       .post(`/api/signup`, state)
-      .then(data => {console.log(data);
+      .then(data => {
         userInfo.id = data.data["user_id"];
         userInfo.email = data.data["email"];
         setApp(prev => ({...prev, currentTab: "search"}));

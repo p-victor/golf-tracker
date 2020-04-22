@@ -13,13 +13,6 @@ export default function Gps(props) {
     weather.getAllWeather(function (err, JSONObj) { setWeatherInfo(JSONObj) });
   })
 
-
-
-  console.log(weatherInfo)
-
-
-
-
   return (
     <div className="MyLocation" >
       <p>{}</p>

@@ -64,15 +64,11 @@ module.exports = ({
   });
 
   router.post('/signup', function (req, res, next) {
-    console.log("req", req.body)
     getUserByEmail(req.body.email)
       .then(user => {
-        console.log("HERE")
         if (!user.length) {
-          console.log("HERE")
           return createUser(req.body)
             .then(data => {
-              console.log('data0', data[0].id)
               req.session.user_id = data[0].id;
               req.session.email = data[0].email;
               res.send(req.session)
@@ -142,8 +138,8 @@ module.exports = ({
         .then(data => res.send(data));
     } else {
       getGames()
-      .then(data => res.send([data]))
-      ;
+        .then(data => res.send([data]))
+        ;
     }
   });
 

@@ -16,7 +16,9 @@
   margin: 0;
 }
 
-
+.navbar * {
+word-wrap: no-wrap;
+}
 
 .navbar div {
   flex: 1;

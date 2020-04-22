@@ -1,11 +1,11 @@
 import React from "react";
+import "./MyPage.css"
 
 
 export default function MyPage(props) {
   const { state, userId, email, currentTab, userGames, setState } = props;
 
   const displayHoles = () => {
-    console.log(userGames)
     let games = {}
     userGames.forEach(score => {
       if (!games[score.game_id]) {
@@ -26,12 +26,11 @@ export default function MyPage(props) {
     let jsx = []
 
     for (let gameId in games) {
-      console.log('d', games[gameId])
-
+      console.log(games[gameId])
       jsx.push(
-        <>
-          <h2>{games[gameId].name}</h2>
-          <table>
+        <div className="game">
+          <h4>{games[gameId][0].name}</h4>
+          <table className="table table-bordered">
             <thead>
               <tr>
                 <th>Hole</th>
@@ -44,7 +43,6 @@ export default function MyPage(props) {
                 <td>Yard</td>
                 {games[gameId].map(holescore => <td>{holescore.yard}</td>)}
                 <th>{games[gameId].reduce((prev, holescore) => (prev + holescore.yard), 0)}</th>
-                {console.log('dd',games[gameId])}
               </tr>
               <tr>
                 <td>Par</td>
@@ -57,15 +55,17 @@ export default function MyPage(props) {
                 <th>{games[gameId].reduce((prev, holescore) => (prev + holescore.score), 0)}</th>
               </tr>
             </tbody>
-          </ table>
-        </>)
+          </table>
+        </div>
+      )
     }
     return jsx;
   }
 
   return (
     <div>
-      <ul>
+      <div className="title">Score Caddie</div>
+      <ul className="game-container">
         {displayHoles()}
       </ul>
     </div>

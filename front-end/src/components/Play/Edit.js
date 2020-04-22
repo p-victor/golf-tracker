@@ -63,9 +63,9 @@ export default function Edit(props) {
             </form>
             <section className="club__validation">{error}</section>
           <div>
-            <button className="btn btn-primary stredtched-link" onClick={() => editButton(i)}>Edit</button>
-            <button className="btn btn-primary stredtched-link" onClick={() => deleteButton(i)}>Delete</button>
-            <button className="btn btn-primary stredtched-link" onClick={cancelButton}>Cancel</button>
+            <button onClick={() => editButton(i)}>Edit</button>
+            <button onClick={() => deleteButton(i)}>Delete</button>
+            <button onClick={cancelButton}>Cancel</button>
           </div>
         </div>
         )

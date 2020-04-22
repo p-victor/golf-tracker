@@ -56,8 +56,6 @@ export default function RegisterGolfCourseInfo(props) {
     let yard = Array.from(document.querySelectorAll('.hole-yard input'));
     let allHolesFilled = ![...par, ...yard].some(input => input.value === "");
 
-    console.log(validateCourse())
-
     if (allHolesFilled && validateCourse()) {
       axios
         .post("/api/courses/new", { courseName: state.courseName, postalCode: state.postalCode, phoneNumber: state.phoneNumber, website: state.website, isSponsored: false })

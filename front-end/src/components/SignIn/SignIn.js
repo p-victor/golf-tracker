@@ -19,7 +19,7 @@ export default function SignIn(props) {
   const login = () => {
     axios
       .post(`/api/signin`, state)
-      .then(data => {console.log(data.data)
+      .then(data => {
         userInfo.user_id = data.data["user_id"];
         userInfo.email = data.data["email"];
         setApp(prev => ({...prev, currentTab: "search"}));

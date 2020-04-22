@@ -7,7 +7,6 @@ import "./Navbar.css"
 export default function Navbar(props) {
   const { currentTab, setState, userId, email } = props;
   let history = useHistory();
-  console.log(currentTab)
   useEffect(() => {
     
     switch(currentTab) {
@@ -40,7 +39,7 @@ export default function Navbar(props) {
 
   function userNameOrLogIn() {
     if (userId) {
-      return `Hi ${email}!`
+      return `${email}`
     } else {
       return "Log In"
     }

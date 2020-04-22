@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from 'react-router-dom';
+import './Play.css'
 
 import ScoreTable from "./ScoreTable";
 import Edit from "./Edit";
@@ -11,11 +12,11 @@ export default function Play(props) {
   const [starting, setStarting] = useState([true, "d-block"]);
   const [holeEdit, setHoleEdit] = useState([1, "d-none"]);
   const location = useLocation();
-  
+
   const par = [];
   const number = [];
   const yard = [];
-  const holeId =[];
+  const holeId = [];
 
   if (state.length) {
 
@@ -36,7 +37,7 @@ export default function Play(props) {
   function holeNumber() {
 
     if (scoreNShot.score.length === 0 && starting[0]) {             //start on hole 1
-      return 1;   
+      return 1;
     } else if (scoreNShot.score.length === par.length && starting[0]) {     //finish a game, started on 1st hole
       return par.length;
     } else if (starting[0]) {
@@ -76,9 +77,9 @@ export default function Play(props) {
       return;
     }
     scoreNShot[`hole${holeNumber()}`].push([]);               // create an array of an array for the next hole.
-                                                                            
-    if (scoreNShot[`hole${holeNumber()}`][shot[0] - 1][0]) {    
-      setShot(prev => [prev[0] + 1]);                                  
+
+    if (scoreNShot[`hole${holeNumber()}`][shot[0] - 1][0]) {
+      setShot(prev => [prev[0] + 1]);
       setError("");
     }
     document.getElementsByClassName("selectpicker")[0].value = "";  //reset club selector
@@ -91,7 +92,7 @@ export default function Play(props) {
 
       if (!isNaN(userId)) {
         onSave(scoreNShot, userId, Date.now(), location.state.gameId, location.state.golfCourseId, holeId);
-        setState(prev => ({...prev, currentTab: "mypage"}));
+        setState(prev => ({ ...prev, currentTab: "mypage" }));
       } else {
         alert("To save and track your record, please sign in!")
       }
@@ -104,21 +105,21 @@ export default function Play(props) {
 
     scoreNShot[`hole${holeNumber() + 1}`] = [[]];
 
-    if (!starting[0] && scoreNShot.score.length > 8 ) {
+    if (!starting[0] && scoreNShot.score.length > 8) {
       let scoreArr = [...scoreNShot.score];
-      scoreArr.splice( holeNumber() - 1, 0, shot[0] - 1);      //10th hole start, when playing 1st hole, the score of the 1st hole will be prepended.
+      scoreArr.splice(holeNumber() - 1, 0, shot[0] - 1);      //10th hole start, when playing 1st hole, the score of the 1st hole will be prepended.
       scoreNShot.score = scoreArr;
-      setScoreNShot(prev => ({ ...prev}));
+      setScoreNShot(prev => ({ ...prev }));
     } else if (!starting[0] && scoreNShot.score.length < 8) {
       scoreNShot.score.push(shot[0] - 1);
-      setScoreNShot(prev => ({...prev}));
-    } else if  (!starting[0] && scoreNShot.score.length === 8) {
+      setScoreNShot(prev => ({ ...prev }));
+    } else if (!starting[0] && scoreNShot.score.length === 8) {
       scoreNShot.score.push(shot[0] - 1);
-      setScoreNShot(prev => ({...prev}));
+      setScoreNShot(prev => ({ ...prev }));
       scoreNShot[`hole1`] = [[]];
     } else {
       scoreNShot.score.push(shot[0] - 1);
-      setScoreNShot(prev => ({...prev}));
+      setScoreNShot(prev => ({ ...prev }));
     }
     setShot([1]);
     setError("");
@@ -139,61 +140,68 @@ export default function Play(props) {
       if (userId) {
         deleteGame(location.state.gameId);
       }
-      setScoreNShot({ score:[], hole1:[[]], gameId: []});
-      setState(prev => ({...prev, currentTab: "search"}));
-      }
+      setScoreNShot({ score: [], hole1: [[]], gameId: [] });
+      setState(prev => ({ ...prev, currentTab: "search" }));
+    }
     return;
   };
 
-  return(
+  return (
     <>
       <main>
-        <ScoreTable setHoleEdit={setHoleEdit} setScoreNShot={setScoreNShot} score={scoreNShot.score} scoreNShot={scoreNShot} starting={starting[0]} number={number} par={par} yard={yard}/>
-        <div className={starting[1]}>
-            <button className={"btn btn-primary"} onClick={StartAt1}>Hole 1</button>
-            <button className="btn btn-primary" onClick={StartAt10}>Hole 10</button>
+        <div className="title">Score Caddie</div>
+        <div className="play-container">
+          <ScoreTable setHoleEdit={setHoleEdit} setScoreNShot={setScoreNShot} score={scoreNShot.score} scoreNShot={scoreNShot} starting={starting[0]} number={number} par={par} yard={yard} />
+          <div className={starting[1]}>
+            <button onClick={StartAt1}>Hole 1</button>
+            <button onClick={StartAt10}>Hole 10</button>
           </div>
-        <h3 style={{color:"white"}}>Hole {holeNumber()}</h3>
-        <h5 style={{color:"white"}}>Shot {shot[0]}</h5>
-        <form>
-          <select className="selectpicker" onChange={e => handleClub(e, holeNumber(), shot[0])} defaultValue="">
-            <option data-hidden="true" value="">Club Selection</option>
-            <option value="Driver">Driver</option>
-            <option value="Wood 3">Wood 3</option>
-            <option value="Wood 5">Wood 5</option>
-            <option value="Wood 7">Wood 7</option>
-            <option value="Iron 2">Iron 2</option>
-            <option value="Iron 3">Iron 3</option>
-            <option value="Iron 4">Iron 4</option>
-            <option value="Iron 5">Iron 5</option>
-            <option value="Iron 6">Iron 6</option>
-            <option value="Iron 7">Iron 7</option>
-            <option value="Iron 8">Iron 8</option>
-            <option value="Iron 9">Iron 9</option>
-            <option value="P">P</option>
-            <option value="S">S</option>
-            <option value="A">A</option>
-            <option value="Putter">Putter</option>
-          </select>
-          <label style={{color:"white"}}>
-            Comment:
-          </label>        
-            <input
-              name="comment"
-              defaultValue=""
-              onBlur={e => handleComment(e, holeNumber(), shot[0])}
-              placeholder="Shot description"
-              type="text"
-            />
-        </form>
-        <section className="club__validation" style={{color:"white"}}>{error}</section>
-        <div>
-          <button className="btn btn-primary stredtched-link" onClick={validateShot}>Next Shot</button>
-          <button className="btn btn-primary stredtched-link" onClick={validateHole}>{finishGameButton()}</button>
-        </div>
-        <button onClick={quit} className="btn btn-primary stredtched-link">Quit This Game</button>
-        <div className={holeEdit[1]} style={{color:"white"}}>
-          <Edit holeEdit={holeEdit} scoreNShot={scoreNShot} error={error} setScoreNShot={setScoreNShot} setShot={shot} holeNumber={holeNumber()}/>
+          <h3 style={{ color: "white" }}>Hole {holeNumber()}</h3>
+          <h5 style={{ color: "white" }}>Shot {shot[0]}</h5>
+          <form className="input-group">
+            <label style={{ color: "white" }}>
+              Club:
+              <select className="selectpicker" onChange={e => handleClub(e, holeNumber(), shot[0])} defaultValue="">
+                <option data-hidden="true" value="">Club Selection</option>
+                <option value="Driver">Driver</option>
+                <option value="Wood 3">Wood 3</option>
+                <option value="Wood 5">Wood 5</option>
+                <option value="Wood 7">Wood 7</option>
+                <option value="Iron 2">Iron 2</option>
+                <option value="Iron 3">Iron 3</option>
+                <option value="Iron 4">Iron 4</option>
+                <option value="Iron 5">Iron 5</option>
+                <option value="Iron 6">Iron 6</option>
+                <option value="Iron 7">Iron 7</option>
+                <option value="Iron 8">Iron 8</option>
+                <option value="Iron 9">Iron 9</option>
+                <option value="P">P</option>
+                <option value="S">S</option>
+                <option value="A">A</option>
+                <option value="Putter">Putter</option>
+              </select>
+            </label>
+            <label style={{ color: "white" }}>
+              Comment:
+              <input
+                name="comment"
+                defaultValue=""
+                onBlur={e => handleComment(e, holeNumber(), shot[0])}
+                placeholder="Shot description"
+                type="text"
+              />
+            </label>
+
+          </form>
+          <section className="club__validation" style={{ color: "white" }}>{error}</section>
+          <div className="button-group">
+            <button onClick={validateShot}>Next Shot</button>
+            <button onClick={validateHole}>{finishGameButton()}</button>
+          </div>
+          <button className="quit" onClick={quit}>Quit This Game</button>
+          <div className={holeEdit[1]} style={{ color: "white" }}>
+            <Edit holeEdit={holeEdit} scoreNShot={scoreNShot} error={error} setScoreNShot={setScoreNShot} setShot={shot} holeNumber={holeNumber()} />
+          </div>
         </div>
       </main>
     </>
