@@ -211,8 +211,7 @@ export default function Play(props) {
           </div>
           <button className="quit" onClick={quit}>Quit This Game</button>
           <div className={holeEdit[1]} style={{ color: "white" }}>
-            <Edit holeEdit={holeEdit} scoreNShot={scoreNShot} error={error} setScoreNShot={setScoreNShot} setShot={shot} holeNumber={holeNumber()} />
-          </div>
+          <Edit holeEdit={holeEdit} setHoleEdit={setHoleEdit} scoreNShot={scoreNShot} error={error} setScoreNShot={setScoreNShot} setShot={shot} holeNumber={holeNumber()} data={getShotsOfHoles}/>          </div>
         </div>
       </main>
     </>
